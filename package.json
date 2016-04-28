@@ -1,0 +1,23 @@
+{
+  "name": "CosmicTornado",
+  "version": "1.0.0",
+  "description": "CosmicTornado repo",
+  "main": "./client/index.html",
+  "scripts": {
+    "test": "karma start",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosmictornados/cosmictornado.git"
+  },
+  "author": "CosmicTornado",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cosmictornados/cosmictornado/issues"
+  },
+  "homepage": "https://github.com/cosmictornados/cosmictornado#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
