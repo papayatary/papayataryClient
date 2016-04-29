@@ -45,3 +45,4 @@ fitnessNative/buck-out/
 \.buckd/
 fitnessNative/android/app/libs
 fitnessNative/android/keystores/debug.keystore
+server/api/keys.js
