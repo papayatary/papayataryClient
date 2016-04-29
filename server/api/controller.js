@@ -30,7 +30,7 @@ module.exports.callback = function (req, res) {
 
   oauth2.authCode.getToken({
     code: code,
-    redirect_uri: 'http://localhost:3000/callback'
+    redirect_uri: 'http://localhost:8000/callback'
   }, saveToken);
 
   function saveToken(error, result) {

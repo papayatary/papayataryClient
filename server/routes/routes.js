@@ -4,9 +4,6 @@ var path = require('path');
 var helpers = require('../config/helpers.js');
 
 module.exports =  (app, express) => {
-  
-  // app.get('/example', examplecontroller);
-  app.get('/', controller.example);
 
   // Callback service parsing the authorization token and asking for the access token
   app.get('/callback', controller.callback);
