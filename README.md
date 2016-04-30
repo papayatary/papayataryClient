@@ -32,6 +32,12 @@
 
 ## Development
 
+## Initial one-time setup
+1. Install brew if neccessary (http://brew.sh/)
+1. brew install watchman (https://facebook.github.io/watchman/docs/install.html)
+1. brew install flow (http://www.flowtype.org/)
+1. npm install -g react-native-cli
+
 ### Installing Dependencies
 
 From within the root directory:
