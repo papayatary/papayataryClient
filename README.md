@@ -38,11 +38,10 @@
 ## Usage
 
 From within the root directory:
-```
-In terminal, "open client/ios/client.xcodeproj" to open project in Xcode
-Click the run icon to launch the app
 
-``` 
+1. In terminal, "open client/ios/client.xcodeproj" to open project in Xcode
+1. Click the run icon to launch the app
+ 
 
 ### Installing Dependencies
 
