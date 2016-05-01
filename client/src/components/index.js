@@ -25,7 +25,20 @@ var render = function() {
     <Provider store={store}>
       <App />
     </Provider>,
-    document.getElementById('app')
+    // document.getElementById('app')
   );
 };
 render();
+
+//--------------- Notes: ------------//
+// {() => <App/ >}
+// is ES6 for...
+
+// function() {
+//   render (
+//     return <App />
+//   )
+// }
+// which is just...
+
+// <Scene />
