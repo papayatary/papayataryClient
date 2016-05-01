@@ -18,10 +18,6 @@
 1. [Team](#team)
 1. [Contributing](#contributing)
 
-## Usage
-
-> Some usage instructions
-
 ## Requirements
 
 - Node 0.10.x
@@ -32,15 +28,24 @@
 
 ## Development
 
-### Installing Dependencies
+## Initial one-time setup
+1. Install brew if necessary (http://brew.sh/)
+1. Install Xcode if necessary (https://developer.apple.com/xcode/download/)
+1. brew install watchman (https://facebook.github.io/watchman/docs/install.html)
+1. brew install flow (http://www.flowtype.org/)
+1. npm install -g react-native-cli
+
+## Usage
 
 From within the root directory:
 
-```sh
-sudo npm install -g bower
-npm install
-bower install
-```
+1. In terminal, "open client/ios/client.xcodeproj" to open project in Xcode
+1. Click the run icon to launch the app
+ 
+
+### Installing Dependencies
+
+
 
 ### Roadmap
 
