@@ -3,12 +3,18 @@ import React, {
   AppRegistry
 } from 'react-native';
 
-import Root from './components/root';
+import Root from './src/components/root';
 
 // AppRegistry is the JS entry point to running all React Native apps. Register your App root component here.
 AppRegistry.registerComponent('client', () => Root);
 
-// WORKING EXAMPLE CODE:
+
+
+
+
+
+
+//------------------------- WORKING EXAMPLE CODE: -----------------------------------//
 // import React, {
 //   AppRegistry,
 //   Component,

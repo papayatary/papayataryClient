@@ -1,13 +1,17 @@
 // EXAMPLE CODE:
 // This is the main entry point for the app. It renders the App component after wrapping it in the Provider from Redux.
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, {
+  Component
+} from 'react-native';
+
 import { createStore } from 'redux';
 import rootReducer from '../reducers';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
-import App from './App.js'
+import Navigation from './navigation.js'
 
+
+console.log('MADE IT');
 // Generate initial state
 let initialState = {
   todos: [{
@@ -20,15 +24,17 @@ let initialState = {
 // Create Redux store with initial state. The store manages the state of our app. 
 let store = createStore(rootReducer, initialState);
 
-var render = function() {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    // document.getElementById('app')
-  );
-};
-render();
+class Root extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
+    );
+  }
+}
+
+export default Root;
 
 //--------------- Notes: ------------//
 // {() => <App/ >}
