@@ -4,6 +4,7 @@ var port = process.env.PORT || 8000;
 
 //config app with required middleware
 require('./config/middleware.js')(app, express);
+
 //define routes for app
 require('./routes/routes.js')(app, express);
 

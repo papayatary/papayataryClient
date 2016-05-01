@@ -23,6 +23,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "body-parser": "^1.15.0",
+    "client-oauth2": "^2.2.0",
     "express": "^4.13.4",
     "path": "^0.12.7",
     "react": "^15.0.1",

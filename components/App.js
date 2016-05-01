@@ -7,6 +7,8 @@ class App extends Component {
     return (
       <div>
         <h1>Hello Cosmic Tornado</h1>
+        <h4>Hello</h4>
+        <a href='/auth'>Log in with Fitbit</a>
       </div>
     )
   }
