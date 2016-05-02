@@ -12,7 +12,6 @@ let finalCreateStore = compose(
 )(createStore)
 
 //good to separate out store.js because you can add middleware (above)
-export default function configureStore(initialState = { todos: [] }) {
-  // initialState = initialState || {todos: []} //this is ES5 syntax for the above. If initialState is not provided to configureStore, then create an object with todos array
+export default function configureStore(initialState) {
   return finalCreateStore(rootReducer, initialState)
 }

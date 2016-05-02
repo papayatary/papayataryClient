@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 
 class App extends Component {
   render() {
+    console.log(this.props);
     return (
       <Navigator
         initialRoute = {{name: 'Auth', component: Auth}}
