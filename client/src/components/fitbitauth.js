@@ -7,10 +7,7 @@ import React, {
   View
 } from 'react-native';
 
-import FitbitAuth from './fitbitauth';
-
-
-class FacebookAuth extends React.Component {
+class FitbitAuth extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -19,7 +16,7 @@ class FacebookAuth extends React.Component {
     return (
       <View style={styles.container}>
         <Text>
-          This is the FacebookAuth view!
+          This is the FitbitAuth view!
         </Text>
       </View>
     );
@@ -45,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FacebookAuth;
+export default FitbitAuth;

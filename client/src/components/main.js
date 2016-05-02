@@ -2,6 +2,7 @@
 import React, {
   AppRegistry,
   Component,
+  Image,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -9,45 +10,42 @@ import React, {
   View
 } from 'react-native';
 
-import FacebookAuth from './facebookauth';
-import Main from './main';
 
-
-class Auth extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
   }
 
-  handleSignup() {
-    this.props.navigator.push({
-      name: 'FacebookAuth',
-      component: FacebookAuth
-    });
-  }
 
-  handleLogin() {
-    // Check if user is authenticated. If so, redirect somewhere...
-    this.props.navigator.push({
-      name: 'Main',
-      component: Main
-    });
+  handleConfirm() {
+    // check if user has enough currency
+      // if so, take currency from user's wallet and connect users
+      // else, display error
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={this.handleSignup.bind(this)}
-        >
-          <Text style={styles.buttonText}>Signup</Text>
-        </TouchableOpacity>
+        <Image
+          style={styles.portrait}
+          source={require('../images/blakelively001.jpg')}
+        />
+
+        <Text>
+          Name: Blake Lively
+        </Text>
+        <Text>
+          Age: 28
+        </Text>
+        <Text>
+          Distance: 5 miles
+        </Text>
 
         <TouchableOpacity 
           style={styles.button}
-          onPress={this.handleLogin.bind(this)}
+          onPress={this.handleConfirm.bind(this)}
         >
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>5000 units</Text>
         </TouchableOpacity>
 
       </View>
@@ -74,12 +72,16 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#86B0FF',
-    padding: 10,
-    margin: 20
+    padding: 5,
+    margin: 10
   },
   buttonText: {
-    fontSize: 20
+    fontSize: 15
+  },
+  portrait: {
+    width: 200,
+    height: 200
   }
 });
 
-export default Auth;
+export default Main;
