@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 
 import Auth from './auth';
+import { connect } from 'react-redux'
 
 class App extends Component {
   render() {
@@ -45,4 +46,10 @@ var styles = StyleSheet.create({
   },
 });
 
-export default App;
+function mapStateToProps(state) {
+  return state //the App component should have access to all of the state
+};
+
+// export default App;
+export default connect(mapStateToProps)(App) //connects the App to the state so App can access it
+

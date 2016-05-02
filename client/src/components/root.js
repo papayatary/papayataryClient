@@ -9,6 +9,7 @@ import rootReducer from '../reducers';
 import { Provider } from 'react-redux';
 
 import App from './app.js';
+import configureStore from '../store/store'
 
 
 // Generate initial state
@@ -22,6 +23,9 @@ let initialState = {
 
 // Create Redux store with initial state. The store manages the state of our app. 
 let store = createStore(rootReducer, initialState);
+
+// let store = configureStore(initialState);
+
 
 class Root extends Component {
   render() {

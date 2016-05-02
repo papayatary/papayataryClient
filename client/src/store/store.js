@@ -1,6 +1,8 @@
 
-// EXAMPLE CODE:
-import { applyMiddleware, compose, createStore } from 'redux'
+import { 
+  applyMiddleware, 
+  compose, 
+  createStore } from 'redux'
 import reducer from './reducer'
 import logger from 'redux-logger'
 
