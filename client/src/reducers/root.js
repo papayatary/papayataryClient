@@ -1,5 +1,4 @@
 
-// EXAMPLE CODE:
 import { combineReducers } from 'redux';
 import user from './user.js';
 
