@@ -14,12 +14,12 @@ import React, {
 
 class Navigation extends React.Component{
   render() {
-    console.log('MADE IT!!!!');
     return (
       <Navigator
         style={styles.container}
         initialRoute={{id: 'first'}}
-        renderScene={this.navigatorRenderScene}/>
+        renderScene={this.navigatorRenderScene}
+      />
     );
   }
 

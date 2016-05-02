@@ -21,3 +21,5 @@ class First extends React.Component{
     );
   }
 };
+
+export default First;

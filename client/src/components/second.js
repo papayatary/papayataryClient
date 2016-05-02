@@ -11,3 +11,5 @@ class Second extends React.Component{
     );
   }
 };
+
+export default Second;
