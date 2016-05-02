@@ -12,24 +12,24 @@ import React, {
 import Auth from './auth';
 
 class App extends Component {
-    render() {
-        return (
-            <Navigator
-                initialRoute={{name: 'Auth', component: Auth}}
-                configureScene={() => {
-                    return Navigator.SceneConfigs.FloatFromRight;
-                }}
-                renderScene={(route, navigator) => {
-                    // count the number of func calls
-                    console.log(route, navigator); 
+  render() {
+    return (
+      <Navigator
+        initialRoute = {{name: 'Auth', component: Auth}}
+        configureScene = {() => {
+            return Navigator.SceneConfigs.FloatFromRight; //define the route change animation
+        }}
+        renderScene = {(route, navigator) => {
+          // count the number of func calls
+          // console.log(route, navigator); 
 
-                    if (route.component) {
-                        return React.createElement(route.component, { navigator });
-                    }
-                }}
-             />
-        );
-    }
+          if (route.component) {
+              return React.createElement(route.component, { navigator });
+          }
+        }}
+     />
+    );
+  }
 }
 
 var styles = StyleSheet.create({

@@ -4,32 +4,43 @@ import React, {
   Component,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View
 } from 'react-native';
 
 import FacebookAuth from './facebookauth';
 
 class Auth extends Component {
-    onPressFeed() {
-        this.props.navigator.push({
-            name: 'FacebookAuth',
-            component: FacebookAuth
-        });
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    This is the Auth Component!
-                </Text>
+  handleSignup() {
+    this.props.navigator.push({
+      name: 'FacebookAuth',
+      component: FacebookAuth
+    });
+  }
 
-                <Text onPress={this.onPressFeed.bind(this)}>
-                    Go to FacebookAuth Component!
-                </Text>
-            </View>
-        );
-    }
+  render() {
+    console.log('Auth Props: ', this.props);
+    return (
+      <View style={styles.container}>
+        <TouchableHighlight 
+          style={styles.button}
+          onPress={this.handleSignup.bind(this)}
+          underlayColor={'#1B31FF'} //color on click
+        >
+          <Text>Signup</Text>
+        </TouchableHighlight>
+
+        <Text style={styles.welcome}>
+          This is the Auth Component!
+        </Text>
+
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -49,6 +60,11 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  button: {
+    backgroundColor: '#86B0FF',
+    padding: 10,
+    margin: 20
+  }
 });
 
 export default Auth;

@@ -8,15 +8,19 @@ import React, {
 } from 'react-native';
 
 class FacebookAuth extends React.Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>
-                    This is the FacebookAuth view!
-                </Text>
-            </View>
-        );
-    }
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          This is the FacebookAuth view!
+        </Text>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
