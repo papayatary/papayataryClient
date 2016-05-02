@@ -20,7 +20,7 @@
 
 ## Requirements
 
-- Node 4.4.x
+- Node 5.8.x
 - Postgresql 9.1.x
 - etc
 - etc
