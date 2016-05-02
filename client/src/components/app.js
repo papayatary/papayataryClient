@@ -8,13 +8,15 @@ import React, {
   Text,
   View
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Auth from './auth';
-import { connect } from 'react-redux'
+import actions from '../actions/actions'
 
 class App extends Component {
   render() {
-    console.log(this.props);
+    console.log('App props: ', this.props); //contains dispatcher and reducers
     return (
       <Navigator
         initialRoute = {{name: 'Auth', component: Auth}}
@@ -48,9 +50,16 @@ var styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return state //the App component should have access to all of the state
+  return state; //the App component should have access to all of the state
 };
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch) //don't have to call this.props.dispatch(actions.addTodo(this.state.inputText));
+    // can directly call the action instead
+  };
+}
+
 // export default App;
-export default connect(mapStateToProps)(App) //connects the App to the state so App can access it
+export default connect(mapStateToProps, mapDispatchToProps)(App) //connects the App to the state so App can access it
 
