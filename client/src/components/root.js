@@ -5,23 +5,21 @@ import React, {
 } from 'react-native';
 
 import { createStore } from 'redux';
-import rootReducer from '../reducers';
+import rootReducer from '../reducers/root';
 import { Provider } from 'react-redux';
 
 import App from './app.js';
+import configureStore from '../store/store'
 
 
 // Generate initial state
-let initialState = {
-  // todos: [{
-  //   id: 0,
-  //   completed: false,
-  //   text: 'Initial todo for demo purposes'
-  // }]
-};
+let initialState = {};
 
 // Create Redux store with initial state. The store manages the state of our app. 
-let store = createStore(rootReducer, initialState);
+// let store = createStore(rootReducer, initialState);
+
+let store = configureStore(initialState);
+
 
 class Root extends Component {
   render() {
