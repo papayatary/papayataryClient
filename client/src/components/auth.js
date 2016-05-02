@@ -5,6 +5,7 @@ import React, {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   View
 } from 'react-native';
 
@@ -22,21 +23,27 @@ class Auth extends Component {
     });
   }
 
+  handleLogin() {
+    // Check if user is authenticated. If so, redirect somewhere...
+
+  }
+
   render() {
-    console.log('Auth Props: ', this.props);
     return (
       <View style={styles.container}>
-        <TouchableHighlight 
+        <TouchableOpacity 
           style={styles.button}
           onPress={this.handleSignup.bind(this)}
-          underlayColor={'#1B31FF'} //color on click
         >
-          <Text>Signup</Text>
-        </TouchableHighlight>
+          <Text style={styles.buttonText}>Signup</Text>
+        </TouchableOpacity>
 
-        <Text style={styles.welcome}>
-          This is the Auth Component!
-        </Text>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={this.handleLogin.bind(this)}
+        >
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
 
       </View>
     );
@@ -64,6 +71,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#86B0FF',
     padding: 10,
     margin: 20
+  },
+  buttonText: {
+    fontSize: 20
   }
 });
 
