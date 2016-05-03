@@ -34,6 +34,7 @@ class Auth extends Component {
   }
 
   render() {
+    // console.log(this);
     return (
       <View style={styles.container}>
         <TouchableOpacity 
