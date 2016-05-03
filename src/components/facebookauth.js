@@ -4,7 +4,9 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableHighlight,
+  Image
 } from 'react-native';
 
 import FBLogin from 'react-native-facebook-login';
@@ -22,10 +24,12 @@ class FacebookAuth extends React.Component {
   }
 
   handleSignup() {
+    //check if fitbit is authed
     this.props.navigator.push({
       name: 'FitbitAuth',
       component: FitbitAuth
     });
+    
   }
 
   render() {
@@ -39,18 +43,17 @@ class FacebookAuth extends React.Component {
           onLogin={ (data) => {
             console.log("Logged in!");
             console.log(data);
-            _this.setState({ user : data.credentials });
             this.handleSignup();
           }}
           onLogout={ () => {
             console.log("Logged out.");
             _this.setState({ user : null });
-          }}
+          }}  
           onLoginFound={ (data) => {
             console.log("Existing login found.");
             console.log(data);
-            this.handleSignup();
             _this.setState({ user : data.credentials });
+            this.handleSignup();
           }}
           onLoginNotFound={ () => {
             console.log("No user logged in.");
@@ -68,7 +71,6 @@ class FacebookAuth extends React.Component {
             console.log(data);
           }}
         />
-        <Text>{ user ? user.token : "N/A" }</Text>
       </View>
     );
   }
