@@ -10,7 +10,7 @@ import React, {
 } from 'react-native';
 
 import FacebookAuth from './facebookauth';
-import Search from './search';
+import Main from './main';
 
 
 class Auth extends Component {
@@ -28,8 +28,8 @@ class Auth extends Component {
   handleLogin() {
     // Check if user is authenticated. If so, redirect somewhere...
     this.props.navigator.push({
-      name: 'Search',
-      component: Search
+      name: 'Main',
+      component: Main
     });
   }
 
