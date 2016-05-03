@@ -49,20 +49,13 @@ class TopNavBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    backgroundColor: '#A0D3FF',
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    alignSelf: 'stretch'
   },
   button: {
     backgroundColor: '#86B0FF',
@@ -70,7 +63,7 @@ const styles = StyleSheet.create({
     margin: 20
   },
   buttonText: {
-    fontSize: 20
+    fontSize: 10
   }
 });
 

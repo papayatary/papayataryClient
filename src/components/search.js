@@ -33,13 +33,13 @@ class Search extends Component {
           source={require('../images/blakelively001.jpg')}
         />
 
-        <Text>
+        <Text style={styles.profileText}>
           Name: Blake Lively
         </Text>
-        <Text>
+        <Text style={styles.profileText}>
           Age: 28
         </Text>
-        <Text>
+        <Text style={styles.profileText}>
           Distance: 5 miles
         </Text>
 
@@ -72,17 +72,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
+  profileText: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    textAlign: 'left'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  fitnessText: {
+    fontSize: 20,
+    textAlign: 'right'
   },
   button: {
+    flex: 4,
     backgroundColor: '#86B0FF',
     padding: 5,
     margin: 10
@@ -91,6 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   portrait: {
+    flex: 50,
     width: 250,
     height: 250
   }
