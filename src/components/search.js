@@ -53,6 +53,7 @@ class Search extends Component {
           Avg Daily Steps: 5000
         </Text>
 
+
         <TouchableOpacity 
           style={styles.button}
           onPress={this.handleConfirm.bind(this)}
@@ -72,13 +73,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  profileText: {
-    fontSize: 20,
-    textAlign: 'left'
-  },
-  fitnessText: {
-    fontSize: 20,
-    textAlign: 'right'
+  portrait: {
+    flex: 50,
+    width: 330,
+    height: 250,
+    borderWidth: 1
   },
   button: {
     flex: 4,
@@ -89,11 +88,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 15
   },
-  portrait: {
-    flex: 50,
-    width: 250,
-    height: 250
-  }
 });
 
 export default Search;
