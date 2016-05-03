@@ -8,19 +8,18 @@ import React, {
   TouchableHighlight,
   Image
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import FBLogin from 'react-native-facebook-login';
 import FitbitAuth from './fitbitauth';
 import {FBLoginManager} from 'NativeModules'
-
+import actions from '../actions/actions'
 
 
 class FacebookAuth extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: null
-    };
   }
 
   handleSignup() {
@@ -33,8 +32,6 @@ class FacebookAuth extends React.Component {
   }
 
   render() {
-    var _this = this;
-    var user = this.state.user;
     return (
       <View style={styles.container}>
         <FBLogin style={{ marginBottom: 10, }}
@@ -46,18 +43,17 @@ class FacebookAuth extends React.Component {
             this.handleSignup();
           }}
           onLogout={ () => {
-            console.log("Logged out.");
-            _this.setState({ user : null });
+            // Delete a token...
+            // console.log("Logged out.");
+            // _this.setState({ user : null });
           }}  
           onLoginFound={ (data) => {
-            console.log("Existing login found.");
-            console.log(data);
-            _this.setState({ user : data.credentials });
+            console.log("Existing login found with data: ", data);
+            console.log(this.props);
             this.handleSignup();
           }}
           onLoginNotFound={ () => {
             console.log("No user logged in.");
-            _this.setState({ user : null });
           }}
           onError={ (data) => {
             console.log("ERROR");
@@ -96,4 +92,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FacebookAuth;
+
+function mapStateToProps(state) {
+  return state; //the App component should have access to all of the state
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch) //don't have to call this.props.dispatch(actions.addTodo(this.state.inputText));
+    // can directly call the action instead
+  };
+};
+
+// export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(FacebookAuth); //connects the App to the state so App can access it
+

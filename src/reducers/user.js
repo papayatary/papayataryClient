@@ -1,6 +1,6 @@
 
-// EXAMPLE CODE:
 const initialState = {
+  userId: null,
   email: null,
   firstName: null,
   lastName: null,
