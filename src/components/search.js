@@ -10,6 +10,7 @@ import React, {
   View
 } from 'react-native';
 
+import TopNavBar from './topnavbar.js';
 
 class Search extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class Search extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <TopNavBar />
         <Image
           style={styles.portrait}
           source={require('../images/blakelively001.jpg')}
@@ -39,6 +41,16 @@ class Search extends Component {
         </Text>
         <Text>
           Distance: 5 miles
+        </Text>
+
+        <Text>
+          BMI: 18
+        </Text>
+        <Text>
+          Resting HR: 62
+        </Text>
+        <Text>
+          Avg Daily Steps: 5000
         </Text>
 
         <TouchableOpacity 
@@ -79,8 +91,8 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   portrait: {
-    width: 200,
-    height: 200
+    width: 250,
+    height: 250
   }
 });
 
