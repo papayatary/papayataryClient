@@ -7,6 +7,7 @@ import React, {
   View
 } from 'react-native';
 
+import FBLogin from 'react-native-facebook-login';
 import FitbitAuth from './fitbitauth';
 
 
@@ -18,9 +19,7 @@ class FacebookAuth extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          This is the FacebookAuth view!
-        </Text>
+        <FBLogin />
       </View>
     );
   }
