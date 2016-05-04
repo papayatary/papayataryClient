@@ -11,10 +11,10 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import actions from '../actions/actions'
 import FBLogin from 'react-native-facebook-login';
 import FitbitAuth from './fitbitauth';
 import {FBLoginManager} from 'NativeModules'
-import actions from '../actions/actions'
 
 
 class FacebookAuth extends React.Component {

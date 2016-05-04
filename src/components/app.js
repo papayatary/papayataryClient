@@ -12,14 +12,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FacebookAuth from './facebookauth';
+import Search from './search';
 import actions from '../actions/actions'
 
 class App extends Component {
   render() {
-    console.log('App props: ', this.props); //contains dispatcher and reducers
+    // console.log('App props: ', this.props); //contains dispatcher and reducers
     return (
       <Navigator
-        initialRoute = {{name: 'FacebookAuth', component: FacebookAuth}}
+        initialRoute = {{name: 'Search', component: Search}}
         configureScene = {() => {
             return Navigator.SceneConfigs.FloatFromRight; //define the route change animation
         }}
