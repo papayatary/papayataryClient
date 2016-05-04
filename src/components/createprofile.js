@@ -30,8 +30,12 @@ class CreateProfile extends Component {
     });
   }
 
+  handleChangeZip() {
+    console.log('Zip Changed!');
+  }
+
   render() {
-    // console.log(this);
+    console.log('CreateProfile this.props: ', this.props);
     return (
       <View style={styles.container}>
         <Text>Create Your Profile</Text>
@@ -39,15 +43,20 @@ class CreateProfile extends Component {
         <Text>Name:</Text> 
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          value='hello'
+          value='Hao H'
         />
 
         <Text>Age:</Text>
 
         <Text>Gender:</Text>
+        {/*Add logic for PickerIOS*/}
 
         <Text>Zip Code:</Text>
-
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          value='94101'
+          onChangeText={this.handleChangeZip.bind(this)}
+        />
 
         <TouchableOpacity 
           style={styles.button}

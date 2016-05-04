@@ -32,6 +32,7 @@ class FacebookAuth extends React.Component {
   }
 
   render() {
+    console.log('facebookauth this.props: ', this.props);
     return (
       <View style={styles.container}>
 
