@@ -8,7 +8,11 @@ import React, {
   TouchableOpacity,
   View
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import actions from '../actions/actions'
 
+import Matches from './matches.js';
 
 class TopNavBar extends Component {
   constructor(props) {
@@ -21,6 +25,10 @@ class TopNavBar extends Component {
 
   handleMatches() {
     // Redirect somewhere...
+    this.props.navigator.push({
+      name: 'Matches',
+      component: Matches
+    });
   }
 
   render() {
@@ -66,4 +74,14 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TopNavBar;
+function mapStateToProps(state) {
+  return state; 
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch) 
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopNavBar); 
