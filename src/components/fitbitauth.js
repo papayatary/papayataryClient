@@ -4,21 +4,32 @@ import React, {
   Component,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from 'react-native';
+import Search from './search.js';
 
 class FitbitAuth extends React.Component {
   constructor(props) {
     super(props);
+  }
+  handleFitbitAuth () {
+    this.props.navigator.push({
+      name: 'Search',
+      component: Search
+    });
   }
 
   render() {
     // console.log('Fitbit Auth this.props: ', this.props);
     return (
       <View style={styles.container}>
-        <Text>
-          This is the FitbitAuth view!
-        </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.handleFitbitAuth.bind(this)}
+        >
+          <Text style={styles.buttonText}>syncFitBit</Text>
+        </TouchableOpacity>
       </View>
     );
   }

@@ -10,8 +10,11 @@ import React, {
   View
 } from 'react-native';
 
-import TopNavBar from './topnavbar.js';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import actions from '../actions/actions'  
 
+import TopNavBar from './topnavbar.js';
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -90,4 +93,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+function mapStateToProps(state) {
+  return state; 
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch) 
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search); 

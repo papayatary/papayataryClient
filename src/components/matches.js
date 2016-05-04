@@ -1,12 +1,12 @@
+
 import React, {
   AppRegistry,
   Component,
   StyleSheet,
   Text,
-  TextInput,
   TouchableHighlight,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -14,8 +14,9 @@ import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import TopNavBar from './topnavbar.js';
 
+import Messages from './messages.js'
 
-class Messages extends React.Component {
+class Matches extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -24,25 +25,28 @@ class Messages extends React.Component {
     this.props.navigator.pop();
   }
 
+  handleMessage(id) {
+    // Check if user is authenticated. If so, redirect somewhere...
+    this.props.navigator.push({
+      name: 'Message',
+      component: Messages
+    });
+  }
 
   render() {
     // console.log(this);
 
     // example of how to map messages {this.props.messages.map((messages, i) => ())};
    return (
-
-      <View style={styles.container}>
+      <View style={styles.container} >
         <TopNavBar navigator={this.props.navigator}/>
-        <Text>  message 1 </Text>
-        <Text>  message 2 </Text>
-        <Text>  message 3 </Text>
-        <Text>  message 4 </Text>  
-
-        <TextInput
-           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-           onChangeText={(text) => 's'}
-           value={'s'}
-         />
+        <TouchableOpacity 
+        style={styles.button}
+        onPress={this.handleMessage.bind(this)}
+        >
+          <Text style={styles.buttonText}> conversation 1 </Text>
+        </TouchableOpacity>
+       
         <TouchableOpacity 
           style={styles.button}
           onPress={this.handleBack.bind(this)}
@@ -93,4 +97,4 @@ function mapDispatchToProps(dispatch) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Messages); 
+export default connect(mapStateToProps, mapDispatchToProps)(Matches); 
