@@ -2,12 +2,12 @@
 import React, {
   AppRegistry,
   Component,
+  Image,
+  StatusBar,
   StyleSheet,
   Text,
-  Image,
+  TouchableOpacity,
   View,
-  TouchableHighlight,
-  TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -33,9 +33,13 @@ class FacebookAuth extends React.Component {
   }
 
   render() {
-    console.log('facebookauth this.props: ', this.props);
+    console.log('fitbitauth this.props: ', this.props);
     return (
       <View style={styles.container}>
+        <StatusBar
+          backgroundColor="steelblue"
+          barStyle="light-content"
+        />
         <View style={styles.titlebar}>
           <Text style={styles.titlebarText}>FitDate</Text>
         </View>
@@ -46,7 +50,7 @@ class FacebookAuth extends React.Component {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <FBLogin style={{ marginBottom: 10, }}
+          <FBLogin style={styles.button}
             permissions={ ["email","user_friends"] }
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
             onLogin={ (credentials) => {
@@ -97,21 +101,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
   },
   titlebar: {
-    flex: 5,
-    paddingTop: 24,
-    backgroundColor: 'white',
+    flex: 8,
+    paddingTop: 30,
+    backgroundColor: 'steelblue',
     alignSelf: 'stretch',
     alignItems: 'center',
   },
   titlebarText: {
-    color: 'blue',
+    color: 'white',
     fontSize: 22,
   },
   imageContainer: {
-    flex: 85,
+    flex: 82,
     margin: 20,
     padding: 20, 
     justifyContent: 'center',
