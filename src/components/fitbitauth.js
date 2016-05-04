@@ -4,10 +4,14 @@ import React, {
   Component,
   StyleSheet,
   Text,
+  Image,
+  TouchableHighlight,
   TouchableOpacity,
   View
 } from 'react-native';
 import Search from './search.js';
+
+import FacebookAuth from './facebookauth';
 
 class FitbitAuth extends React.Component {
   constructor(props) {
@@ -17,6 +21,13 @@ class FitbitAuth extends React.Component {
     this.props.navigator.push({
       name: 'Search',
       component: Search
+    });
+  }
+
+  handleSignup() {
+    this.props.navigator.push({
+      name: 'FacebookAuth',
+      component: FacebookAuth
     });
   }
 
