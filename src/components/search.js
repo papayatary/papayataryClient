@@ -10,8 +10,9 @@ import React, {
   View
 } from 'react-native';
 
+import TopNavBar from './topnavbar.js';
 
-class Main extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
   }
@@ -26,20 +27,32 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <TopNavBar />
         <Image
           style={styles.portrait}
           source={require('../images/blakelively001.jpg')}
         />
 
-        <Text>
+        <Text style={styles.profileText}>
           Name: Blake Lively
         </Text>
-        <Text>
+        <Text style={styles.profileText}>
           Age: 28
         </Text>
-        <Text>
+        <Text style={styles.profileText}>
           Distance: 5 miles
         </Text>
+
+        <Text>
+          BMI: 18
+        </Text>
+        <Text>
+          Resting HR: 62
+        </Text>
+        <Text>
+          Avg Daily Steps: 5000
+        </Text>
+
 
         <TouchableOpacity 
           style={styles.button}
@@ -60,17 +73,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  portrait: {
+    flex: 50,
+    width: 330,
+    height: 250,
+    borderWidth: 1
   },
   button: {
+    flex: 4,
     backgroundColor: '#86B0FF',
     padding: 5,
     margin: 10
@@ -78,10 +88,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 15
   },
-  portrait: {
-    width: 200,
-    height: 200
-  }
 });
 
-export default Main;
+export default Search;

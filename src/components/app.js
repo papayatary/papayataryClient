@@ -11,7 +11,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Auth from './auth';
+import FacebookAuth from './facebookauth';
 import actions from '../actions/actions'
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
     console.log('App props: ', this.props); //contains dispatcher and reducers
     return (
       <Navigator
-        initialRoute = {{name: 'Auth', component: Auth}}
+        initialRoute = {{name: 'FacebookAuth', component: FacebookAuth}}
         configureScene = {() => {
             return Navigator.SceneConfigs.FloatFromRight; //define the route change animation
         }}
@@ -58,8 +58,8 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(actions, dispatch) //don't have to call this.props.dispatch(actions.addTodo(this.state.inputText));
     // can directly call the action instead
   };
-}
+};
 
 // export default App;
-export default connect(mapStateToProps, mapDispatchToProps)(App) //connects the App to the state so App can access it
+export default connect(mapStateToProps, mapDispatchToProps)(App); //connects the App to the state so App can access it
 

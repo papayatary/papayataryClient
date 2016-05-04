@@ -8,22 +8,21 @@ import React, {
   TouchableHighlight,
   Image
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import FBLogin from 'react-native-facebook-login';
 import FitbitAuth from './fitbitauth';
 import {FBLoginManager} from 'NativeModules'
-
+import actions from '../actions/actions'
 
 
 class FacebookAuth extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: null
-    };
   }
 
-  handleSignup() {
+  handleFacebookLogin() {
     //check if fitbit is authed
     this.props.navigator.push({
       name: 'FitbitAuth',
@@ -33,31 +32,34 @@ class FacebookAuth extends React.Component {
   }
 
   render() {
-    var _this = this;
-    var user = this.state.user;
     return (
       <View style={styles.container}>
+
         <FBLogin style={{ marginBottom: 10, }}
-          permissions={["email","user_friends"]}
+          permissions={ ["email","user_friends"] }
           loginBehavior={FBLoginManager.LoginBehaviors.Native}
-          onLogin={ (data) => {
-            console.log("Logged in!");
-            console.log(data);
-            this.handleSignup();
+          onLogin={ (credentials) => {
+            // console.log('Successfully logged in with these credentials: ', credentials);
+
+            // When existing credentials are found, save the updated Facebook credentials to the store and redirect user.
+            this.props.actions.saveFacebookCredentials(credentials);
+            this.handleFacebookLogin();
+          }}
+          onLoginFound={ (credentials) => {
+            console.log('Login exists with the following user credentials: ', credentials)
+
+            // When existing credentials are found, save the updated Facebook credentials to the store and redirect user.
+            this.props.actions.saveFacebookCredentials(credentials);
+            console.log('Fetched Credentials: ', this.props.user);
+            this.handleFacebookLogin();
           }}
           onLogout={ () => {
-            console.log("Logged out.");
-            _this.setState({ user : null });
+            // Delete a token...
+            // console.log("Logged out.");
+            // _this.setState({ user : null });
           }}  
-          onLoginFound={ (data) => {
-            console.log("Existing login found.");
-            console.log(data);
-            _this.setState({ user : data.credentials });
-            this.handleSignup();
-          }}
           onLoginNotFound={ () => {
             console.log("No user logged in.");
-            _this.setState({ user : null });
           }}
           onError={ (data) => {
             console.log("ERROR");
@@ -71,6 +73,7 @@ class FacebookAuth extends React.Component {
             console.log(data);
           }}
         />
+
       </View>
     );
   }
@@ -96,4 +99,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FacebookAuth;
+
+function mapStateToProps(state) {
+  return state; 
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch) 
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FacebookAuth); 
