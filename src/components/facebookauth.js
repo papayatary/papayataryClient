@@ -32,13 +32,37 @@ class FacebookAuth extends React.Component {
     
   }
 
+  fetchCredentials (userId, token) {
+    var api = `https://graph.facebook.com/v2.3/${userId}?fields=name,email,gender,birthday,age_range,picture&access_token=${token}`;
+    fetch(api)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('fetched data from facebook',responseData);
+        //store credentials in state
+        this.props.actions.saveFacebookCredentials(responseData);
+        //save to database as well
+        // this.saveCredentials(responseData);
+      }).done();
+  }
+  // saveCredentials (userData){
+  //   fetch('https://localhost/endpoint/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(userData)
+  //   }).then((response) => console.log(response))
+  //     .done();
+  // } 
+  
   render() {
     console.log('fitbitauth this.props: ', this.props);
     return (
       <View style={styles.container}>
         <StatusBar
           backgroundColor="steelblue"
-          barStyle="light-content"
+          barStyle="light-content" 
         />
         <View style={styles.titlebar}>
           <Text style={styles.titlebarText}>FitDate</Text>
@@ -53,19 +77,15 @@ class FacebookAuth extends React.Component {
           <FBLogin style={styles.button}
             permissions={ ["email","user_friends"] }
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
-            onLogin={ (credentials) => {
+            onLogin={ (data) => {
               // console.log('Successfully logged in with these credentials: ', credentials);
-
-              // When existing credentials are found, save the updated Facebook credentials to the store and redirect user.
-              this.props.actions.saveFacebookCredentials(credentials);
+              //update Facebook credentials to the store and redirect user.
+              this.fetchCredentials(data.credentials.userId, data.credentials.token);
               this.handleFacebookLogin();
             }}
-            onLoginFound={ (credentials) => {
-              console.log('Login exists with the following user credentials: ', credentials)
-
-              // When existing credentials are found, save the updated Facebook credentials to the store and redirect user.
-              this.props.actions.saveFacebookCredentials(credentials);
-              console.log('Fetched Credentials: ', this.props.user);
+            onLoginFound={ (data) => {
+              // When existing credentials are found, grab credentials from database update store and redirect user.
+              this.fetchCredentials(data.credentials.userId, data.credentials.token);
               this.handleFacebookLogin();
             }}
             onLogout={ () => {
@@ -74,17 +94,17 @@ class FacebookAuth extends React.Component {
               // _this.setState({ user : null });
             }}  
             onLoginNotFound={ () => {
-              console.log("No user logged in.");
+              console.log("No user logged in during facebook login");
             }}
             onError={ (data) => {
-              console.log("ERROR");
+              console.log("ERROR on facebook login");
               console.log(data);
             }}
             onCancel={ () => {
-              console.log("User cancelled.");
+              console.log("User cancelled facebook login");
             }}
             onPermissionsMissing={ (data) =>{
-              console.log("Check permissions!");
+              console.log("Check permissions for facebook login");
               console.log(data);
             }}
           />
@@ -92,9 +112,8 @@ class FacebookAuth extends React.Component {
       </View>
     );
   }
+
 }
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
