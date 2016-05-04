@@ -22,7 +22,7 @@ class FacebookAuth extends React.Component {
     super(props);
   }
 
-  handleSignup() {
+  handleFacebookLogin() {
     //check if fitbit is authed
     this.props.navigator.push({
       name: 'FitbitAuth',
@@ -34,24 +34,29 @@ class FacebookAuth extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
         <FBLogin style={{ marginBottom: 10, }}
-          permissions={["email","user_friends"]}
+          permissions={ ["email","user_friends"] }
           loginBehavior={FBLoginManager.LoginBehaviors.Native}
-          onLogin={ (data) => {
-            console.log("Logged in!");
-            console.log(data);
-            this.handleSignup();
+          onLogin={ (credentials) => {
+            // console.log('Successfully logged in with these credentials: ', credentials);
+
+            // When existing credentials are found, save the updated Facebook credentials to the store and redirect user.
+            this.props.actions.saveFacebookCredentials(credentials);
+            this.handleFacebookLogin();
+          }}
+          onLoginFound={ (credentials) => {
+            console.log('Login exists with the following user credentials: ', credentials)
+
+            // When existing credentials are found, save the updated Facebook credentials to the store and redirect user.
+            this.props.actions.saveFacebookCredentials(credentials);
+            this.handleFacebookLogin();
           }}
           onLogout={ () => {
             // Delete a token...
             // console.log("Logged out.");
             // _this.setState({ user : null });
           }}  
-          onLoginFound={ (data) => {
-            console.log("Existing login found with data: ", data);
-            console.log(this.props);
-            this.handleSignup();
-          }}
           onLoginNotFound={ () => {
             console.log("No user logged in.");
           }}
@@ -67,6 +72,7 @@ class FacebookAuth extends React.Component {
             console.log(data);
           }}
         />
+
       </View>
     );
   }
@@ -94,16 +100,13 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state) {
-  return state; //the App component should have access to all of the state
+  return state; 
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch) //don't have to call this.props.dispatch(actions.addTodo(this.state.inputText));
-    // can directly call the action instead
+    actions: bindActionCreators(actions, dispatch) 
   };
 };
 
-// export default App;
-export default connect(mapStateToProps, mapDispatchToProps)(FacebookAuth); //connects the App to the state so App can access it
-
+export default connect(mapStateToProps, mapDispatchToProps)(FacebookAuth); 
