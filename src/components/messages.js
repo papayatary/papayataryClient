@@ -1,54 +1,53 @@
-
 import React, {
   AppRegistry,
   Component,
   StyleSheet,
   Text,
+  TextInput,
   TouchableHighlight,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 
-import FacebookAuth from './facebookauth';
-import Main from './main';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import actions from '../actions/actions';
+import TopNavBar from './topnavbar.js';
 
 
-class Auth extends Component {
+class Messages extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  handleSignup() {
-    this.props.navigator.push({
-      name: 'FacebookAuth',
-      component: FacebookAuth
-    });
+  handleBack() {
+    this.props.navigator.pop();
   }
 
-  handleLogin() {
-    // Check if user is authenticated. If so, redirect somewhere...
-    this.props.navigator.push({
-      name: 'Main',
-      component: Main
-    });
-  }
 
   render() {
     // console.log(this);
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={this.handleSignup.bind(this)}
-        >
-          <Text style={styles.buttonText}>Signup</Text>
-        </TouchableOpacity>
 
+    // example of how to map messages {this.props.messages.map((messages, i) => ())};
+   return (
+
+      <View style={styles.container}>
+        <TopNavBar navigator={this.props.navigator}/>
+        <Text>  message 1 </Text>
+        <Text>  message 2 </Text>
+        <Text>  message 3 </Text>
+        <Text>  message 4 </Text>  
+
+        <TextInput
+           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+           onChangeText={(text) => 's'}
+           value={'s'}
+         />
         <TouchableOpacity 
           style={styles.button}
-          onPress={this.handleLogin.bind(this)}
+          onPress={this.handleBack.bind(this)}
         >
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
 
       </View>
@@ -83,4 +82,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Auth;
+
+function mapStateToProps(state) {
+  return state; 
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch) 
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Messages); 
