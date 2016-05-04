@@ -13,6 +13,7 @@ class FitbitAuth extends React.Component {
   }
 
   render() {
+    // console.log('Fitbit Auth this.props: ', this.props);
     return (
       <View style={styles.container}>
         <Text>

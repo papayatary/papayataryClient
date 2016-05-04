@@ -16,7 +16,7 @@ import actions from '../actions/actions'
 
 class App extends Component {
   render() {
-    console.log('App props: ', this.props); //contains dispatcher and reducers
+    // console.log('App props: ', this.props); //contains dispatcher and reducers
     return (
       <Navigator
         initialRoute = {{name: 'FacebookAuth', component: FacebookAuth}}

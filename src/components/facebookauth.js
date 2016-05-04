@@ -11,10 +11,10 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import actions from '../actions/actions'
 import FBLogin from 'react-native-facebook-login';
 import FitbitAuth from './fitbitauth';
 import {FBLoginManager} from 'NativeModules'
-import actions from '../actions/actions'
 
 
 class FacebookAuth extends React.Component {
@@ -32,6 +32,7 @@ class FacebookAuth extends React.Component {
   }
 
   render() {
+    console.log('facebookauth this.props: ', this.props);
     return (
       <View style={styles.container}>
 

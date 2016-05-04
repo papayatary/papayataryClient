@@ -27,7 +27,7 @@ class Search extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TopNavBar />
+        <TopNavBar navigator={this.props.navigator}/>
         <Image
           style={styles.portrait}
           source={require('../images/blakelively001.jpg')}
