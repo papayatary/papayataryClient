@@ -5,6 +5,7 @@ import React, {
   PickerIOS,
   StyleSheet,
   Text,
+  TextInput,
   TouchableHighlight,
   TouchableOpacity,
   View
@@ -16,21 +17,12 @@ import { bindActionCreators } from 'redux';
 import actions from '../actions/actions'
 import Search from './search';
 
-
-
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
   }
 
-  handleSignup() {
-    this.props.navigator.push({
-      name: 'FacebookAuth',
-      component: FacebookAuth
-    });
-  }
-
-  handleLogin() {
+  handleSubmit() {
     // Check if user is authenticated. If so, redirect somewhere...
     this.props.navigator.push({
       name: 'Search',
@@ -44,23 +36,24 @@ class CreateProfile extends Component {
       <View style={styles.container}>
         <Text>Create Your Profile</Text>
 
-        <Text>Gender:</Text>
-        <PickerIOS
-          selectedValue='Male'
+        <Text>Name:</Text> 
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          value='hello'
         />
 
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={this.handleSignup.bind(this)}
-        >
-          <Text style={styles.buttonText}>Signup</Text>
-        </TouchableOpacity>
+        <Text>Age:</Text>
+
+        <Text>Gender:</Text>
+
+        <Text>Zip Code:</Text>
+
 
         <TouchableOpacity 
           style={styles.button}
-          onPress={this.handleLogin.bind(this)}
+          onPress={this.handleSubmit.bind(this)}
         >
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
 
       </View>

@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FacebookAuth from './facebookauth';
-import Search from './search';
+import CreateProfile from './createprofile';
 import actions from '../actions/actions'
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
     // console.log('App props: ', this.props); //contains dispatcher and reducers
     return (
       <Navigator
-        initialRoute = {{name: 'Search', component: Search}}
+        initialRoute = {{name: 'CreateProfile', component: CreateProfile}}
         configureScene = {() => {
             return Navigator.SceneConfigs.FloatFromRight; //define the route change animation
         }}
