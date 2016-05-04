@@ -50,6 +50,7 @@ class FacebookAuth extends React.Component {
 
             // When existing credentials are found, save the updated Facebook credentials to the store and redirect user.
             this.props.actions.saveFacebookCredentials(credentials);
+            console.log('Fetched Credentials: ', this.props.user);
             this.handleFacebookLogin();
           }}
           onLogout={ () => {
