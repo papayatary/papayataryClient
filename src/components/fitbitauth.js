@@ -13,7 +13,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actions from '../actions/actions'
-import Search from './search.js';
+import CreateProfile from './createprofile.js';
 
 class FitbitAuth extends React.Component {
   constructor(props) {
@@ -21,8 +21,8 @@ class FitbitAuth extends React.Component {
   }
   handleFitbitAuth () {
     this.props.navigator.push({
-      name: 'Search',
-      component: Search
+      name: 'CreateProfile',
+      component: CreateProfile
     });
   }
 

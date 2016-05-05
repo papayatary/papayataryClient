@@ -3,10 +3,10 @@ import React, {
   AppRegistry,
   Component,
   PickerIOS,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
-  TouchableHighlight,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -38,25 +38,44 @@ class CreateProfile extends Component {
     console.log('CreateProfile this.props: ', this.props);
     return (
       <View style={styles.container}>
-        <Text>Create Your Profile</Text>
-
-        <Text>Name:</Text> 
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          value='Hao H'
+        <StatusBar
+          backgroundColor="steelblue"
+          barStyle="light-content"
         />
+        <View style={styles.titlebar}>
+          <Text style={styles.titlebarText}>BitVigor</Text>
+        </View>
+        <View style={styles.fieldContainer}>
+          <Text style={styles.pageTitle}>Create Your Profile</Text>
 
-        <Text>Age:</Text>
+          <Text style={styles.fieldLabel}>Name</Text> 
+          <TextInput
+            style={styles.fieldInput}
+            value='Hao H'
+          />
 
-        <Text>Gender:</Text>
-        {/*Add logic for PickerIOS*/}
+          <Text style={styles.fieldLabel}>Age</Text>
+          <TextInput 
+            style={styles.fieldInput}
+            value='28'
+            //onChangeText={this.handleChangeZip.bind(this)}
+          />
 
-        <Text>Zip Code:</Text>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          value='94101'
-          onChangeText={this.handleChangeZip.bind(this)}
-        />
+          <Text style={styles.fieldLabel}>Gender</Text>
+          {/*Add logic for PickerIOS*/}
+          <TextInput 
+            style={styles.fieldInput}
+            value='Curious'
+            //onChangeText={this.handleChangeZip.bind(this)}
+          />
+
+          <Text style={styles.fieldLabel}>Zip Code</Text>
+          <TextInput 
+            style={styles.fieldInput}
+            value='94101'
+            onChangeText={this.handleChangeZip.bind(this)}
+          />
+        </View>
 
         <TouchableOpacity 
           style={styles.button}
@@ -73,28 +92,69 @@ class CreateProfile extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'azure',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  titlebar: {
+    flex: 8,
+    paddingTop: 30,
+    backgroundColor: 'steelblue',
+    alignSelf: 'stretch',
+    alignItems: 'center',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  titlebarText: {
+    color: 'white',
+    fontSize: 22,
+  },
+  fieldContainer: {
+    flex: 82,
+    margin: 20,
+    padding: 20, 
+    justifyContent: 'flex-start',
+    alignSelf: 'stretch',
+    alignItems: 'flex-start',
+    backgroundColor: 'white',
+  },
+  pageTitle: {
+    alignSelf: 'center',
+    fontSize: 28,
+    color: 'navy',
+    marginBottom: 20,
+  },
+  fieldLabel: {
+    fontSize: 18,
+    color: 'black',
+  },
+  fieldInput: {
+    height: 40, 
+    padding: 5,
+    color: 'lightslategray',
+    borderColor: 'gray', 
+    borderWidth: 1,
+    marginBottom: 10,
+  },
+  buttonContainer: {
+    flex: 10,
+    alignSelf: 'stretch',
+    paddingTop: 20,
+    paddingBottom: 20,
+    alignItems:'center',
   },
   button: {
-    backgroundColor: '#86B0FF',
-    padding: 10,
-    margin: 20
+    padding: 12,
+    width: 250,
+    height: 50,
+    backgroundColor: 'cadetblue',  // cadetblue
+    marginBottom: 10,
+    alignSelf: 'center',
+    alignItems: 'center',
   },
   buttonText: {
-    fontSize: 20
-  }
+    fontSize: 20,
+    color: 'white',
+  },
 });
 
 function mapStateToProps(state) {

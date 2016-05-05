@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: 'azure',
   },
   titlebar: {
     flex: 8,
@@ -120,6 +121,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'stretch',
     alignItems: 'center',
+    backgroundColor: 'azure',
   },
   image: {
     flex: 1,
