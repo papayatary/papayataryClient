@@ -18,7 +18,7 @@ export default function user (state = initialState, action) {
       //   newState[prop] = action.credentials[prop]
       // }
       // return newState;
-      return {...state,...action.credentials}
+      return {...state, ...action.credentials}
     default:
       return state;
   }
