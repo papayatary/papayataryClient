@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   },
 
 });
-
+//
 // OLD EXAMPLE CODE: ---------------------------------------------
 // const styles = StyleSheet.create({
 //   container: {
