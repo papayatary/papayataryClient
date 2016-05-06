@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     padding: 20, 
     justifyContent: 'flex-start',
     alignSelf: 'stretch',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     backgroundColor: 'white',
     shadowColor: 'grey', 
     shadowOffset: { width: 5, height: 5},

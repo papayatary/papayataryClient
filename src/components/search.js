@@ -3,9 +3,9 @@ import React, {
   AppRegistry,
   Component,
   Image,
+  StatusBar,
   StyleSheet,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -28,6 +28,7 @@ class Search extends Component {
   }
 
   render() {
+    // this.props.actions.setCurrentPage('search');
     return (
       <View style={styles.container}>
         <TopNavBar style={styles.nav} navigator={this.props.navigator}/>
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 60,
-    marginTop: 20,
+    //marginTop: 20,
     height: 380,
     width: 360,
     justifyContent: 'flex-start',

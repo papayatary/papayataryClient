@@ -3,6 +3,9 @@
 module.exports = {
   saveFacebookCredentials: function(credentials) {
     return { type: 'SAVE_FACEBOOK_CREDENTIALS', credentials };
+  },
+  setCurrentPage: function(currentPage) {
+    return { type: 'SET_CURRENT_PAGE', currentPage };
   }
 };
 

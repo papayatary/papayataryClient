@@ -11,36 +11,62 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
-
+import Messages from './messages.js';
 import Matches from './matches.js';
 
 // var Icon = require('react-native-vector-icons/FontAwesome');
 import Icon from 'react-native-vector-icons/FontAwesome';
-var myIcon = (<Icon name="heartbeat" size={30} color="white" />);
 
 class TopNavBar extends Component {
   constructor(props) {
     super(props);
   }
+  // console.log(this.props.currentPage.page);
 
-  handleHeart() {
+  handleMenu() {
     // Redirect somewhere...
   }
 
+  // Transition from the Search page to the Matches page
   handleMatches() {
-    // Redirect somewhere...
+    this.props.actions.setCurrentPage('matches');
     this.props.navigator.push({
       name: 'Matches',
       component: Matches
     });
   }
 
+  // Transition from the Matches page back to the Search page
+  handleBackToSearch() {
+    this.props.actions.setCurrentPage('search');
+    this.props.navigator.pop();
+  }
+
+  // Transition from the Matches page to the Messages page
+  handleMessages() {
+    this.props.actions.setCurrentPage('messages');
+    this.props.navigator.push({
+      name: 'Search',
+      component: Search
+    });
+  }
+
+  // Transition from the Messages page back to the Matches page
+  handleBackToMatches() {
+    this.props.actions.setCurrentPage('matches');
+    this.props.navigator.pop();
+  }
+
   render() {
+    let matchesIcon = (<Icon style={styles.buttonIcon} name="heartbeat" size={30} color="white" />);
+    let messagesIcon = (<Icon name="heartbeat" size={30} color="white" />);
+    // {condition ? {matchesIcon} : {messagesIcon}}
+    console.log('Current page state: ', this.props.currentPage.page);
     return (
       <View style={styles.container}>
         <TouchableOpacity 
           style={styles.button}
-          onPress={this.handleHeart.bind(this)}
+          onPress={this.handleMenu.bind(this)}
         >
           <Icon style={styles.buttonIcon} name="bars" size={30} color="white" />
         </TouchableOpacity>
@@ -53,7 +79,7 @@ class TopNavBar extends Component {
           style={styles.button}
           onPress={this.handleMatches.bind(this)}
         >
-          <Icon style={styles.buttonIcon} name="heartbeat" size={30} color="white" />
+          {matchesIcon}
         </TouchableOpacity>
       </View>
     );
@@ -62,18 +88,20 @@ class TopNavBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 8,
+    flex: 8,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'steelblue',
     alignSelf: 'stretch',
+    paddingTop: 20,
   },
   titleBox: {
     flex: 4,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    height: 50,
   },
   titleBoxText: {
     color: 'white',
@@ -84,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
-    margin: 20,
+    // margin: 20,
   },
   buttonIcon: {
     alignSelf: 'center',
