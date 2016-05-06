@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titlebarText: {
+    //alignSelf: 'center',
     color: 'white',
     fontSize: 22,
   },
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     padding: 12,
     width: 250,
     height: 50,
-    backgroundColor: 'cadetblue',  // cadetblue
+    backgroundColor: 'cadetblue',
     marginBottom: 10,
     alignSelf: 'center',
     alignItems: 'center',

@@ -14,7 +14,8 @@ import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import TopNavBar from './topnavbar.js';
 
-import Messages from './messages.js'
+import Messages from './messages.js';
+import SearchBar from 'react-native-search-bar';
 
 class Matches extends React.Component {
   constructor(props) {
@@ -40,19 +41,28 @@ class Matches extends React.Component {
    return (
       <View style={styles.container} >
         <TopNavBar navigator={this.props.navigator}/>
-        <TouchableOpacity 
-        style={styles.button}
-        onPress={this.handleMessage.bind(this)}
-        >
-          <Text style={styles.buttonText}> conversation 1 </Text>
-        </TouchableOpacity>
-       
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={this.handleBack.bind(this)}
-        >
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
+
+        <View style={styles.searchContainer}>
+          
+        </View>
+
+        <View style={styles.messagesContainer}>
+
+              <TouchableOpacity 
+              style={styles.button}
+              onPress={this.handleMessage.bind(this)}
+              >
+                <Text style={styles.buttonText}> conversation 1 </Text>
+              </TouchableOpacity>
+             
+              <TouchableOpacity 
+                style={styles.button}
+                onPress={this.handleBack.bind(this)}
+              >
+                <Text style={styles.buttonText}>Back</Text>
+              </TouchableOpacity>
+        </View>
+
 
       </View>
     );
@@ -62,19 +72,19 @@ class Matches extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'azure',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  nav: {
+    flex: 6,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  searchContainer: {
+    flex: 12,
+  },
+  messagesContainer: {
+    flex: 82
   },
   button: {
     backgroundColor: '#86B0FF',
@@ -85,7 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
-
 
 function mapStateToProps(state) {
   return state; 

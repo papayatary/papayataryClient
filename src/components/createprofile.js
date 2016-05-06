@@ -43,7 +43,7 @@ class CreateProfile extends Component {
           barStyle="light-content"
         />
         <View style={styles.titlebar}>
-          <Text style={styles.titlebarText}>BitVigor</Text>
+          <Text style={styles.titlebarText}>Fit Something</Text>
         </View>
         <View style={styles.fieldContainer}>
           <Text style={styles.pageTitle}>Create Your Profile</Text>
@@ -114,8 +114,12 @@ const styles = StyleSheet.create({
     padding: 20, 
     justifyContent: 'flex-start',
     alignSelf: 'stretch',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     backgroundColor: 'white',
+    shadowColor: 'grey', 
+    shadowOffset: { width: 5, height: 5},
+    shadowOpacity: 5,
+    shadowRadius: 5,
   },
   pageTitle: {
     alignSelf: 'center',
@@ -125,7 +129,7 @@ const styles = StyleSheet.create({
   },
   fieldLabel: {
     fontSize: 18,
-    color: 'black',
+    color: 'navy',
   },
   fieldInput: {
     height: 40, 
