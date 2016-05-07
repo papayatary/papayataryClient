@@ -7,8 +7,8 @@
 //   age: null
 // };
 const initialState = {
-  age: '',
-  zipCode: ''
+  age: null,
+  zipCode: null
 };
 
 export default function user (state = initialState, action) {

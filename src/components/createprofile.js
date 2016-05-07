@@ -133,6 +133,7 @@ class CreateProfile extends Component {
             style={styles.fieldInput}
             onChangeText={(text) => this.props.actions.saveAgeAndZipCode({text})}
             value={this.props.user.zipCode}
+            maxLength={6}
           />
         </View>
 
