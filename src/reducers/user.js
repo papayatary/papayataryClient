@@ -23,11 +23,11 @@ export default function user (state = initialState, action) {
       return {...state, ...action.credentials}
     case 'SAVE_AGE':
       var newState = Object.assign({}, state);
-      newState.age = action.age.text;
+      newState.age = Number(action.age.text);
       return newState;
     case 'SAVE_ZIP_CODE':
       var newState = Object.assign({}, state);
-      newState.zipCode = action.zipCode.text;
+      newState.zipCode = Number(action.zipCode.text);
       return newState;
     default:
       return state;

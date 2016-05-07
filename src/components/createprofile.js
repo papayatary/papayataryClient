@@ -27,7 +27,7 @@ class CreateProfile extends Component {
 
   handleSubmitButton() {
 
-    /** SUBMIT USER DATA TO USER TABLE IN POSTGRES **/
+    //-------------- SUBMIT USER DATA TO USER TABLE IN POSTGRES ----------------------------------/
     var _fullNameArray = this.props.user.name.split(' ');
     var _userData = {
       email: this.props.user.email,
@@ -48,17 +48,17 @@ class CreateProfile extends Component {
       return response.text();
     })
     .then((responseText) => {
-      // console.log('Create Person Submit Response: ', responseText);
+      // console.log('Create User Submit Response: ', responseText);
     })
     .catch(error => {
       console.error(error);
     });
 
-    /** SUBMIT PROFILE DATA TO PROFILE TABLE IN POSTGRES **/
+    //-------------- SUBMIT PROFILE DATA TO PROFILE TABLE IN POSTGRES ------------------------------/
     var profileData = {
-      age: 25,
+      age: this.props.user.age,
       gender: this.props.user.gender,
-      zipCode: '94568',
+      zipCode: this.props.user.zipCode,
       picturePath: '/somePath'
     };
 
@@ -74,27 +74,21 @@ class CreateProfile extends Component {
       return response.text();
     })
     .then((responseText) => {
-      console.log('Create User Submit Response: ', responseText);
+      // console.log('Create Profile Submit Response: ', responseText);
     })
     .catch(error => {
       console.error(error);
     });
 
     // Check if user is authenticated. If so, redirect somewhere...
-    // this.props.navigator.push({
-    //   name: 'Search',
-    //   component: Search
-    // });
-  }
-
-  handleChangeZip() {
-    // console.log('THIS: ', this);
-    this.props.actions.saveAgeAndZipCode();
-
+    this.props.navigator.push({
+      name: 'Search',
+      component: Search
+    });
   }
 
   render() {
-    console.log('CreateProfile this.props: ', this.props);
+    // console.log('CreateProfile this.props: ', this.props);
     return (
       <View style={styles.container}>
         <StatusBar
@@ -126,6 +120,7 @@ class CreateProfile extends Component {
             onChangeText={(text) => this.props.actions.saveAge({text})}
             value={this.props.user.age}
             maxLength={2}
+            placeholder={'enter age'}
           />
 
           <Text style={styles.fieldLabel}>Zip Code</Text>
@@ -134,6 +129,7 @@ class CreateProfile extends Component {
             onChangeText={(text) => this.props.actions.saveZipCode({text})}
             value={this.props.user.zipCode}
             maxLength={6}
+            placeholder={'enter zip code'}
           />
         </View>
 
