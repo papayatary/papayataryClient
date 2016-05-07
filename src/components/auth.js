@@ -16,6 +16,7 @@ import Search from './search';
 class Auth extends Component {
   constructor(props) {
     super(props);
+    this.handleSignup = this.handleSignup.bind(this)
   }
 
   handleSignup() {
@@ -39,7 +40,7 @@ class Auth extends Component {
       <View style={styles.container}>
         <TouchableOpacity 
           style={styles.button}
-          onPress={this.handleSignup.bind(this)}
+          onPress={this.handleSignup}
         >
           <Text style={styles.buttonText}>Signup</Text>
         </TouchableOpacity>

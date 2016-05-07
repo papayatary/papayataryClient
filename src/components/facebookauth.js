@@ -128,8 +128,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'azure',
   },
   titlebar: {
-    flex: 8,
-    paddingTop: 30,
+    width: 375,
+    height: 64,
+    paddingTop: 24,
     backgroundColor: 'steelblue',
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -139,16 +140,16 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   imageContainer: {
-    flex: 82,
-    margin: 20,
-    padding: 20, 
+    width: 340,
+    height: 540,
     justifyContent: 'center',
-    alignSelf: 'stretch',
+    alignSelf: 'center',
     alignItems: 'center',
     backgroundColor: 'azure',
   },
   image: {
-    flex: 1,
+    width: 340,
+    height: 540,
     resizeMode: 'contain', // cover, contain, stretch, auto
     justifyContent: 'flex-start',
     overflow: 'visible',

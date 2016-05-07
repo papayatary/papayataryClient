@@ -14,8 +14,10 @@ import Swiper from 'react-native-swiper';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actions from '../actions/actions'  
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Matches from './matches.js';
 
-import TopNavBar from './topnavbar.js';
+//import TopNavBar from './topnavbar.js';
 
 class Search extends Component {
   constructor(props) {
@@ -33,18 +35,45 @@ class Search extends Component {
       // else, display error
   }
 
+  handleMatches() {
+    this.props.navigator.push({
+      name: 'Matches',
+      component: Matches
+    });
+  }
+
+  handleMenu() {
+    // Redirect to edit profile page once implemented...
+  }
+
   render() {
     // this.props.actions.setCurrentPage('search');
     return (
       <View style={styles.container}>
-        <TopNavBar style={styles.nav} navigator={this.props.navigator}/>
+        <View style={styles.navContainer}>
+          <TouchableOpacity 
+            style={styles.navButton}
+            onPress={this.handleMenu.bind(this)}
+          >
+          </TouchableOpacity>
+
+          <View style={styles.titleBox}>
+            <Text style={styles.titleBoxText}>Papayatary</Text>
+          </View>
+
+          <TouchableOpacity 
+            style={styles.navButton}
+            onPress={this.handleMatches.bind(this)}
+          >
+            <Icon style={styles.buttonIcon} name="heartbeat" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
         <View style={styles.swiperOuterContainer}>
           <Swiper 
             onMomentumScrollEnd={this._onMomentumScrollEnd}
             showsButtons={true}
             buttonWrapperStyle={styles.swiperButton}
           >
-
             <View style={styles.swiperInnerContainer}>
               <View style={styles.profileContainer}>
                 <View style={styles.profileLeft}>
@@ -70,12 +99,10 @@ class Search extends Component {
                   </Text>
                 </View> 
               </View>
-              <View style={styles.imageContainer}>
-                <Image
-                  style={styles.image}
-                  source={require('../images/blakelively001.jpg')}
-                />
-              </View>
+              <Image
+                style={styles.image}
+                source={require('../images/blakelively001.jpg')}
+              />
               <View style={styles.buttonContainer}>
                 <TouchableOpacity 
                   style={styles.button}
@@ -85,8 +112,6 @@ class Search extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-
-
           </Swiper>
         </View>
       </View>
@@ -145,8 +170,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'azure',
   },
-  nav: {
-    flex: 6,
+  navContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: 'steelblue',
+    alignSelf: 'stretch',
+    height: 64,
   },
   swiperOuterContainer: {
     flex: 94,
@@ -165,62 +195,75 @@ const styles = StyleSheet.create({
     // backgroundColor: 'transparent',
     top: -30,
   },
+  titleBox: {
+    width: 255,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleBoxText: {
+    color: 'white',
+    fontSize: 22,
+  },
+  navButton: {
+    width: 60,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
+  buttonIcon: {
+    alignSelf: 'center',
+    color: 'white',
+  },
   profileContainer: {
-    flex: 10,
     flexDirection: 'row',
-    width: 360,
+    height: 72,
+    width: 340,
     justifyContent: 'space-between',
     alignSelf: 'center',
     alignItems: 'center',
     backgroundColor: 'azure',
+    marginTop: 6,
+    marginBottom: 6,
     // borderColor: 'lightgray',
     // borderWidth: 2,
   },
   profileLeft: {
-    paddingTop: 16,
-    paddingLeft: 5,
     justifyContent: 'center',
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     alignItems: 'flex-start',
     overflow: 'hidden',
   },
   profileRight: {
-    paddingTop: 16,
-    paddingRight: 5,
     justifyContent: 'center',
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     alignItems: 'flex-end',
     overflow: 'hidden',
 
   },
   profileText: {
-    fontSize: 18,
+    fontSize: 16,
     color: 'navy',
   },
-  imageContainer: {
-    flex: 40,
-    //marginTop: 20,
-    height: 380,
-    width: 360,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: 'azure',
-    borderColor: 'red',
-  },
   image: {
-    flex: 1,
     resizeMode: 'contain', // cover, contain, stretch, auto
-    height: 400,
-    width: 360,
-    position: 'absolute',
-    top: 0,
+    height: 460,
+    width: 340,
+    justifyContent: 'flex-start',
+    alignSelf: 'center',
+    overflow: 'visible',
     shadowColor: 'grey', 
     shadowOffset: { width: 5, height: 5},
     shadowOpacity: 5,
     shadowRadius: 5,
   },
   buttonContainer: {
-    flex: 10,
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    height: 90,
+    width: 375,
     alignSelf: 'stretch',
     paddingTop: 20,
     paddingBottom: 50,
@@ -231,10 +274,13 @@ const styles = StyleSheet.create({
     width: 250,
     height: 50,
     backgroundColor: 'cadetblue',
-    marginBottom: 10,
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
+    shadowColor: 'gray', 
+    shadowOffset: { width: 4, height: 4},
+    shadowOpacity: 2,
+    shadowRadius: 4,
   },
   buttonText: {
     fontSize: 20,

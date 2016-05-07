@@ -2,6 +2,7 @@
 import React, {
   AppRegistry,
   Component,
+  Image,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -13,9 +14,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import TopNavBar from './topnavbar.js';
-
 import Messages from './messages.js';
 import SearchBar from 'react-native-search-bar';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 class Matches extends React.Component {
   constructor(props) {
@@ -24,6 +26,14 @@ class Matches extends React.Component {
 
   handleBack() {
     this.props.navigator.pop();
+  }
+
+  handleBackToSearch() {
+    this.props.navigator.pop();
+  }
+
+  handleMenu() {
+    // Redirect to edit profile page once implemented...
   }
 
   handleMessage(id) {
@@ -40,29 +50,62 @@ class Matches extends React.Component {
     // example of how to map messages {this.props.messages.map((messages, i) => ())};
    return (
       <View style={styles.container} >
-        <TopNavBar navigator={this.props.navigator}/>
+        <View style={styles.navContainer}>
+          <TouchableOpacity 
+            style={styles.navButton}
+            onPress={this.handleBackToSearch.bind(this)}
+          >
+            <Icon style={styles.buttonIcon} name="user" size={30} color="white" />
+          </TouchableOpacity>
 
-        <View style={styles.searchContainer}>
-          
+          <View style={styles.titleBox}>
+            <Text style={styles.titleBoxText}>Papayatary</Text>
+          </View>
+
+          <TouchableOpacity 
+            style={styles.navButton}
+            onPress={this.handleMenu.bind(this)}
+          >
+          </TouchableOpacity>
         </View>
 
-        <View style={styles.messagesContainer}>
-
+        <View style={styles.matchListContainer}>
+          <View style={styles.matchItemContainer}>
+            <View style={styles.thumbImageContainer}>
+              <Image 
+                style={styles.thumbImage}
+                source={require('../images/blakelively001.jpg')}
+              />
+            </View>
+            <View style={styles.messageContainer}>
               <TouchableOpacity 
               style={styles.button}
               onPress={this.handleMessage.bind(this)}
               >
-                <Text style={styles.buttonText}> conversation 1 </Text>
+                <Text style={styles.messageText}>Name</Text>
+                <Text style={styles.messageText}>Hi Jake, how's things?</Text>
               </TouchableOpacity>
-             
-              <TouchableOpacity 
-                style={styles.button}
-                onPress={this.handleBack.bind(this)}
-              >
-                <Text style={styles.buttonText}>Back</Text>
-              </TouchableOpacity>
-        </View>
+            </View>
+          </View>
 
+          <View style={styles.matchItemContainer}>
+            <View style={styles.thumbImageContainer}>
+              <Image 
+                style={styles.thumbImage}
+                source={require('../images/blakelively001.jpg')}
+              />
+            </View>
+            <View style={styles.messageContainer}>
+              <TouchableOpacity 
+              style={styles.button}
+              onPress={this.handleMessage.bind(this)}
+              >
+                <Text style={styles.messageText}>Name</Text>
+                <Text style={styles.messageText}>Hi Jake, how's things?</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
 
       </View>
     );
@@ -70,6 +113,7 @@ class Matches extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  // iPhone 6 width is 375, height is 667, statusBar around 7
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -77,19 +121,76 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'azure',
   },
-  nav: {
-    flex: 6,
+  navContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: 'steelblue',
+    alignSelf: 'stretch',
+    height: 64,
   },
-  searchContainer: {
-    flex: 12,
+  titleBox: {
+    width: 255,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 44,
+  },
+  titleBoxText: {
+    color: 'white',
+    fontSize: 22,
+  },
+  navButton: {
+    width: 60,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
+  buttonIcon: {
+    alignSelf: 'center',
+    color: 'white',
+  },
+  matchListContainer: {
+    height: 560 ,
+    width: 340,
+    alignSelf: 'center',
+    alignItems: 'flex-start',
+    padding: 4,
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: 'lightgray',
+  },
+  matchItemContainer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    height: 80,
+    width: 332,
+    padding: 4,
+    marginBottom: 4,
+    backgroundColor: 'white',
+  },
+  thumbImageContainer: {
+    width: 72,
+    height: 72,
+  },
+  thumbImage: {
+    width: 72, 
+    height: 72,
+    resizeMode: 'contain',
   },
   messagesContainer: {
-    flex: 82
+    //flex: 82,
+  },
+  messageText: {
+    fontSize: 14,
+    color: 'navy',
   },
   button: {
-    backgroundColor: '#86B0FF',
+    backgroundColor: 'azure',
     padding: 10,
-    margin: 20
+    height: 72,
+    width: 250,
   },
   buttonText: {
     fontSize: 20

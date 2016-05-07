@@ -95,7 +95,7 @@ class CreateProfile extends Component {
           <Text style={styles.titlebarText}>Fit Something</Text>
         </View>
         <View style={styles.fieldContainer}>
-          <Text style={styles.pageTitle}>Create Your Profile</Text>
+          <Text style={styles.pageTitle}>Submit Your Profile</Text>
 
           <Text style={styles.fieldLabel}>Name</Text> 
           <TextInput
@@ -128,14 +128,14 @@ class CreateProfile extends Component {
             placeholder={'enter zip code'}
           />
         </View>
-
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={this.handleSubmitButton.bind(this)}
-        >
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={this.handleSubmit.bind(this)}
+          >
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -150,8 +150,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'azure',
   },
   titlebar: {
-    flex: 8,
-    paddingTop: 30,
+    width: 375,
+    height: 64,
+    paddingTop: 24,
     backgroundColor: 'steelblue',
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -161,15 +162,16 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   fieldContainer: {
-    flex: 82,
-    margin: 20,
-    padding: 20, 
+    width: 340, 
+    height: 460,
+    padding: 20,
+    marginTop: 36,
     justifyContent: 'flex-start',
-    alignSelf: 'stretch',
+    alignSelf: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     shadowColor: 'grey', 
-    shadowOffset: { width: 5, height: 5},
+    shadowOffset: {width: 5, height: 5},
     shadowOpacity: 5,
     shadowRadius: 5,
   },
@@ -180,6 +182,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   fieldLabel: {
+    alignSelf: 'flex-start',
     fontSize: 18,
     color: 'navy',
   },
@@ -192,20 +195,28 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonContainer: {
-    flex: 10,
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    height: 90,
+    width: 375,
     alignSelf: 'stretch',
     paddingTop: 20,
     paddingBottom: 20,
     alignItems:'center',
   },
   button: {
-    padding: 12,
+    padding: 8,
     width: 250,
     height: 50,
-    backgroundColor: 'cadetblue',  // cadetblue
-    marginBottom: 10,
+    backgroundColor: 'cadetblue',
+    justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
+    shadowColor: 'gray', 
+    shadowOffset: { width: 4, height: 4},
+    shadowOpacity: 2,
+    shadowRadius: 4,
   },
   buttonText: {
     fontSize: 20,
