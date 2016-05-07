@@ -4,6 +4,9 @@ module.exports = {
   saveFacebookCredentials: function(credentials) {
     return { type: 'SAVE_FACEBOOK_CREDENTIALS', credentials };
   },
+  saveAgeAndZipCode: function(ageAndZipCode) {
+    return { type: 'SAVE_AGE_AND_ZIP_CODE', ageAndZipCode };
+  },
   setCurrentPage: function(currentPage) {
     return { type: 'SET_CURRENT_PAGE', currentPage };
   }

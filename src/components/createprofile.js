@@ -22,38 +22,15 @@ class CreateProfile extends Component {
     super(props);
   }
 
-  handleSubmit() {
-    // var profileData = {
-    //   age: 25,
-    //   gender: this.props.user.gender,
-    //   zipCode: '94568',
-    //   picturePath: '/somePath'
-    // };
+  handleSubmitButton() {
 
-    // fetch('http://localhost:8000/api/profile', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(profileData)
-    // })
-    // .then((response) => {
-    //   return response.text();
-    // })
-    // .then((responseText) => {
-    //   console.log('Create User Submit Response: ', responseText);
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    // });
-
+    /** SUBMIT USER DATA TO USER TABLE IN POSTGRES **/
     var _fullNameArray = this.props.user.name.split(' ');
-    var userData = {
+    var _userData = {
       email: this.props.user.email,
       firstName: _fullNameArray[0],
       lastName: _fullNameArray[_fullNameArray.length - 1],
-      facebookID: '1234'
+      facebookID: this.props.user.facebookId
     };
 
     fetch('http://localhost:8000/api/user', {
@@ -62,13 +39,39 @@ class CreateProfile extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(userData)
+      body: JSON.stringify(_userData)
     })
     .then((response) => {
       return response.text();
     })
     .then((responseText) => {
       // console.log('Create Person Submit Response: ', responseText);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+    /** SUBMIT PROFILE DATA TO PROFILE TABLE IN POSTGRES **/
+    var profileData = {
+      age: 25,
+      gender: this.props.user.gender,
+      zipCode: '94568',
+      picturePath: '/somePath'
+    };
+
+    fetch('http://localhost:8000/api/profile', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(profileData)
+    })
+    .then((response) => {
+      return response.text();
+    })
+    .then((responseText) => {
+      console.log('Create User Submit Response: ', responseText);
     })
     .catch(error => {
       console.error(error);
@@ -105,19 +108,19 @@ class CreateProfile extends Component {
             value='Hao H'
           />
 
-          <Text style={styles.fieldLabel}>Age</Text>
-          <TextInput 
-            style={styles.fieldInput}
-            value='28'
-            //onChangeText={this.handleChangeZip.bind(this)}
-          />
-
           <Text style={styles.fieldLabel}>Gender</Text>
           {/*Add logic for PickerIOS*/}
           <TextInput 
             style={styles.fieldInput}
             value='Curious'
             //onChangeText={this.handleChangeZip.bind(this)}
+          />
+
+          <Text style={styles.fieldLabel}>Age</Text>
+          <TextInput 
+            style={styles.fieldInput}
+            value=''
+            onChangeText={this.handleChangeZip.bind(this)}
           />
 
           <Text style={styles.fieldLabel}>Zip Code</Text>
@@ -130,7 +133,7 @@ class CreateProfile extends Component {
 
         <TouchableOpacity 
           style={styles.button}
-          onPress={this.handleSubmit.bind(this)}
+          onPress={this.handleSubmitButton.bind(this)}
         >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
