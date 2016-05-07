@@ -38,6 +38,11 @@ class FacebookAuth extends React.Component {
       .then((response) => response.json())
       .then((responseData) => {
         console.log('fetched data from facebook',responseData);
+
+        //Rename fetched Facebook "id" to "facebookId" to correspond with database naming convention
+        responseData.facebookId = responseData.id;
+        delete responseData.id;
+
         //store credentials in state
         this.props.actions.saveFacebookCredentials(responseData);
         //save to database as well
@@ -57,7 +62,7 @@ class FacebookAuth extends React.Component {
   // } 
   
   render() {
-    console.log('fitbitauth this.props: ', this.props);
+    // console.log('facebookAuth this.props: ', this.props);
     return (
       <View style={styles.container}>
         <StatusBar
