@@ -27,7 +27,7 @@ class CreateProfile extends Component {
       age: 25,
       gender: this.props.user.gender,
       zipCode: '94568',
-      picturePath: 'hello'
+      picturePath: '/somePath'
     };
 
     fetch('http://localhost:8000/api/profile', {
