@@ -88,7 +88,7 @@ class CreateProfile extends Component {
   }
 
   handleChangeZip() {
-    console.log('THIS: ', this);
+    // console.log('THIS: ', this);
     this.props.actions.saveAgeAndZipCode();
 
   }
@@ -110,28 +110,28 @@ class CreateProfile extends Component {
           <Text style={styles.fieldLabel}>Name</Text> 
           <TextInput
             style={styles.fieldInput}
-            value='Hao H'
+            value={this.props.user.name}
           />
 
           <Text style={styles.fieldLabel}>Gender</Text>
-          {/*Add logic for PickerIOS*/}
           <TextInput 
             style={styles.fieldInput}
-            value='Curious'
-            //onChangeText={this.handleChangeZip.bind(this)}
+            value={this.props.user.gender}
           />
 
           <Text style={styles.fieldLabel}>Age</Text>
+          {/*Add logic for PickerIOS*/}
           <TextInput 
             style={styles.fieldInput}
-            value=''
-            onChangeText={this.handleChangeZip.bind(this)}
+            onChangeText={(text) => this.props.actions.saveAge({text})}
+            value={this.props.user.age}
+            maxLength={2}
           />
 
           <Text style={styles.fieldLabel}>Zip Code</Text>
           <TextInput 
             style={styles.fieldInput}
-            onChangeText={(text) => this.props.actions.saveAgeAndZipCode({text})}
+            onChangeText={(text) => this.props.actions.saveZipCode({text})}
             value={this.props.user.zipCode}
             maxLength={6}
           />

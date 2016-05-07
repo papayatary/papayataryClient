@@ -21,9 +21,14 @@ export default function user (state = initialState, action) {
       // }
       // return newState;
       return {...state, ...action.credentials}
-    case 'SAVE_AGE_AND_ZIP_CODE':
-      console.log('SAVE AGE AND ZIP ACTION: ', action);
-      return state;
+    case 'SAVE_AGE':
+      var newState = Object.assign({}, state);
+      newState.age = action.age.text;
+      return newState;
+    case 'SAVE_ZIP_CODE':
+      var newState = Object.assign({}, state);
+      newState.zipCode = action.zipCode.text;
+      return newState;
     default:
       return state;
   }
