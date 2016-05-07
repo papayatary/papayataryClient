@@ -20,13 +20,9 @@ import Search from './search';
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
-    this.state=  {
-      text: 'hello'
-    };
   }
 
   handleSubmitButton() {
-
     //-------------- SUBMIT USER DATA TO USER TABLE IN POSTGRES ----------------------------------/
     var _fullNameArray = this.props.user.name.split(' ');
     var _userData = {
