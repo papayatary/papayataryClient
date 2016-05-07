@@ -23,6 +23,56 @@ class CreateProfile extends Component {
   }
 
   handleSubmit() {
+    var profileData = {
+      age: 25,
+      gender: this.props.user.gender,
+      zipCode: '94568',
+      picturePath: 'hello'
+    };
+
+    fetch('http://localhost:8000/api/profile', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(profileData)
+    })
+    .then((response) => {
+      return response.text();
+    })
+    .then((responseText) => {
+      console.log('Create Profile Submit Response: ', responseText);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+    // var personData = {
+    //   email: 'h@h.com',
+    //   firstName: 'hao',
+    //   lastName: 'huang',
+    //   facebookID: '1234'
+    // };
+
+    // fetch('http://localhost:8000/api/person', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(personData)
+    // })
+    // .then((response) => {
+    //   return response.text();
+    // })
+    // .then((responseText) => {
+    //   console.log('Create Person Submit Response: ', responseText);
+    // })
+    // .catch(error => {
+    //   console.error(error);
+    // });
+
     // Check if user is authenticated. If so, redirect somewhere...
     this.props.navigator.push({
       name: 'Search',
@@ -35,7 +85,7 @@ class CreateProfile extends Component {
   }
 
   render() {
-    console.log('CreateProfile this.props: ', this.props);
+    // console.log('CreateProfile this.props: ', this.props);
     return (
       <View style={styles.container}>
         <StatusBar
