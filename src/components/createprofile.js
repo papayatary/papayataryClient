@@ -20,6 +20,9 @@ import Search from './search';
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
+    this.state=  {
+      text: 'hello'
+    };
   }
 
   handleSubmitButton() {
@@ -85,7 +88,9 @@ class CreateProfile extends Component {
   }
 
   handleChangeZip() {
-    console.log('Zip Changed!');
+    console.log('THIS: ', this);
+    this.props.actions.saveAgeAndZipCode();
+
   }
 
   render() {
@@ -126,8 +131,8 @@ class CreateProfile extends Component {
           <Text style={styles.fieldLabel}>Zip Code</Text>
           <TextInput 
             style={styles.fieldInput}
-            value='94101'
-            onChangeText={this.handleChangeZip.bind(this)}
+            onChangeText={(text) => this.props.actions.saveAgeAndZipCode({text})}
+            value={this.props.user.zipCode}
           />
         </View>
 

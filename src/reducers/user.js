@@ -7,6 +7,8 @@
 //   age: null
 // };
 const initialState = {
+  age: '',
+  zipCode: ''
 };
 
 export default function user (state = initialState, action) {
@@ -19,6 +21,9 @@ export default function user (state = initialState, action) {
       // }
       // return newState;
       return {...state, ...action.credentials}
+    case 'SAVE_AGE_AND_ZIP_CODE':
+      console.log('SAVE AGE AND ZIP ACTION: ', action);
+      return state;
     default:
       return state;
   }
