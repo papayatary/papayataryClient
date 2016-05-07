@@ -7,6 +7,8 @@
 //   age: null
 // };
 const initialState = {
+  age: null,
+  zipCode: null
 };
 
 export default function user (state = initialState, action) {
@@ -19,6 +21,14 @@ export default function user (state = initialState, action) {
       // }
       // return newState;
       return {...state, ...action.credentials}
+    case 'SAVE_AGE':
+      var newState = Object.assign({}, state);
+      newState.age = Number(action.age.text);
+      return newState;
+    case 'SAVE_ZIP_CODE':
+      var newState = Object.assign({}, state);
+      newState.zipCode = Number(action.zipCode.text);
+      return newState;
     default:
       return state;
   }
