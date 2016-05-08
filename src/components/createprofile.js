@@ -131,7 +131,7 @@ class CreateProfile extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
             style={styles.button}
-            onPress={this.handleSubmit.bind(this)}
+            onPress={this.handleSubmitButton.bind(this)}
           >
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
