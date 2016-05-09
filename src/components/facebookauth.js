@@ -56,13 +56,13 @@ class FacebookAuth extends React.Component {
       .then((responseData) => {
         this.props.actions.saveFacebookCredentials(responseData);
 
-        // Dummy data for testing purposes
-        var dummyUser = {
-          email: 'blake@blakelively.com',
-          facebookId: '1982923402394',
-          firstName: 'Blake',
-          lastName: 'Lively'
-        };
+        // // Dummy data for testing purposes
+        // var _dummyUser = {
+        //   email: 'blake@blakelively.com',
+        //   facebookId: '1982923402394',
+        //   firstName: 'Blake',
+        //   lastName: 'Lively'
+        // };
 
 
         // Save credentials to server
