@@ -22,8 +22,8 @@ class FacebookAuth extends React.Component {
     super(props);
   }
   handleFacebookLogin() {
-    var facebookId = { facebookId: this.props.user.id };
-    // check if fitbit is authed
+    var facebookId = { facebookId: this.props.user.facebookId };
+    // Check with server if user has fitbit authorized
     fetch('http://localhost:8000/auth', {
       method: 'POST',
       headers: {
@@ -36,7 +36,6 @@ class FacebookAuth extends React.Component {
         return response.json();
       })
       .then((response) => {
-        // store authorization
         if (response) {
           this.props.navigator.push({
             name: 'Search',
@@ -51,21 +50,25 @@ class FacebookAuth extends React.Component {
       }).done();
   }
   fetchCredentials(userId, token) {
-    var api = `https://graph.facebook.com/v2.3/${userId}?fields=name,email,gender,birthday,age_range,picture&access_token=${token}`;
+    const api = `https://graph.facebook.com/v2.3/${userId}?fields=name,email,gender,birthday,age_range,picture&access_token=${token}`;
     fetch(api)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log('fetched data from facebook',responseData);
-        //Rename fetched Facebook "id" to "facebookId" to correspond with database naming convention
-        responseData.facebookId = responseData.id;
-        delete responseData.id;
-        //store credentials in state
-        console.log('fetched data from facebook', responseData);
-        // store credentials in state
         this.props.actions.saveFacebookCredentials(responseData);
-        // save to database as well
-        // this.saveCredentials(responseData);
-        this.handleFacebookLogin();
+        // Save credentials to server
+        fetch('http://localhost:8000/api/user', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.props.user),
+        })
+        .then((response) => response.text())
+        .then((responseText) => this.handleFacebookLogin())
+        .catch(error => {
+          console.error(error);
+        });
       }).done();
   }
   render() {
@@ -86,16 +89,15 @@ class FacebookAuth extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <FBLogin style={styles.button}
-            permissions={'email', 'user_friends'}
+            permissions={['email', 'user_friends']}
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
             onLogin={(data) => {
-              // console.log('Successfully logged in with these credentials: ', credentials);
               // update Facebook credentials to the store and redirect user.
               this.fetchCredentials(data.credentials.userId, data.credentials.token);
               // this.handleFacebookLogin();
             }}
             onLoginFound={(data) => {
-              // When existing credentials are found, grab credentials from database update store and redirect user.
+              // update Facebook credentials to the store and redirect user.
               this.fetchCredentials(data.credentials.userId, data.credentials.token);
               // this.handleFacebookLogin();
             }}
@@ -123,8 +125,8 @@ class FacebookAuth extends React.Component {
       </View>
     );
   }
-
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
