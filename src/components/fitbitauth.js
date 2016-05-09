@@ -29,7 +29,7 @@ class FitbitAuth extends React.Component {
   }
   // Open fitbit's authorization page in browser
   handleFitbitAuth() {
-    var fitBitURL = ['https://www.fitbit.com/oauth2/authorize?',
+    const fitBitURL = ['https://www.fitbit.com/oauth2/authorize?',
                      'response_type=code&',
                      'client_id=227LFQ&',
                      'redirect_url=icymicy://foo&',
@@ -45,17 +45,17 @@ class FitbitAuth extends React.Component {
     });
   }
   // Pass authorization code to server to handle oAuth
-  authorizeFitbit(query) {
-    fetch('http://localhost:8000/api/fitbit/', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(query),
-    }).then((response) => this.handleAuth())
-      .done();
-  }
+  // authorizeFitbit(query) {
+  //   fetch('http://localhost:8000/api/fitbit/', {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(query),
+  //   }).then((response) => this.handleAuth())
+  //     .done();
+  // }
   componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL.bind(this));
   }
@@ -64,9 +64,9 @@ class FitbitAuth extends React.Component {
   }
   // listens for return url event and passes authorization token to fetch method
   _handleOpenURL(event) {
-    var query = {
+    const query = {
       url: event.url,
-      userId: this.props.user.id,
+      facebookId: this.props.user.facebookId,
     };
     fetch('http://localhost:8000/api/fitbit/', {
       method: 'POST',
