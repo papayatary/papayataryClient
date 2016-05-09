@@ -3,6 +3,7 @@ import React, {
   AppRegistry,
   Component,
   Image,
+  Linking,
   StatusBar,
   StyleSheet,
   Text,
@@ -12,22 +13,76 @@ import React, {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import actions from '../actions/actions'
+import actions from '../actions/actions';
 import CreateProfile from './createprofile.js';
 
 class FitbitAuth extends React.Component {
   constructor(props) {
     super(props);
   }
-  handleFitbitAuth () {
+
+  handleAuth() {
     this.props.navigator.push({
       name: 'CreateProfile',
-      component: CreateProfile
+      component: CreateProfile,
     });
   }
+  // Open fitbit's authorization page in browser
+  handleFitbitAuth() {
+    var fitBitURL = ['https://www.fitbit.com/oauth2/authorize?',
+                     'response_type=code&',
+                     'client_id=227LFQ&',
+                     'redirect_url=icymicy://foo&',
+                     'scope=activity%20weight%20profile%20settings%20heartrate%20social%20sleep',
+                    ].join('');
 
+    Linking.canOpenURL(fitBitURL).then(supported => {
+      if (supported) {
+        Linking.openURL(fitBitURL);
+      } else {
+        console.log(`Don\'t know how to open URI: '${fitBitURL}`);
+      }
+    });
+  }
+  // Pass authorization code to server to handle oAuth
+  authorizeFitbit(query) {
+    fetch('http://localhost:8000/api/fitbit/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(query),
+    }).then((response) => this.handleAuth())
+      .done();
+  }
+  componentDidMount() {
+    Linking.addEventListener('url', this._handleOpenURL.bind(this));
+  }
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this._handleOpenURL);
+  }
+  // listens for return url event and passes authorization token to fetch method
+  _handleOpenURL(event) {
+    var query = {
+      url: event.url,
+      userId: this.props.user.id,
+    };
+    fetch('http://localhost:8000/api/fitbit/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query }),
+    }).then((response) => {
+      this.handleAuth();
+    })
+      .done();
+  }
+  // Posts authorization code to server to handle token authentication.
   render() {
-    // console.log('Fitbit Auth this.props: ', this.props);
+    // console.log('Fitbit Auth this.props: ', this.props.user.id);
     return (
       <View style={styles.container}>
         <StatusBar
@@ -45,8 +100,9 @@ class FitbitAuth extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
+
             style={styles.button}
-            onPress={this.handleFitbitAuth.bind(this)}
+            onPress={this.handleFitbitAuth}
           >
             <Text style={styles.buttonText}>Connect to Fitbit</Text>
           </TouchableOpacity>
@@ -90,8 +146,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain', // cover, contain, stretch, auto
     justifyContent: 'flex-start',
     overflow: 'visible',
-    shadowColor: 'grey', 
-    shadowOffset: { width: 5, height: 5},
+    shadowColor: 'grey',
+    shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 5,
     shadowRadius: 5,
   },
@@ -126,13 +182,13 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return state; 
-};
+  return state;
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch) 
+    actions: bindActionCreators(actions, dispatch),
   };
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(FitbitAuth); 
+export default connect(mapStateToProps, mapDispatchToProps)(FitbitAuth);
