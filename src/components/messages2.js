@@ -71,18 +71,19 @@ class Messages extends React.Component {
   }
   
   getInitialMessages() {
+    console.log('INITIAL MESSAGES: ', this.props);
     return [
       {
-        text: 'Are you building a chat app?', 
-        name: 'React-Bot', 
-        image: {uri: 'https://facebook.github.io/react/img/logo_og.png'}, 
+        text: 'Hello my name is Blake. Does this work?', 
+        // name: 'React-Bot', DELETE LATER ON
+        image: {uri: this.props.message.picturePath}, 
         position: 'left', 
         date: new Date(2016, 3, 14, 13, 0),
         uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
       },
       {
-        text: "Yes, and I use Gifted Messenger!", 
-        name: 'Awesome Developer', 
+        text: "Yes this works!", 
+        name: 'Hao H', 
         image: null, 
         position: 'right', 
         date: new Date(2016, 3, 14, 13, 1),
@@ -198,7 +199,6 @@ class Messages extends React.Component {
   }
   
   render() {
-    // console.log('Messenger this.props: ', this.props);
     return (
       <GiftedMessenger
         ref={(c) => this._GiftedMessenger = c}
