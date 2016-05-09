@@ -14,12 +14,17 @@ const initialState = {
 export default function user (state = initialState, action) {
   switch (action.type) {
     case 'SAVE_FACEBOOK_CREDENTIALS':
-     
-      // var newState = Object.assign({}, state); // this is the object version of arr.slice() for duplicating an object
-      // for(var prop in action.credentials) {
-      //   newState[prop] = action.credentials[prop]
-      // }
-      // return newState;
+
+      // refactor data to desired schema
+      action.credentials.facebookId = action.credentials.id
+      var names = action.credentials.name.split(' ')
+      action.credentials.firstName = names[0];
+      action.credentials.lastName = names[names.length - 1];
+      // remove undesired data
+      delete action.credentials.id
+      delete action.credentials.name;
+
+      // map credentials to state
       return {...state, ...action.credentials}
     case 'SAVE_AGE':
       var newState = Object.assign({}, state);
