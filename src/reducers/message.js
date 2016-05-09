@@ -6,6 +6,9 @@
 //   lastName: null,
 //   age: null
 // };
+const initialState = {
+  
+};
 
 export default function message (state = initialState, action) {
   switch (action.type) {
