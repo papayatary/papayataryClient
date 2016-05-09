@@ -50,7 +50,7 @@ class FacebookAuth extends React.Component {
       }).done();
   }
   fetchCredentials(userId, token) {
-    const api = `https://graph.facebook.com/v2.3/${userId}?fields=name,email,gender,birthday,age_range,picture&access_token=${token}`;
+    const api = `https://graph.facebook.com/v2.3/${userId}?fields=name,email,gender,birthday,age_range,picture.width(1000).height(1000)&access_token=${token}`;
     fetch(api)
       .then((response) => response.json())
       .then((responseData) => {
