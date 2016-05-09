@@ -23,32 +23,7 @@ class CreateProfile extends Component {
   }
 
   handleSubmitButton() {
-    //-------------- SUBMIT USER DATA TO USER TABLE IN POSTGRES ----------------------------------/
-    var _fullNameArray = this.props.user.name.split(' ');
-    var _userData = {
-      email: this.props.user.email,
-      firstName: _fullNameArray[0],
-      lastName: _fullNameArray[_fullNameArray.length - 1],
-      facebookID: this.props.user.facebookId
-    };
 
-    fetch('http://localhost:8000/api/user', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(_userData)
-    })
-    .then((response) => {
-      return response.text();
-    })
-    .then((responseText) => {
-      // console.log('Create User Submit Response: ', responseText);
-    })
-    .catch(error => {
-      console.error(error);
-    });
 
     //-------------- SUBMIT PROFILE DATA TO PROFILE TABLE IN POSTGRES ------------------------------/
     var profileData = {
