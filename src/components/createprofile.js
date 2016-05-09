@@ -14,7 +14,7 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import actions from '../actions/actions'
+import actions from '../actions/actions';
 import Search from './search';
 
 class CreateProfile extends Component {
@@ -24,18 +24,19 @@ class CreateProfile extends Component {
   handleSubmitButton() {
     // Submit profile data to profile table
     var profileData = {
+      facebookId: this.props.user.facebookId,
       age: this.props.user.age,
       gender: this.props.user.gender,
       zipCode: this.props.user.zipCode,
-      picturePath: '/somePath'
+      picturePath: '/somePath',
     };
     fetch('http://localhost:8000/api/profile', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(profileData)
+      body: JSON.stringify(profileData),
     })
     .then((response) => {
       return response.text();
@@ -50,7 +51,7 @@ class CreateProfile extends Component {
     // Check if user is authenticated. If so, redirect somewhere...
     this.props.navigator.push({
       name: 'Search',
-      component: Search
+      component: Search,
     });
   }
   render() {
@@ -74,7 +75,7 @@ class CreateProfile extends Component {
           />
 
           <Text style={styles.fieldLabel}>Gender</Text>
-          <TextInput 
+          <TextInput
             style={styles.fieldInput}
             value={this.props.user.gender}
           />
