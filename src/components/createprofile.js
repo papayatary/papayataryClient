@@ -21,18 +21,14 @@ class CreateProfile extends Component {
   constructor(props) {
     super(props);
   }
-
   handleSubmitButton() {
-
-
-    //-------------- SUBMIT PROFILE DATA TO PROFILE TABLE IN POSTGRES ------------------------------/
+    // Submit profile data to profile table
     var profileData = {
       age: this.props.user.age,
       gender: this.props.user.gender,
       zipCode: this.props.user.zipCode,
       picturePath: '/somePath'
     };
-
     fetch('http://localhost:8000/api/profile', {
       method: 'POST',
       headers: {
@@ -57,7 +53,6 @@ class CreateProfile extends Component {
       component: Search
     });
   }
-
   render() {
     // console.log('CreateProfile this.props: ', this.props);
     return (
@@ -75,7 +70,7 @@ class CreateProfile extends Component {
           <Text style={styles.fieldLabel}>Name</Text> 
           <TextInput
             style={styles.fieldInput}
-            value={this.props.user.name}
+            value={this.props.user.firstName+' '+this.props.user.lastName}
           />
 
           <Text style={styles.fieldLabel}>Gender</Text>
@@ -137,7 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   fieldContainer: {
-    width: 340, 
+    width: 340,
     height: 460,
     padding: 20,
     marginTop: 36,
@@ -145,8 +140,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    shadowColor: 'grey', 
-    shadowOffset: {width: 5, height: 5},
+    shadowColor: 'grey',
+    shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 5,
     shadowRadius: 5,
   },
@@ -162,10 +157,10 @@ const styles = StyleSheet.create({
     color: 'navy',
   },
   fieldInput: {
-    height: 40, 
+    height: 40,
     padding: 5,
     color: 'lightslategray',
-    borderColor: 'gray', 
+    borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
   },
@@ -188,8 +183,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    shadowColor: 'gray', 
-    shadowOffset: { width: 4, height: 4},
+    shadowColor: 'gray',
+    shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 2,
     shadowRadius: 4,
   },
@@ -200,13 +195,13 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return state; 
-};
+  return state;
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch) 
+    actions: bindActionCreators(actions, dispatch),
   };
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateProfile); 
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProfile);
