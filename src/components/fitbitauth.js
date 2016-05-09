@@ -32,7 +32,7 @@ class FitbitAuth extends React.Component {
     const fitBitURL = ['https://www.fitbit.com/oauth2/authorize?',
                      'response_type=code&',
                      'client_id=227LFQ&',
-                     'redirect_url=icymicy://foo&',
+                     'redirect_uri=icymicy://foo&',
                      'scope=activity%20weight%20profile%20settings%20heartrate%20social%20sleep',
                     ].join('');
 
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    shadowColor: 'gray', 
+    shadowColor: 'gray',
     shadowOffset: { width: 4, height: 4},
     shadowOpacity: 2,
     shadowRadius: 4,
