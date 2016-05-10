@@ -6,8 +6,12 @@ import React, {
   Dimensions,
   View,
   Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
   Navigator,
   Component,
+  StyleSheet
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -131,7 +135,7 @@ class Messages extends React.Component {
   
   handleSend(message = {}) {
     
-    // Your logic here: Send message.text to your server...
+    // Save one message to database
     var _message = {
       fromUserFacebookId: this.props.user.facebookId,
       toUserId: this.props.message.userId,
@@ -150,17 +154,16 @@ class Messages extends React.Component {
       return response.text();
     })
     .then((responseText) => {
+      var responseObject = JSON.parse(responseText);
       // console.log('Submit message server response text: ', responseText);
+      message.uniqueId = responseObject.id; //set a unique id for the message
+      this.setMessages(this._messages.concat(message)); //Append message and update state
+      // console.log('NEW STATE: ', this.state);
     })
     .catch(error => {
       console.error(error);
     });
 
-
-
-    
-    message.uniqueId = Math.round(Math.random() * 10000); // simulating server-side unique id generation
-    this.setMessages(this._messages.concat(message));
     
     // mark the sent message as Seen
     setTimeout(() => {
@@ -307,90 +310,89 @@ class Messages extends React.Component {
 
 }
 
-// const styles = StyleSheet.create({
-//   // iPhone 6 width is 375, height is 667, statusBar around 7
-//   container: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     justifyContent: 'flex-start',
-//     alignItems: 'center',
-//     backgroundColor: 'azure',
-//   },
-//   navContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'center',
-//     alignItems: 'flex-end',
-//     backgroundColor: 'steelblue',
-//     alignSelf: 'stretch',
-//     height: 64,
-//   },
-//   titleBox: {
-//     width: 255,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     height: 44,
-//   },
-//   titleBoxText: {
-//     color: 'white',
-//     fontSize: 22,
-//   },
-//   navButton: {
-//     width: 60,
-//     height: 44,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     padding: 10,
-//   },
-//   buttonIcon: {
-//     alignSelf: 'center',
-//     color: 'white',
-//   },
-//   matchListContainer: {
-//     height: 560 ,
-//     width: 340,
-//     alignSelf: 'center',
-//     alignItems: 'flex-start',
-//     padding: 4,
-//     marginTop: 20,
-//     marginBottom: 20,
-//     backgroundColor: 'lightgray',
-//   },
-//   matchItemContainer: {
-//     flexDirection: 'row',
-//     alignSelf: 'center',
-//     justifyContent: 'center',
-//     height: 80,
-//     width: 332,
-//     padding: 4,
-//     marginBottom: 4,
-//     backgroundColor: 'white',
-//   },
-//   thumbImageContainer: {
-//     width: 72,
-//     height: 72,
-//   },
-//   thumbImage: {
-//     width: 72, 
-//     height: 72,
-//     resizeMode: 'contain',
-//   },
-//   messagesContainer: {
-//     //flex: 82,
-//   },
-//   messageText: {
-//     fontSize: 14,
-//     color: 'navy',
-//   },
-//   button: {
-//     backgroundColor: 'azure',
-//     padding: 10,
-//     height: 72,
-//     width: 250,
-//   },
-//   buttonText: {
-//     fontSize: 20
-//   }
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'azure',
+  },
+  navContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: 'steelblue',
+    alignSelf: 'stretch',
+    height: 64,
+  },
+  titleBox: {
+    width: 255,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 44,
+  },
+  titleBoxText: {
+    color: 'white',
+    fontSize: 22,
+  },
+  navButton: {
+    width: 60,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
+  buttonIcon: {
+    alignSelf: 'center',
+    color: 'white',
+  },
+  outerMessageListContainer: {
+    height: 500 ,
+    width: 336,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 4,
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: 'lightgray',
+  },
+  innerMessageListContainer: {
+    height: 492,
+    width: 328,
+    alignSelf: 'center',
+    alignItems: 'flex-start',
+    padding: 4,
+    backgroundColor: 'white',
+  },
+  rightMessageText: {
+    padding: 10,
+    margin: 10,
+    alignSelf: 'flex-end',
+    borderColor: 'lightgray',
+    borderWidth: 1,
+    backgroundColor: 'azure',
+  },
+  leftMessageText: {
+    padding: 10,
+    margin: 10,
+    alignSelf: 'flex-start',
+    borderColor: 'lightgray',
+    borderWidth: 1,
+    backgroundColor: 'azure',
+  },
+  messageTextInput: {
+    height: 40, 
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 20,
+    borderColor: 'gray', 
+    borderWidth: 1,
+    backgroundColor: 'white',
+    padding: 4,
+  }
+});
 
 function mapStateToProps(state) {
   return state; 
