@@ -43,7 +43,7 @@ class Messages extends React.Component {
     
     setTimeout(() => {
       this.setState({
-        typingMessage: 'React-Bot is typing a message...',
+        typingMessage: this.props.message.firstName + ' ' + this.props.message.lastName + ' is typing a message...',
       });
     }, 1000); // simulating network
 
@@ -83,10 +83,18 @@ class Messages extends React.Component {
       },
       {
         text: "Yes this works!", 
-        name: 'Hao H', 
+        name: this.props.user.firstName + ' ' + this.props.user.lastName, 
         image: null, 
         position: 'right', 
         date: new Date(2016, 3, 14, 13, 1),
+        uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+      },
+      {
+        text: 'Yay! Cosmictornado is the best team!', 
+        // name: 'React-Bot', DELETE LATER ON
+        image: {uri: this.props.message.picturePath}, 
+        position: 'left', 
+        date: new Date(2016, 3, 14, 13, 0),
         uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
       },
     ];
@@ -123,8 +131,33 @@ class Messages extends React.Component {
   
   handleSend(message = {}) {
     
-    // Your logic here
-    // Send message.text to your server
+    // Your logic here: Send message.text to your server...
+    var _message = {
+      fromUserFacebookId: this.props.user.facebookId,
+      toUserId: this.props.message.userId,
+      text: message.text, 
+      timestamp: new Date(),
+    };
+    fetch('http://localhost:8000/api/message', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(_message)
+    })
+    .then((response) => {
+      return response.text();
+    })
+    .then((responseText) => {
+      // console.log('Submit message server response text: ', responseText);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+
+
     
     message.uniqueId = Math.round(Math.random() * 10000); // simulating server-side unique id generation
     this.setMessages(this._messages.concat(message));
@@ -153,14 +186,14 @@ class Messages extends React.Component {
     var earlierMessages = [
       {
         text: 'React Native enables you to build world-class application experiences on native platforms using a consistent developer experience based on JavaScript and React. https://github.com/facebook/react-native', 
-        name: 'React-Bot', 
-        image: {uri: 'https://facebook.github.io/react/img/logo_og.png'}, 
+        // name: 'React-Bot', DELETE THIS LATER ON
+        image: {uri: this.props.message.picturePath}, 
         position: 'left', 
         date: new Date(2016, 0, 1, 20, 0),
         uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
       }, {
         text: 'This is a touchable phone number 0606060606 parsed by taskrabbit/react-native-parsed-text', 
-        name: 'Awesome Developer', 
+        name: this.props.user.firstName + ' ' + this.props.user.lastName, 
         image: null, 
         position: 'right', 
         date: new Date(2016, 0, 2, 12, 0),
@@ -203,6 +236,7 @@ class Messages extends React.Component {
       <GiftedMessenger
         ref={(c) => this._GiftedMessenger = c}
     
+        //style the blue text bubble:
         styles={{
           bubbleRight: {
             marginLeft: 70,
@@ -210,8 +244,8 @@ class Messages extends React.Component {
           },
         }}
         
-        autoFocus={false}
-        messages={this.state.messages}
+        autoFocus={false} //text input auto focus
+        messages={this.state.messages} 
         handleSend={this.handleSend.bind(this)}
         onErrorButtonPress={this.onErrorButtonPress.bind(this)}
         maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT}
@@ -219,7 +253,7 @@ class Messages extends React.Component {
         loadEarlierMessagesButton={!this.state.allLoaded}
         onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
 
-        senderName='Awesome Developer'
+        senderName={this.props.user.firstName + ' ' + this.props.user.lastName}
         senderImage={null}
         onImagePress={this.onImagePress}
         displayNames={true}
@@ -240,8 +274,7 @@ class Messages extends React.Component {
     Linking.openURL(url);
   }
 
-  // TODO
-  // make this compatible with Android
+  // TODO: make this compatible with Android
   handlePhonePress(phone) {
     if (Platform.OS !== 'android') {
       var BUTTONS = [

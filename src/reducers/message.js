@@ -7,7 +7,7 @@
 //   age: null
 // };
 const initialState = {
-  facebookId: '1982923402394',
+  userId: '37',
   firstName: 'Blake',
   lastName: 'Lively',
   picturePath: 'http://hbz.h-cdn.co/assets/cm/14/52/54988f0f50262_-_hbz-blake-lively-style-alert-promo-xln.jpg',
