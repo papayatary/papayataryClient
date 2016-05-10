@@ -41,6 +41,14 @@ class Messages extends React.Component {
     };
     
   }
+
+  handleBackToMatches() {
+    this.props.navigator.pop();
+  }
+
+  handleMenu() {
+    // Redirect to edit profile page once implemented...
+  }
   
   componentDidMount() {
     this._isMounted = true;    
@@ -61,7 +69,7 @@ class Messages extends React.Component {
     setTimeout(() => {
       this.handleReceive({
         text: 'Lets get coffee?', 
-        // name: 'React-Bot', DELETE LATER ON
+        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
         image: {uri: this.props.message.picturePath}, 
         position: 'left', 
         date: new Date(),
@@ -79,7 +87,7 @@ class Messages extends React.Component {
     return [
       {
         text: 'Hello my name is Blake. Does this work?', 
-        // name: 'React-Bot', DELETE LATER ON
+        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
         image: {uri: this.props.message.picturePath}, 
         position: 'left', 
         date: new Date(2016, 3, 14, 13, 0),
@@ -95,7 +103,7 @@ class Messages extends React.Component {
       },
       {
         text: 'Yay! Cosmictornado is the best team!', 
-        // name: 'React-Bot', DELETE LATER ON
+        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
         image: {uri: this.props.message.picturePath}, 
         position: 'left', 
         date: new Date(2016, 3, 14, 13, 0),
@@ -189,7 +197,7 @@ class Messages extends React.Component {
     var earlierMessages = [
       {
         text: 'React Native enables you to build world-class application experiences on native platforms using a consistent developer experience based on JavaScript and React. https://github.com/facebook/react-native', 
-        // name: 'React-Bot', DELETE THIS LATER ON
+        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
         image: {uri: this.props.message.picturePath}, 
         position: 'left', 
         date: new Date(2016, 0, 1, 20, 0),
@@ -236,9 +244,68 @@ class Messages extends React.Component {
   
   render() {
     return (
+      // <View style={styles.container}>
+      //   <View style={styles.navContainer}>
+      //     <TouchableOpacity 
+      //       style={styles.navButton}
+      //       onPress={this.handleBackToMatches.bind(this)}
+      //     >
+      //       <Icon style={styles.buttonIcon} name="chevron-left" size={30} color="white" />
+      //     </TouchableOpacity>
+
+      //     <View style={styles.titleBox}>
+      //       <Text style={styles.titleBoxText}>Papayatary</Text>
+      //     </View>
+
+      //     <TouchableOpacity 
+      //       style={styles.navButton}
+      //       onPress={this.handleMenu.bind(this)}
+      //     >
+      //     </TouchableOpacity>
+      //   </View>
+
+      //   <View style={styles.outerMessageListContainer}>
+      //     <GiftedMessenger
+      //       ref={(c) => this._GiftedMessenger = c}
+        
+      //       //style the blue text bubble:
+      //       styles={{
+      //         bubbleRight: {
+      //           marginLeft: 70,
+      //           backgroundColor: '#007aff',
+      //         },
+      //       }}
+            
+      //       autoFocus={false} //text input auto focus
+      //       messages={this.state.messages} 
+      //       handleSend={this.handleSend.bind(this)}
+      //       onErrorButtonPress={this.onErrorButtonPress.bind(this)}
+      //       maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT}
+
+      //       loadEarlierMessagesButton={!this.state.allLoaded}
+      //       onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
+
+      //       senderName={this.props.user.firstName + ' ' + this.props.user.lastName}
+      //       senderImage={null}
+      //       onImagePress={this.onImagePress}
+      //       displayNames={false}
+            
+      //       parseText={true} // enable handlePhonePress, handleUrlPress and handleEmailPress
+      //       handlePhonePress={this.handlePhonePress}
+      //       handleUrlPress={this.handleUrlPress}
+      //       handleEmailPress={this.handleEmailPress}
+            
+      //       isLoadingEarlierMessages={this.state.isLoadingEarlierMessages}
+            
+      //       typingMessage={this.state.typingMessage}
+      //     />
+        
+      //   </View>
+      // </View>
+
       <GiftedMessenger
         ref={(c) => this._GiftedMessenger = c}
-    
+      
         //style the blue text bubble:
         styles={{
           bubbleRight: {
@@ -251,7 +318,7 @@ class Messages extends React.Component {
         messages={this.state.messages} 
         handleSend={this.handleSend.bind(this)}
         onErrorButtonPress={this.onErrorButtonPress.bind(this)}
-        maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT}
+        maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT} //667 - 44 - 20 = 603
 
         loadEarlierMessagesButton={!this.state.allLoaded}
         onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
@@ -259,7 +326,7 @@ class Messages extends React.Component {
         senderName={this.props.user.firstName + ' ' + this.props.user.lastName}
         senderImage={null}
         onImagePress={this.onImagePress}
-        displayNames={true}
+        displayNames={false}
         
         parseText={true} // enable handlePhonePress, handleUrlPress and handleEmailPress
         handlePhonePress={this.handlePhonePress}
@@ -270,6 +337,7 @@ class Messages extends React.Component {
         
         typingMessage={this.state.typingMessage}
       />
+
     );
   }
   
@@ -316,7 +384,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: 'azure',
+    // backgroundColor: 'azure',
+    backgroundColor: 'green',
   },
   navContainer: {
     flexDirection: 'row',
@@ -348,23 +417,26 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   outerMessageListContainer: {
-    height: 500 ,
-    width: 336,
+    // height: 603 ,
+    // width: 336,
+    flex: 1,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 4,
-    marginTop: 20,
-    marginBottom: 20,
-    backgroundColor: 'lightgray',
+    // margin: 50,
+    // marginLeft: 50,
+    // marginRight: 50,
+    // padding: 4,
+    // marginBottom: 20,
+    backgroundColor: 'red',
   },
   innerMessageListContainer: {
-    height: 492,
-    width: 328,
-    alignSelf: 'center',
-    alignItems: 'flex-start',
-    padding: 4,
-    backgroundColor: 'white',
+    // height: 492,
+    // width: 328,
+    // alignSelf: 'center',
+    // alignItems: 'flex-start',
+    // padding: 4,
+    // backgroundColor: 'white',
   },
   rightMessageText: {
     padding: 10,
