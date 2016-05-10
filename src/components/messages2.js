@@ -56,9 +56,9 @@ class Messages extends React.Component {
     
     setTimeout(() => {
       this.handleReceive({
-        text: 'Hello Awesome Developer', 
-        name: 'React-Bot', 
-        image: {uri: 'https://facebook.github.io/react/img/logo_og.png'}, 
+        text: 'Lets get coffee?', 
+        // name: 'React-Bot', DELETE LATER ON
+        image: {uri: this.props.message.picturePath}, 
         position: 'left', 
         date: new Date(),
         uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
@@ -71,7 +71,7 @@ class Messages extends React.Component {
   }
   
   getInitialMessages() {
-    console.log('INITIAL MESSAGES: ', this.props);
+    // This should be an array of all initial messages
     return [
       {
         text: 'Hello my name is Blake. Does this work?', 
