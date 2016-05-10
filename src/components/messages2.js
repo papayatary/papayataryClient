@@ -83,6 +83,24 @@ class Messages extends React.Component {
   }
   
   getInitialMessages() {
+    // Fetch all messages between the 2 users
+    var _users = {
+      fromUserFacebookId: this.props.user.facebookId,
+      toUserId: this.props.message.userId,
+    };
+    fetch('http://localhost:8000/api/message?users=' + _users.fromUserFacebookId + ' ' + _users.toUserId, {
+      method: 'GET',
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseData) => {
+      console.log('getInitialMessages RESPONSE DATA: ', responseData);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
     // This should be an array of all initial messages
     return [
       {

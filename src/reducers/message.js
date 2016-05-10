@@ -7,7 +7,7 @@
 //   age: null
 // };
 const initialState = {
-  userId: '37',
+  userId: 2,
   firstName: 'Blake',
   lastName: 'Lively',
   picturePath: 'http://hbz.h-cdn.co/assets/cm/14/52/54988f0f50262_-_hbz-blake-lively-style-alert-promo-xln.jpg',
