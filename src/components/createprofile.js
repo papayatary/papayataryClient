@@ -95,7 +95,7 @@ class CreateProfile extends Component {
             style={styles.fieldInput}
             onChangeText={(text) => this.props.actions.saveZipCode({text})}
             value={this.props.user.zipCode}
-            maxLength={6}
+            maxLength={5}
             placeholder={'enter zip code'}
           />
         </View>
