@@ -83,6 +83,7 @@ class Messages extends React.Component {
   }
   
   getInitialMessages() {
+    // !!! Currently this will fetch all messages. Later on, implement this so that only 30 messages are retrieved immediately.
     // Fetch all messages between the current 2 users
     var _users = {
       fromUserFacebookId: this.props.user.facebookId,
@@ -132,7 +133,7 @@ class Messages extends React.Component {
       console.error(error);
     });
 
-    // This should be an array of all initial messages
+    // This should be an array of all initial messages (dummydata below)
     // return [
     //   {
     //     text: 'Hello my name is Blake. Does this work?', 

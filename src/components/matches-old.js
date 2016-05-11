@@ -2,7 +2,6 @@ import React, {
   AppRegistry,
   Component,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -44,35 +43,9 @@ class Matches extends React.Component {
     });
   }
 
-  populateMatches() {
-    var matches = [];
-    for (var i = 0; i < 10; i++) {
-      matches[i] = (
-        <View style={styles.matchItemContainer}>
-          <View style={styles.thumbImageContainer}>
-            <Image 
-              style={styles.thumbImage}
-              source={require('../images/blakelively001.jpg')}
-            />
-          </View>
-          <View style={styles.messageContainer}>
-            <TouchableOpacity 
-              style={styles.button}
-              onPress={this.handleMessage.bind(this)}
-              key={i}
-            >
-              <Text style={styles.messageText}>Name</Text>
-              <Text style={styles.messageText}>Hi Jake, how's things?</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
-    }
-    return matches;
-  }
-
   render() {
-    var matches = this.populateMatches();
+    // console.log(this);
+
     // example of how to map messages {this.props.messages.map((messages, i) => ())};
    return (
       <View style={styles.container} >
@@ -96,9 +69,40 @@ class Matches extends React.Component {
         </View>
 
         <View style={styles.matchListContainer}>
-          <ScrollView>
-            {matches}
-          </ScrollView>
+          <View style={styles.matchItemContainer}>
+            <View style={styles.thumbImageContainer}>
+              <Image 
+                style={styles.thumbImage}
+                source={require('../images/blakelively001.jpg')}
+              />
+            </View>
+            <View style={styles.messageContainer}>
+              <TouchableOpacity 
+              style={styles.button}
+              onPress={this.handleMessage.bind(this)}
+              >
+                <Text style={styles.messageText}>Name</Text>
+                <Text style={styles.messageText}>Hi Jake, how's things?</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.matchItemContainer}>
+            <View style={styles.thumbImageContainer}>
+              <Image 
+                style={styles.thumbImage}
+                source={require('../images/blakelively001.jpg')}
+              />
+            </View>
+            <View style={styles.messageContainer}>
+              <TouchableOpacity 
+              style={styles.button}
+              onPress={this.handleMessage.bind(this)}
+              >
+                <Text style={styles.messageText}>Name</Text>
+                <Text style={styles.messageText}>Hi Jake, how's things?</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
 
       </View>
