@@ -83,51 +83,82 @@ class Messages extends React.Component {
   }
   
   getInitialMessages() {
-    // Fetch all messages between the 2 users
+    // Fetch all messages between the current 2 users
     var _users = {
       fromUserFacebookId: this.props.user.facebookId,
       toUserId: this.props.message.userId,
     };
-    fetch('http://localhost:8000/api/message?users=' + _users.fromUserFacebookId + ' ' + _users.toUserId, {
+    fetch('http://localhost:8000/api/message?fromUserFacebookId=' + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
       method: 'GET',
     })
     .then((response) => {
+      console.log(response);
       return response.json();
     })
     .then((responseData) => {
       console.log('getInitialMessages RESPONSE DATA: ', responseData);
+      var _messages = [];
+      for (var i = 0; i < responseData.length; i++) {
+        // if the current message belongs to the "from" user...
+        if (responseData[i].hasOwnProperty('fromUserFacebookId')) {
+          _messages.push({
+            text: responseData[i].text,
+            name: this.props.user.firstName + ' ' + this.props.user.lastName,
+            image: null,
+            position: 'right',
+            date: responseData[i].timestamp,
+            uniqueId: responseData[i].id,
+          });
+        }
+        // if the current message belongs to the "to" user...
+        else {
+          _messages.push({
+            text: responseData[i].text,
+            name: this.props.message.firstName + ' ' + this.props.message.lastName,
+            image: {uri: this.props.message.picturePath},
+            position: 'left',
+            date: responseData[i].timestamp,
+            uniqueId: responseData[i].id,
+          });
+        }
+      }
+      this.setMessages(_messages);
+
+      // This should be an array of all initial messages
+      return this.state.messages;
+
     })
     .catch(error => {
       console.error(error);
     });
 
     // This should be an array of all initial messages
-    return [
-      {
-        text: 'Hello my name is Blake. Does this work?', 
-        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
-        image: {uri: this.props.message.picturePath}, 
-        position: 'left', 
-        date: new Date(2016, 3, 14, 13, 0),
-        uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
-      },
-      {
-        text: "Yes this works!", 
-        name: this.props.user.firstName + ' ' + this.props.user.lastName, 
-        image: null, 
-        position: 'right', 
-        date: new Date(2016, 3, 14, 13, 1),
-        uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
-      },
-      {
-        text: 'Yay! Cosmictornado is the best team!', 
-        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
-        image: {uri: this.props.message.picturePath}, 
-        position: 'left', 
-        date: new Date(2016, 3, 14, 13, 0),
-        uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
-      },
-    ];
+    // return [
+    //   {
+    //     text: 'Hello my name is Blake. Does this work?', 
+    //     name: this.props.message.firstName + ' ' + this.props.message.lastName, 
+    //     image: {uri: this.props.message.picturePath}, 
+    //     position: 'left', 
+    //     date: new Date(2016, 3, 14, 13, 0),
+    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+    //   },
+    //   {
+    //     text: "Yes this works!", 
+    //     name: this.props.user.firstName + ' ' + this.props.user.lastName, 
+    //     image: null, 
+    //     position: 'right', 
+    //     date: new Date(2016, 3, 14, 13, 1),
+    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+    //   },
+    //   {
+    //     text: 'Yay! Cosmictornado is the best team!', 
+    //     name: this.props.message.firstName + ' ' + this.props.message.lastName, 
+    //     image: {uri: this.props.message.picturePath}, 
+    //     position: 'left', 
+    //     date: new Date(2016, 3, 14, 13, 0),
+    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+    //   },
+    // ];
   }
   
   setMessageStatus(uniqueId, status) {
