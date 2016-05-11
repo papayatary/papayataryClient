@@ -51,7 +51,7 @@ class Matches extends React.Component {
     })
     .then((response) => {
       console.log(response);
-      response.json();
+      return response.json();
     })
     .then((responseData) => {
       console.log('populateMatches RESPONSE DATA: ', responseData);
