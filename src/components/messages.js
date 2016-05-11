@@ -93,11 +93,11 @@ class Messages extends React.Component {
       method: 'GET',
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       return response.json();
     })
     .then((responseData) => {
-      console.log('getInitialMessages RESPONSE DATA: ', responseData);
+      // console.log('getInitialMessages RESPONSE DATA: ', responseData);
       var _messages = [];
       for (var i = 0; i < responseData.length; i++) {
         // if the current message belongs to the "from" user...

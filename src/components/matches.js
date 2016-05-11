@@ -45,6 +45,22 @@ class Matches extends React.Component {
   }
 
   populateMatches() {
+
+    fetch('http://localhost:8000/api/match?fromUserFacebookId=' + this.props.user.facebookId, {
+      method: 'GET',
+    })
+    .then((response) => {
+      console.log(response);
+      response.json();
+    })
+    .then((responseData) => {
+      console.log('populateMatches RESPONSE DATA: ', responseData);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+
     var matches = [];
     for (var i = 0; i < 10; i++) {
       matches[i] = (
