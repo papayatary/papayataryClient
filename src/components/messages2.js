@@ -150,14 +150,6 @@ class Messages extends React.Component {
     //     date: new Date(2016, 3, 14, 13, 1),
     //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
     //   },
-    //   {
-    //     text: 'Yay! Cosmictornado is the best team!', 
-    //     name: this.props.message.firstName + ' ' + this.props.message.lastName, 
-    //     image: {uri: this.props.message.picturePath}, 
-    //     position: 'left', 
-    //     date: new Date(2016, 3, 14, 13, 0),
-    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
-    //   },
     // ];
   }
   
@@ -293,99 +285,67 @@ class Messages extends React.Component {
   
   render() {
     return (
-      // <View style={styles.container}>
-      //   <View style={styles.navContainer}>
-      //     <TouchableOpacity 
-      //       style={styles.navButton}
-      //       onPress={this.handleBackToMatches.bind(this)}
-      //     >
-      //       <Icon style={styles.buttonIcon} name="chevron-left" size={30} color="white" />
-      //     </TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.navContainer}>
+          <TouchableOpacity 
+            style={styles.navButton}
+            onPress={this.handleBackToMatches.bind(this)}
+          >
+            <Icon style={styles.buttonIcon} name="chevron-left" size={30} color="white" />
+          </TouchableOpacity>
 
-      //     <View style={styles.titleBox}>
-      //       <Text style={styles.titleBoxText}>Papayatary</Text>
-      //     </View>
+          <View style={styles.titleBox}>
+            <Text style={styles.titleBoxText}>{this.props.message.firstName + ' ' + this.props.message.lastName}</Text>
+          </View>
 
-      //     <TouchableOpacity 
-      //       style={styles.navButton}
-      //       onPress={this.handleMenu.bind(this)}
-      //     >
-      //     </TouchableOpacity>
-      //   </View>
+          <TouchableOpacity 
+            style={styles.navButton}
+            onPress={this.handleMenu.bind(this)}
+          >
+          </TouchableOpacity>
+        </View>
 
-      //   <View style={styles.outerMessageListContainer}>
-      //     <GiftedMessenger
-      //       ref={(c) => this._GiftedMessenger = c}
-        
-      //       //style the blue text bubble:
-      //       styles={{
-      //         bubbleRight: {
-      //           marginLeft: 70,
-      //           backgroundColor: '#007aff',
-      //         },
-      //       }}
+        <View style={styles.outerMessageListContainer}>
+          <GiftedMessenger
+            ref={(c) => this._GiftedMessenger = c}
+          
+            //style the blue text bubble:
+            styles={{
+              bubbleRight: {
+                marginLeft: 70,
+                backgroundColor: '#007aff',
+              },
+            }}
             
-      //       autoFocus={false} //text input auto focus
-      //       messages={this.state.messages} 
-      //       handleSend={this.handleSend.bind(this)}
-      //       onErrorButtonPress={this.onErrorButtonPress.bind(this)}
-      //       maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT}
+            autoFocus={false} //text input auto focus
+            messages={this.state.messages} 
+            handleSend={this.handleSend.bind(this)}
+            onErrorButtonPress={this.onErrorButtonPress.bind(this)}
+            // maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT} //667 - 44 - 20 = 603
+            maxHeight={603}
 
-      //       loadEarlierMessagesButton={!this.state.allLoaded}
-      //       onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
+            loadEarlierMessagesButton={!this.state.allLoaded}
+            onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
 
-      //       senderName={this.props.user.firstName + ' ' + this.props.user.lastName}
-      //       senderImage={null}
-      //       onImagePress={this.onImagePress}
-      //       displayNames={false}
+            senderName={this.props.user.firstName + ' ' + this.props.user.lastName}
+            senderImage={null}
+            onImagePress={this.onImagePress}
+            displayNames={false}
             
-      //       parseText={true} // enable handlePhonePress, handleUrlPress and handleEmailPress
-      //       handlePhonePress={this.handlePhonePress}
-      //       handleUrlPress={this.handleUrlPress}
-      //       handleEmailPress={this.handleEmailPress}
+            parseText={true} // enable handlePhonePress, handleUrlPress and handleEmailPress
+            handlePhonePress={this.handlePhonePress}
+            handleUrlPress={this.handleUrlPress}
+            handleEmailPress={this.handleEmailPress}
             
-      //       isLoadingEarlierMessages={this.state.isLoadingEarlierMessages}
+            isLoadingEarlierMessages={this.state.isLoadingEarlierMessages}
             
-      //       typingMessage={this.state.typingMessage}
-      //     />
+            typingMessage={this.state.typingMessage}
+          />
         
-      //   </View>
-      // </View>
+        </View>
+      </View>
 
-      <GiftedMessenger
-        ref={(c) => this._GiftedMessenger = c}
-      
-        //style the blue text bubble:
-        styles={{
-          bubbleRight: {
-            marginLeft: 70,
-            backgroundColor: '#007aff',
-          },
-        }}
-        
-        autoFocus={false} //text input auto focus
-        messages={this.state.messages} 
-        handleSend={this.handleSend.bind(this)}
-        onErrorButtonPress={this.onErrorButtonPress.bind(this)}
-        maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT} //667 - 44 - 20 = 603
 
-        loadEarlierMessagesButton={!this.state.allLoaded}
-        onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
-
-        senderName={this.props.user.firstName + ' ' + this.props.user.lastName}
-        senderImage={null}
-        onImagePress={this.onImagePress}
-        displayNames={false}
-        
-        parseText={true} // enable handlePhonePress, handleUrlPress and handleEmailPress
-        handlePhonePress={this.handlePhonePress}
-        handleUrlPress={this.handleUrlPress}
-        handleEmailPress={this.handleEmailPress}
-        
-        isLoadingEarlierMessages={this.state.isLoadingEarlierMessages}
-        
-        typingMessage={this.state.typingMessage}
-      />
 
     );
   }
