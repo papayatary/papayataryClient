@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import TopNavBar from './topnavbar.js';
-import Messages2 from './messages2.js';
+import Messages from './messages.js';
 import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -39,7 +39,7 @@ class Matches extends React.Component {
     // Check if user is authenticated. If so, redirect somewhere...
     this.props.navigator.push({
       name: 'Message',
-      component: Messages2
+      component: Messages
     });
   }
 
