@@ -15,5 +15,8 @@ module.exports = {
   },
   setCurrentMessageId: function(facebookId) {
     return { type: 'SET_CURRENT_MESSAGE_ID', facebookId };
-  }
+  },
+  saveAllMatches: function(matches) {
+    return { type: 'SAVE_ALL_MATCHES', matches };
+  },
 };
