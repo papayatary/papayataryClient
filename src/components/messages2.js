@@ -397,12 +397,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
   },
   navContainer: {
+    flex: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
     backgroundColor: 'steelblue',
     alignSelf: 'stretch',
-    height: 64,
+    // height: 64,
   },
   titleBox: {
     width: 255,
@@ -426,9 +427,10 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   outerMessageListContainer: {
-    // height: 603 ,
+    flex: 80,
+    // height: 300,
     // width: 336,
-    flex: 1,
+    // flex: 1,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
