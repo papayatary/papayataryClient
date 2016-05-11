@@ -1,24 +1,45 @@
+
 import React, {
-  AppRegistry,
-  Component,
-  Image,
-  StyleSheet,
+  Linking,
+  Platform,
+  ActionSheetIOS,
+  Dimensions,
+  View,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  Image,
+  Navigator,
+  Component,
+  StyleSheet
 } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
-//import TopNavBar from './topnavbar.js';
+import TopNavBar from './topnavbar.js';
+import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+var GiftedMessenger = require('react-native-gifted-messenger');
+var Communications = require('react-native-communications');
+
+var STATUS_BAR_HEIGHT = Navigator.NavigationBar.Styles.General.StatusBarHeight;
 
 class Messages extends React.Component {
   constructor(props) {
     super(props);
+    
+    this._isMounted = false;
+    this._messages = this.getInitialMessages();
+    
+    this.state = {
+      messages: this._messages,
+      isLoadingEarlierMessages: false,
+      typingMessage: '',
+      allLoaded: false,
+    };
+    
   }
 
   handleBackToMatches() {
@@ -28,13 +49,242 @@ class Messages extends React.Component {
   handleMenu() {
     // Redirect to edit profile page once implemented...
   }
+  
+  componentDidMount() {
+    this._isMounted = true;    
+    
+    setTimeout(() => {
+      this.setState({
+        typingMessage: this.props.message.firstName + ' ' + this.props.message.lastName + ' is typing a message...',
+      });
+    }, 1000); // simulating network
 
+    setTimeout(() => {
+      this.setState({
+        typingMessage: '',
+      });
+    }, 3000); // simulating network
+    
+    
+    setTimeout(() => {
+      this.handleReceive({
+        text: 'Lets get coffee?', 
+        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
+        image: {uri: this.props.message.picturePath}, 
+        position: 'left', 
+        date: new Date(),
+        uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+      });
+    }, 3300); // simulating network
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  
+  getInitialMessages() {
+    // Fetch all messages between the current 2 users
+    var _users = {
+      fromUserFacebookId: this.props.user.facebookId,
+      toUserId: this.props.message.userId,
+    };
+    fetch('http://localhost:8000/api/message?fromUserFacebookId=' + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
+      method: 'GET',
+    })
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((responseData) => {
+      console.log('getInitialMessages RESPONSE DATA: ', responseData);
+      var _messages = [];
+      for (var i = 0; i < responseData.length; i++) {
+        // if the current message belongs to the "from" user...
+        if (responseData[i].hasOwnProperty('fromUserFacebookId')) {
+          _messages.push({
+            text: responseData[i].text,
+            name: this.props.user.firstName + ' ' + this.props.user.lastName,
+            image: null,
+            position: 'right',
+            date: responseData[i].timestamp,
+            uniqueId: responseData[i].id,
+          });
+        }
+        // if the current message belongs to the "to" user...
+        else {
+          _messages.push({
+            text: responseData[i].text,
+            name: this.props.message.firstName + ' ' + this.props.message.lastName,
+            image: {uri: this.props.message.picturePath},
+            position: 'left',
+            date: responseData[i].timestamp,
+            uniqueId: responseData[i].id,
+          });
+        }
+      }
+      this.setMessages(_messages);
+
+      // This should be an array of all initial messages
+      return this.state.messages;
+
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+    // This should be an array of all initial messages
+    // return [
+    //   {
+    //     text: 'Hello my name is Blake. Does this work?', 
+    //     name: this.props.message.firstName + ' ' + this.props.message.lastName, 
+    //     image: {uri: this.props.message.picturePath}, 
+    //     position: 'left', 
+    //     date: new Date(2016, 3, 14, 13, 0),
+    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+    //   },
+    //   {
+    //     text: "Yes this works!", 
+    //     name: this.props.user.firstName + ' ' + this.props.user.lastName, 
+    //     image: null, 
+    //     position: 'right', 
+    //     date: new Date(2016, 3, 14, 13, 1),
+    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+    //   },
+    // ];
+  }
+  
+  setMessageStatus(uniqueId, status) {
+    let messages = [];
+    let found = false;
+    
+    for (let i = 0; i < this._messages.length; i++) {
+      if (this._messages[i].uniqueId === uniqueId) {
+        let clone = Object.assign({}, this._messages[i]);
+        clone.status = status;
+        messages.push(clone);
+        found = true;
+      } else {
+        messages.push(this._messages[i]);
+      }
+    }
+    
+    if (found === true) {
+      this.setMessages(messages);
+    }
+  }
+  
+  setMessages(messages) {
+    this._messages = messages;
+    
+    // append the message
+    this.setState({
+      messages: messages,
+    });
+  }
+  
+  handleSend(message = {}) {
+    
+    // Save one message to database
+    var _message = {
+      fromUserFacebookId: this.props.user.facebookId,
+      toUserId: this.props.message.userId,
+      text: message.text, 
+      timestamp: new Date(),
+    };
+    fetch('http://localhost:8000/api/message', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(_message)
+    })
+    .then((response) => {
+      return response.text();
+    })
+    .then((responseText) => {
+      var responseObject = JSON.parse(responseText);
+      // console.log('Submit message server response text: ', responseText);
+      message.uniqueId = responseObject.id; //set a unique id for the message
+      this.setMessages(this._messages.concat(message)); //Append message and update state
+      // console.log('NEW STATE: ', this.state);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+    
+    // mark the sent message as Seen
+    setTimeout(() => {
+      this.setMessageStatus(message.uniqueId, 'Seen'); // here you can replace 'Seen' by any string you want
+    }, 1000);
+
+    // if you couldn't send the message to your server :
+    // this.setMessageStatus(message.uniqueId, 'ErrorButton');
+  }
+  
+  onLoadEarlierMessages() {
+
+    // display a loader until you retrieve the messages from your server
+    this.setState({
+      isLoadingEarlierMessages: true,
+    });
+    
+    // Your logic here
+    // Eg: Retrieve old messages from your server
+
+    // IMPORTANT
+    // Oldest messages have to be at the begining of the array
+    var earlierMessages = [
+      {
+        text: 'React Native enables you to build world-class application experiences on native platforms using a consistent developer experience based on JavaScript and React. https://github.com/facebook/react-native', 
+        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
+        image: {uri: this.props.message.picturePath}, 
+        position: 'left', 
+        date: new Date(2016, 0, 1, 20, 0),
+        uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+      }, {
+        text: 'This is a touchable phone number 0606060606 parsed by taskrabbit/react-native-parsed-text', 
+        name: this.props.user.firstName + ' ' + this.props.user.lastName, 
+        image: null, 
+        position: 'right', 
+        date: new Date(2016, 0, 2, 12, 0),
+        uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+      },
+    ];
+
+    setTimeout(() => {
+      this.setMessages(earlierMessages.concat(this._messages)); // prepend the earlier messages to your list
+      this.setState({
+        isLoadingEarlierMessages: false, // hide the loader
+        allLoaded: true, // hide the `Load earlier messages` button
+      });
+    }, 1000); // simulating network
+    
+  }
+  
+  handleReceive(message = {}) {
+    // make sure that your message contains :
+    // text, name, image, position: 'left', date, uniqueId
+    this.setMessages(this._messages.concat(message));
+  }
+
+  onErrorButtonPress(message = {}) {
+    // Your logic here
+    // re-send the failed message
+
+    // remove the status
+    this.setMessageStatus(message.uniqueId, '');
+  }
+  
+  // will be triggered when the Image of a row is touched
+  onImagePress(message = {}) {
+    // Your logic here
+    // Eg: Navigate to the user profile
+  }
+  
   render() {
-    // console.log(this);
-
-    // example of how to map messages {this.props.messages.map((messages, i) => ())};
-   return (
-
+    return (
       <View style={styles.container}>
         <View style={styles.navContainer}>
           <TouchableOpacity 
@@ -45,7 +295,7 @@ class Messages extends React.Component {
           </TouchableOpacity>
 
           <View style={styles.titleBox}>
-            <Text style={styles.titleBoxText}>Papayatary</Text>
+            <Text style={styles.titleBoxText}>{this.props.message.firstName + ' ' + this.props.message.lastName}</Text>
           </View>
 
           <TouchableOpacity 
@@ -54,24 +304,89 @@ class Messages extends React.Component {
           >
           </TouchableOpacity>
         </View>
-        <View style={styles.outerMessageListContainer}>
-          <View style={styles.innerMessageListContainer}>
-            <Text style={styles.leftMessageText}> message 1 </Text>
-            <Text style={styles.rightMessageText}>  message 2 </Text>
-            <Text style={styles.leftMessageText}>  message 3 </Text>
-            <Text style={styles.rightMessageText}>  message 4 </Text>  
-          </View>
+
+          <GiftedMessenger
+            ref={(c) => this._GiftedMessenger = c}
+          
+            //This inline styling will overwrite the default styling
+            styles={{
+              bubbleRight: {
+                marginLeft: 70,
+                backgroundColor: '#007aff',
+              },
+              container: {
+                height: 603,
+                width: 375,
+              },
+            }}
+            
+            autoFocus={false} //text input auto focus
+            messages={this.state.messages} 
+            handleSend={this.handleSend.bind(this)}
+            onErrorButtonPress={this.onErrorButtonPress.bind(this)}
+            // maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT} //667 - 44 - 20 = 603
+            maxHeight={603}
+
+            loadEarlierMessagesButton={!this.state.allLoaded}
+            onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
+
+            senderName={this.props.user.firstName + ' ' + this.props.user.lastName}
+            senderImage={null}
+            onImagePress={this.onImagePress}
+            displayNames={false}
+            
+            parseText={true} // enable handlePhonePress, handleUrlPress and handleEmailPress
+            handlePhonePress={this.handlePhonePress}
+            handleUrlPress={this.handleUrlPress}
+            handleEmailPress={this.handleEmailPress}
+            
+            isLoadingEarlierMessages={this.state.isLoadingEarlierMessages}
+            
+            typingMessage={this.state.typingMessage}
+          />
+        
         </View>
 
 
-        <TextInput
-           style={styles.messageTextInput}
-           onChangeText={(text) => 's'}
-           value={'What\'s up?'}
-         />
-      </View>
+
     );
   }
+  
+  handleUrlPress(url) {
+    Linking.openURL(url);
+  }
+
+  // TODO: make this compatible with Android
+  handlePhonePress(phone) {
+    if (Platform.OS !== 'android') {
+      var BUTTONS = [
+        'Text message',
+        'Call',
+        'Cancel',
+      ];
+      var CANCEL_INDEX = 2;
+    
+      ActionSheetIOS.showActionSheetWithOptions({
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            Communications.phonecall(phone, true);
+            break;
+          case 1:
+            Communications.text(phone);
+            break;
+        }
+      });
+    }
+  }
+  
+  handleEmailPress(email) {
+    Communications.email(email, null, null, null, null);
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -111,53 +426,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: 'white',
   },
-  outerMessageListContainer: {
-    height: 500 ,
-    width: 336,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 4,
-    marginTop: 20,
-    marginBottom: 20,
-    backgroundColor: 'lightgray',
-  },
-  innerMessageListContainer: {
-    height: 492,
-    width: 328,
-    alignSelf: 'center',
-    alignItems: 'flex-start',
-    padding: 4,
-    backgroundColor: 'white',
-  },
-  rightMessageText: {
-    padding: 10,
-    margin: 10,
-    alignSelf: 'flex-end',
-    borderColor: 'lightgray',
-    borderWidth: 1,
-    backgroundColor: 'azure',
-  },
-  leftMessageText: {
-    padding: 10,
-    margin: 10,
-    alignSelf: 'flex-start',
-    borderColor: 'lightgray',
-    borderWidth: 1,
-    backgroundColor: 'azure',
-  },
-  messageTextInput: {
-    height: 40, 
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 20,
-    borderColor: 'gray', 
-    borderWidth: 1,
-    backgroundColor: 'white',
-    padding: 4,
-  }
 });
-
 
 function mapStateToProps(state) {
   return state; 
