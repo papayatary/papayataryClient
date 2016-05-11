@@ -7,17 +7,17 @@ import React, {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import actions from '../actions/actions'  
+import actions from '../actions/actions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Matches from './matches.js';
 
-//import TopNavBar from './topnavbar.js';
+// import TopNavBar from './topnavbar.js';
 
 class Search extends Component {
   constructor(props) {
@@ -38,8 +38,16 @@ class Search extends Component {
   handleMatches() {
     this.props.navigator.push({
       name: 'Matches',
-      component: Matches
+      component: Matches,
     });
+  }
+
+  handleDelete() {
+    // update status in the Match table to unliked display the next person
+  }
+
+  handleNext() {
+    // when someone clicks the check mark, display the next person in the queue
   }
 
   handleMenu() {
@@ -70,6 +78,8 @@ class Search extends Component {
         </View>
         <View style={styles.swiperOuterContainer}>
           <Swiper 
+            nextButton={(<Text style={styles.swiperText}>›</Text>)}
+            prevButton={(<Text style={styles.swiperText}>‹</Text>)}
             onMomentumScrollEnd={this._onMomentumScrollEnd}
             showsButtons={true}
             buttonWrapperStyle={styles.swiperButton}
@@ -83,14 +93,8 @@ class Search extends Component {
                   <Text style={styles.profileText}>
                     Age: 28
                   </Text>
-                  <Text style={styles.profileText}>
-                    Distance: 5 miles
-                  </Text>
                 </View>
                 <View style={styles.profileRight}>
-                  <Text style={styles.profileText}>
-                    BMI: 18
-                  </Text >
                   <Text style={styles.profileText}>
                     Resting HR: 62
                   </Text>
@@ -105,11 +109,30 @@ class Search extends Component {
               />
               <View style={styles.buttonContainer}>
                 <TouchableOpacity 
+                  style={styles.checkButton}
+                  onPress={this.handleDelete.bind(this)}
+                >
+                  <Icon style={styles.checkIcon} name="times-circle" size={32} color="navy" />
+                </TouchableOpacity>
+
+                <TouchableOpacity 
                   style={styles.button}
                   onPress={this.handleConfirm.bind(this)}
                 >
-                  <Text style={styles.buttonText}>5000 units</Text>
+                  <Text style={styles.buttonText}>Send 5000 Steps</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity 
+                  style={styles.checkButton}
+                  onPress={this.handleNext.bind(this)}
+                >
+                  <Icon style={styles.checkIcon} name="check-circle" size={32} color="mediumvioletred" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.balanceBox}>
+                <Text style={styles.balanceText}>
+                  Your Balance:  50,000 Steps
+                </Text>
               </View>
             </View>
           </Swiper>
@@ -136,23 +159,29 @@ const styles = StyleSheet.create({
     height: 64,
   },
   swiperOuterContainer: {
-    //flex: 94,
-    height: 532,
+    height: 603,
     width: 375,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'azure',
   },
+  swiperText: {
+    color: 'white',
+    fontSize: 40,
+    fontFamily: 'Arial',
+  },
   swiperInnerContainer: {
-    flex: 1,
+    height: 603,
+    width: 375,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'azure',
   },
   swiperButton: {
-    // backgroundColor: 'transparent',
-    top: -30,
+    backgroundColor: 'transparent',
+    paddingHorizontal: 20,
+    top: -40,
   },
   titleBox: {
     width: 255,
@@ -208,58 +237,76 @@ const styles = StyleSheet.create({
     resizeMode: 'contain', // cover, contain, stretch, auto
     height: 460,
     width: 340,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     alignSelf: 'center',
     overflow: 'visible',
-    shadowColor: 'grey', 
-    shadowOffset: { width: 5, height: 5},
+    shadowColor: 'grey',
+    shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 5,
     shadowRadius: 5,
   },
   buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     position: 'absolute',
     left: 0,
-    bottom: 0,
+    bottom: 6,
     height: 90,
     width: 375,
     alignSelf: 'stretch',
     paddingTop: 20,
     paddingBottom: 50,
-    alignItems:'center',
+    alignItems: 'center',
+  },
+  checkButton: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
   },
   button: {
+    margin: 12,
     padding: 8,
     width: 250,
-    height: 50,
+    height: 42,
     backgroundColor: 'cadetblue',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    shadowColor: 'gray', 
-    shadowOffset: { width: 4, height: 4},
-    shadowOpacity: 2,
-    shadowRadius: 4,
+    // shadowColor: 'gray',
+    // shadowOffset: { width: 4, height: 4 },
+    // shadowOpacity: 2,
+    // shadowRadius: 4,
   },
   buttonText: {
     fontSize: 20,
     color: 'white',
   },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
+  balanceBox: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    height: 24,
+    width: 375,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'steelblue',
   },
-
+  balanceText: {
+    color: 'white',
+    justifyContent: 'center',
+    fontSize: 18,
+  },
 });
 
 function mapStateToProps(state) {
-  return state; 
-};
+  return state;
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch) 
+    actions: bindActionCreators(actions, dispatch),
   };
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search); 
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
