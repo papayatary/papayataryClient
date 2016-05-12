@@ -31,7 +31,7 @@ class Messages extends React.Component {
     super(props);
     
     this._isMounted = false;
-    this._messages = this.getInitialMessages();
+    this._messages = this.getInitialMessages() || [];
     
     this.state = {
       messages: this._messages,
@@ -185,6 +185,7 @@ class Messages extends React.Component {
   }
   
   handleSend(message = {}) {
+    console.log('MESSAGES: ', this._messages);
     
     // Save one message to database
     var _message = {
@@ -269,9 +270,7 @@ class Messages extends React.Component {
     // make sure that your message contains :
     // text, name, image, position: 'left', date, uniqueId
 
-    if (this._messages !== undefined) { // I added this line... it might break code
-      this.setMessages(this._messages.concat(message));
-    }
+    this.setMessages(this._messages.concat(message));
 
   }
 
