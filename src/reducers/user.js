@@ -34,6 +34,23 @@ export default function user (state = initialState, action) {
       var newState = Object.assign({}, state);
       newState.zipCode = Number(action.zipCode.text);
       return newState;
+    case 'SAVE_USERS':
+      var newState = Object.assign({}, state);
+      newState.users = Object(action.users.userQueue);
+      newState.usersIndex = 0;
+      return newState;
+    case 'INCREMENT_USERS':
+      var newState = Object.assign({}, state);
+      if(state.users.length -1 === state.usersIndex){
+        newState.usersIndex = 0;
+      } else {
+        newState.usersIndex = state.usersIndex + 1;
+      }
+      return newState;
+    case 'SET_AUTH':
+      var newState = Object.assign({}, state);
+      newState.isAuthed = Boolean(action.auth.isAuthed)
+      return newState;
     default:
       return state;
   }
