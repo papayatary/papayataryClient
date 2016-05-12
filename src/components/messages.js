@@ -89,7 +89,6 @@ class Messages extends React.Component {
       fromUserFacebookId: this.props.user.facebookId,
       toUserId: this.props.message.toUserId,
     };
-    console.log('USERS: ', _users);
     fetch('http://localhost:8000/api/message?fromUserFacebookId=' + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
       method: 'GET',
     })
@@ -185,7 +184,6 @@ class Messages extends React.Component {
   }
   
   handleSend(message = {}) {
-    console.log('MESSAGES: ', this._messages);
     
     // Save one message to database
     var _message = {
@@ -289,7 +287,6 @@ class Messages extends React.Component {
   }
   
   render() {
-    console.log('THIS PROPS, ', this.props);
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>
