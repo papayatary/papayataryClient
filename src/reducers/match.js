@@ -14,8 +14,8 @@ export default function match (state = initialState, action) {
     case 'SAVE_ALL_MATCHES':
       var newState = Object.assign({}, state);
       newState.matches = action.matches;
+      newState.matchesJSX = action.matchesJSX;
       return newState;
-      // return state;
     default:
       return state;
   }

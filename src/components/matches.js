@@ -18,7 +18,6 @@ import Messages from './messages.js';
 import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
 class Matches extends React.Component {
   constructor(props) {
     super(props);
@@ -44,54 +43,71 @@ class Matches extends React.Component {
     });
   }
 
+  componentWillMount() {
+    // Do this once immediately before the page renders
+    this.populateMatches();
+  }
+
   populateMatches() {
 
+    // Fetch all matches
     fetch('http://localhost:8000/api/match?fromUserFacebookId=' + this.props.user.facebookId, {
       method: 'GET',
     })
     .then((response) => {
-      console.log(response);
       return response.json();
     })
-    .then((responseData) => {
-      console.log('populateMatches RESPONSE DATA: ', responseData);
-      this.props.actions.saveAllMatches(responseData);
-      // console.log(this.props);
+    .then((matches) => {
+      // console.log('populateMatches RESPONSE DATA: ', matches);
+
+      console.log(matches);
+
+      var matchesJSX = [];
+      for (var i = 0; i < 50; i++) {
+        matchesJSX[i] = (
+
+          <TouchableOpacity key={i}>
+            <Text>hi</Text>
+          </TouchableOpacity>
+
+        );
+      }
+      this.props.actions.saveAllMatches(matches, matchesJSX);
+
+      console.log('PROPS: ', this.props);
+
+      // for (var i = 0; i < 10; i++) {
+      //   matches[i] = (
+      //     <View style={styles.matchItemContainer}>
+      //       <View style={styles.thumbImageContainer}>
+      //         <Image 
+      //           style={styles.thumbImage}
+      //           source={require('../images/blakelively001.jpg')}
+      //         />
+      //       </View>
+      //       <View style={styles.messageContainer}>
+      //         <TouchableOpacity 
+      //           style={styles.button}
+      //           onPress={this.handleMessage.bind(this)}
+      //           key={i}
+      //         >
+      //           <Text style={styles.messageText}>Name</Text>
+      //           <Text style={styles.messageText}>Hi Jake, how's things?</Text>
+      //         </TouchableOpacity>
+      //       </View>
+      //     </View>
+      //   );
+      // }
+      // return matches;
 
     })
     .catch(error => {
       console.error(error);
     });
 
-
-    var matches = [];
-    for (var i = 0; i < 10; i++) {
-      matches[i] = (
-        <View style={styles.matchItemContainer}>
-          <View style={styles.thumbImageContainer}>
-            <Image 
-              style={styles.thumbImage}
-              source={require('../images/blakelively001.jpg')}
-            />
-          </View>
-          <View style={styles.messageContainer}>
-            <TouchableOpacity 
-              style={styles.button}
-              onPress={this.handleMessage.bind(this)}
-              key={i}
-            >
-              <Text style={styles.messageText}>Name</Text>
-              <Text style={styles.messageText}>Hi Jake, how's things?</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
-    }
-    return matches;
   }
 
   render() {
-    var matches = this.populateMatches.apply(this);
     // example of how to map messages {this.props.messages.map((messages, i) => ())};
    return (
       <View style={styles.container} >
@@ -116,7 +132,7 @@ class Matches extends React.Component {
 
         <View style={styles.matchListContainer}>
           <ScrollView>
-            {matches}
+            {this.props.match.matchesJSX}
           </ScrollView>
         </View>
 
