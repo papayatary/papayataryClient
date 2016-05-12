@@ -55,6 +55,9 @@ class Matches extends React.Component {
     })
     .then((responseData) => {
       console.log('populateMatches RESPONSE DATA: ', responseData);
+      this.props.actions.saveAllMatches(responseData);
+      // console.log(this.props);
+
     })
     .catch(error => {
       console.error(error);
@@ -88,7 +91,7 @@ class Matches extends React.Component {
   }
 
   render() {
-    var matches = this.populateMatches();
+    var matches = this.populateMatches.apply(this);
     // example of how to map messages {this.props.messages.map((messages, i) => ())};
    return (
       <View style={styles.container} >
