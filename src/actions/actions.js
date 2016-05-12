@@ -13,8 +13,8 @@ module.exports = {
   setCurrentPage: function(currentPage) {
     return { type: 'SET_CURRENT_PAGE', currentPage };
   },
-  setCurrentMessageId: function(toUserId) {
-    return { type: 'SET_CURRENT_MESSAGE_ID', toUserId };
+  setCurrentMessageId: function(toUserData) {
+    return { type: 'SET_CURRENT_MESSAGE_ID', toUserData };
   },
   saveAllMatches: function(matches, matchesJSX) {
     return { type: 'SAVE_ALL_MATCHES', matches, matchesJSX };
