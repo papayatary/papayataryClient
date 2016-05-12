@@ -17,12 +17,11 @@ export default function message (state = initialState, action) {
   switch (action.type) {
     case 'SET_CURRENT_MESSAGE_ID':
       var newState = {};
-      newState.userId = action.toUserData.userId;
+      newState.toUserId = action.toUserData.toUserId;
       newState.firstName = action.toUserData.firstName;
       newState.lastName = action.toUserData.lastName;
       newState.picturePath = 'http://hbz.h-cdn.co/assets/cm/14/52/54988f0f50262_-_hbz-blake-lively-style-alert-promo-xln.jpg';
       return newState;
-      // return state;
     default:
       return state;
   }
