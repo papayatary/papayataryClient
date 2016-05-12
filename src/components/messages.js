@@ -31,7 +31,7 @@ class Messages extends React.Component {
     super(props);
     
     this._isMounted = false;
-    this._messages = this.getInitialMessages();
+    this._messages = this.getInitialMessages() || [];
     
     this.state = {
       messages: this._messages,
@@ -83,20 +83,21 @@ class Messages extends React.Component {
   }
   
   getInitialMessages() {
+    // !!! Currently this will fetch all messages. Later on, implement this so that only 30 messages are retrieved immediately.
     // Fetch all messages between the current 2 users
     var _users = {
       fromUserFacebookId: this.props.user.facebookId,
-      toUserId: this.props.message.userId,
+      toUserId: this.props.message.toUserId,
     };
     fetch('http://localhost:8000/api/message?fromUserFacebookId=' + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
       method: 'GET',
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       return response.json();
     })
     .then((responseData) => {
-      console.log('getInitialMessages RESPONSE DATA: ', responseData);
+      // console.log('getInitialMessages RESPONSE DATA: ', responseData);
       var _messages = [];
       for (var i = 0; i < responseData.length; i++) {
         // if the current message belongs to the "from" user...
@@ -132,7 +133,7 @@ class Messages extends React.Component {
       console.error(error);
     });
 
-    // This should be an array of all initial messages
+    // This should be an array of all initial messages (dummydata below)
     // return [
     //   {
     //     text: 'Hello my name is Blake. Does this work?', 
@@ -187,7 +188,7 @@ class Messages extends React.Component {
     // Save one message to database
     var _message = {
       fromUserFacebookId: this.props.user.facebookId,
-      toUserId: this.props.message.userId,
+      toUserId: this.props.message.toUserId,
       text: message.text, 
       timestamp: new Date(),
     };
@@ -266,7 +267,9 @@ class Messages extends React.Component {
   handleReceive(message = {}) {
     // make sure that your message contains :
     // text, name, image, position: 'left', date, uniqueId
+
     this.setMessages(this._messages.concat(message));
+
   }
 
   onErrorButtonPress(message = {}) {

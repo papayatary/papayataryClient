@@ -2,7 +2,6 @@ import React, {
   AppRegistry,
   Component,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -17,6 +16,7 @@ import TopNavBar from './topnavbar.js';
 import Messages from './messages.js';
 import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 class Matches extends React.Component {
   constructor(props) {
@@ -35,66 +35,17 @@ class Matches extends React.Component {
     // Redirect to edit profile page once implemented...
   }
 
-  handleMessage(toUserData) {
-    this.props.actions.setCurrentMessageId(toUserData);
-
+  handleMessage(id) {
+    // Check if user is authenticated. If so, redirect somewhere...
     this.props.navigator.push({
       name: 'Message',
       component: Messages
     });
   }
 
-  componentWillMount() {
-    // Do this once immediately before the page renders
-    this.populateMatches();
-  }
-
-  populateMatches() {
-
-    // Fetch all matches
-    fetch('http://localhost:8000/api/match?fromUserFacebookId=' + this.props.user.facebookId, {
-      method: 'GET',
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((matches) => {
-      // console.log('populateMatches MATCHES: ', matches);
-
-      var matchesJSX = [];
-      for (var i = 0; i < matches.length; i++) {
-        matchesJSX[i] = (
-          <View style={styles.matchItemContainer}>
-            <View style={styles.thumbImageContainer}>
-              <Image 
-                style={styles.thumbImage}
-                source={require('../images/blakelively001.jpg')}
-              />
-            </View>
-            <View style={styles.messageContainer}>
-              <TouchableOpacity 
-                style={styles.button}
-                onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
-                key={i}
-              >
-                <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
-                <Text style={styles.messageText}>Hello, my user id is {matches[i].id}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-        );
-      }
-      this.props.actions.saveAllMatches(matches, matchesJSX);
-
-    })
-    .catch(error => {
-      console.error(error);
-    });
-
-  }
-
   render() {
+    // console.log(this);
+
     // example of how to map messages {this.props.messages.map((messages, i) => ())};
    return (
       <View style={styles.container} >
@@ -118,9 +69,40 @@ class Matches extends React.Component {
         </View>
 
         <View style={styles.matchListContainer}>
-          <ScrollView>
-            {this.props.match.matchesJSX}
-          </ScrollView>
+          <View style={styles.matchItemContainer}>
+            <View style={styles.thumbImageContainer}>
+              <Image 
+                style={styles.thumbImage}
+                source={require('../images/blakelively001.jpg')}
+              />
+            </View>
+            <View style={styles.messageContainer}>
+              <TouchableOpacity 
+              style={styles.button}
+              onPress={this.handleMessage.bind(this)}
+              >
+                <Text style={styles.messageText}>Name</Text>
+                <Text style={styles.messageText}>Hi Jake, how's things?</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.matchItemContainer}>
+            <View style={styles.thumbImageContainer}>
+              <Image 
+                style={styles.thumbImage}
+                source={require('../images/blakelively001.jpg')}
+              />
+            </View>
+            <View style={styles.messageContainer}>
+              <TouchableOpacity 
+              style={styles.button}
+              onPress={this.handleMessage.bind(this)}
+              >
+                <Text style={styles.messageText}>Name</Text>
+                <Text style={styles.messageText}>Hi Jake, how's things?</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
 
       </View>
@@ -171,22 +153,20 @@ const styles = StyleSheet.create({
     width: 340,
     alignSelf: 'center',
     alignItems: 'flex-start',
-    // padding: 4,
+    padding: 4,
     marginTop: 20,
     marginBottom: 20,
-    backgroundColor: 'azure',
+    backgroundColor: 'lightgray',
   },
   matchItemContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
     justifyContent: 'center',
     height: 80,
-    width: 339,
+    width: 332,
     padding: 4,
-    // marginBottom: 2,
-    backgroundColor: 'azure',
-    borderBottomColor: '#433D4C',
-    borderBottomWidth: 1,
+    marginBottom: 4,
+    backgroundColor: 'white',
   },
   thumbImageContainer: {
     width: 72,
@@ -200,14 +180,9 @@ const styles = StyleSheet.create({
   messagesContainer: {
     //flex: 82,
   },
-  nameText: {
-    fontSize: 14,
-    color: '#00027F',
-    fontWeight: '800'
-  },
   messageText: {
     fontSize: 14,
-    color: '#70AEFF',
+    color: 'navy',
   },
   button: {
     backgroundColor: 'azure',
