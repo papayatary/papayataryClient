@@ -28,4 +28,7 @@ module.exports = {
   saveAllMatches: (matches, matchesJSX) => {
     return { type: 'SAVE_ALL_MATCHES', matches, matchesJSX };
   },
+  deleteOneMatch: (match) => {
+    return { type: 'DELETE_ONE_MATCH', match };
+  },
 };

@@ -44,6 +44,11 @@ class Matches extends React.Component {
     });
   }
 
+  handleDeleteMatch(toUserId) {
+    console.log('toUserId: ', toUserId);
+    console.log(this.props);
+  }
+
   componentWillMount() {
     // Do this once immediately before the page renders
     this.populateMatches();
@@ -79,6 +84,11 @@ class Matches extends React.Component {
               >
                 <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
                 <Text style={styles.messageText}>Hello, my user id is {matches[i].id}</Text>
+                <TouchableOpacity
+                  onPress={this.handleDeleteMatch.bind( this, {toUserId: matches[i].id} )}
+                >
+                  <Text style={styles.messageText}>Delete</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
             </View>
           </View>
