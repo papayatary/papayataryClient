@@ -22,33 +22,48 @@ class FacebookAuth extends React.Component {
     super(props);
   }
   handleFacebookLogin() {
-    var facebookId = { facebookId: this.props.user.facebookId };
-    // Check with server if user has fitbit authorized
-    fetch('http://localhost:8000/auth', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(facebookId),
+    // start loading users for main page
+    this.checkAuth();
+    this.eagerLoadUsers(this.handleNavigation.bind(this));
+  }
+  handleNavigation() {
+    if (this.props.user.isAuthed) {
+      this.props.navigator.push({
+        name: 'Search',
+        component: Search,
+      });
+    } else {
+      this.props.navigator.push({
+        name: 'FitbitAuth',
+        component: FitbitAuth,
+      });
+    }
+  }
+  checkAuth() {
+    fetch(`http://localhost:8000/auth?facebookId=${this.props.user.facebookId}`, {
+      method: 'GET',
     })
       .then((response) => {
         return response.json();
       })
       .then((response) => {
-        if (response) {
-          this.props.navigator.push({
-            name: 'Search',
-            component: Search,
-          });
-        } else {
-          this.props.navigator.push({
-            name: 'FitbitAuth',
-            component: FitbitAuth,
-          });
-        }
-      }).done();
+        this.props.actions.setAuth(response);
+      });
   }
+  eagerLoadUsers(callback) {
+    fetch(`http://localhost:8000/api/users?facebookId=${this.props.user.facebookId}&gender=${this.props.user.gender}`, {
+      method: 'GET',
+    })
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((responseData) => {
+      this.props.actions.saveUsers(responseData);
+      callback();
+    });
+  }
+
   fetchCredentials(userId, token) {
     const api = `https://graph.facebook.com/v2.3/${userId}?fields=name,email,gender,birthday,age_range,picture.width(1000).height(1000)&access_token=${token}`;
     fetch(api)
@@ -63,7 +78,6 @@ class FacebookAuth extends React.Component {
         //   firstName: 'Blake',
         //   lastName: 'Lively'
         // };
-
 
         // Save credentials to server
         fetch('http://localhost:8000/api/user', {
