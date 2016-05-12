@@ -45,8 +45,11 @@ class Matches extends React.Component {
   }
 
   handleDeleteMatch(toUserId) {
-    console.log('toUserId: ', toUserId);
-    console.log(this.props);
+    // First, delete from the store
+    this.props.actions.deleteOneMatch(toUserId);
+
+    
+
   }
 
   componentWillMount() {
