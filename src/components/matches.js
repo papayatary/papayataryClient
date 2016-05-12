@@ -35,8 +35,9 @@ class Matches extends React.Component {
     // Redirect to edit profile page once implemented...
   }
 
-  handleMessage(id) {
-    // Check if user is authenticated. If so, redirect somewhere...
+  handleMessage(toUserId) {
+    this.props.actions.setCurrentMessageId(toUserId);
+
     this.props.navigator.push({
       name: 'Message',
       component: Messages
@@ -58,9 +59,7 @@ class Matches extends React.Component {
       return response.json();
     })
     .then((matches) => {
-      // console.log('populateMatches RESPONSE DATA: ', matches);
-
-      console.log('MATCHES: ', matches);
+      // console.log('populateMatches MATCHES: ', matches);
 
       var matchesJSX = [];
       for (var i = 0; i < matches.length; i++) {
@@ -75,7 +74,7 @@ class Matches extends React.Component {
             <View style={styles.messageContainer}>
               <TouchableOpacity 
                 style={styles.button}
-                onPress={this.handleMessage.bind(this)}
+                onPress={this.handleMessage.bind( this, {userId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
                 key={i}
               >
                 <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
@@ -87,9 +86,6 @@ class Matches extends React.Component {
         );
       }
       this.props.actions.saveAllMatches(matches, matchesJSX);
-
-      console.log('PROPS: ', this.props);
-
 
     })
     .catch(error => {

@@ -13,8 +13,8 @@ module.exports = {
   setCurrentPage: (currentPage) => {
     return { type: 'SET_CURRENT_PAGE', currentPage };
   },
-  setCurrentMessageId: (facebookId) => {
-    return { type: 'SET_CURRENT_MESSAGE_ID', facebookId };
+  setCurrentMessageId: (toUserId) => {
+    return { type: 'SET_CURRENT_MESSAGE_ID', toUserId };
   },
   saveUsers: (users) => {
     return { type: 'SAVE_USERS', users };
