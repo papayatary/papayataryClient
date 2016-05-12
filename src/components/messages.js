@@ -87,8 +87,9 @@ class Messages extends React.Component {
     // Fetch all messages between the current 2 users
     var _users = {
       fromUserFacebookId: this.props.user.facebookId,
-      toUserId: this.props.message.userId,
+      toUserId: this.props.message.toUserId,
     };
+    console.log('USERS: ', _users);
     fetch('http://localhost:8000/api/message?fromUserFacebookId=' + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
       method: 'GET',
     })
@@ -188,7 +189,7 @@ class Messages extends React.Component {
     // Save one message to database
     var _message = {
       fromUserFacebookId: this.props.user.facebookId,
-      toUserId: this.props.message.userId,
+      toUserId: this.props.message.toUserId,
       text: message.text, 
       timestamp: new Date(),
     };
@@ -267,7 +268,11 @@ class Messages extends React.Component {
   handleReceive(message = {}) {
     // make sure that your message contains :
     // text, name, image, position: 'left', date, uniqueId
-    this.setMessages(this._messages.concat(message));
+
+    if (this._messages !== undefined) { // I added this line... it might break code
+      this.setMessages(this._messages.concat(message));
+    }
+
   }
 
   onErrorButtonPress(message = {}) {
@@ -285,6 +290,7 @@ class Messages extends React.Component {
   }
   
   render() {
+    console.log('THIS PROPS, ', this.props);
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>

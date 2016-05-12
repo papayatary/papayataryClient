@@ -35,8 +35,8 @@ class Matches extends React.Component {
     // Redirect to edit profile page once implemented...
   }
 
-  handleMessage(toUserId) {
-    this.props.actions.setCurrentMessageId(toUserId);
+  handleMessage(toUserData) {
+    this.props.actions.setCurrentMessageId(toUserData);
 
     this.props.navigator.push({
       name: 'Message',
@@ -74,7 +74,7 @@ class Matches extends React.Component {
             <View style={styles.messageContainer}>
               <TouchableOpacity 
                 style={styles.button}
-                onPress={this.handleMessage.bind( this, {userId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
+                onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
                 key={i}
               >
                 <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
