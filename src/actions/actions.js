@@ -25,7 +25,7 @@ module.exports = {
   incrementUsers: () => {
     return { type: 'INCREMENT_USERS' };
   },
-  saveAllMatches: (matches) => {
-    return { type: 'SAVE_ALL_MATCHES', matches };
+  saveAllMatches: (matches, matchesJSX) => {
+    return { type: 'SAVE_ALL_MATCHES', matches, matchesJSX };
   },
 };
