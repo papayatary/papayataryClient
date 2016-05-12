@@ -60,15 +60,29 @@ class Matches extends React.Component {
     .then((matches) => {
       // console.log('populateMatches RESPONSE DATA: ', matches);
 
-      console.log(matches);
+      console.log('MATCHES: ', matches);
 
       var matchesJSX = [];
-      for (var i = 0; i < 50; i++) {
+      for (var i = 0; i < matches.length; i++) {
         matchesJSX[i] = (
-
-          <TouchableOpacity key={i}>
-            <Text>hi</Text>
-          </TouchableOpacity>
+          <View style={styles.matchItemContainer}>
+            <View style={styles.thumbImageContainer}>
+              <Image 
+                style={styles.thumbImage}
+                source={require('../images/blakelively001.jpg')}
+              />
+            </View>
+            <View style={styles.messageContainer}>
+              <TouchableOpacity 
+                style={styles.button}
+                onPress={this.handleMessage.bind(this)}
+                key={i}
+              >
+                <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
+                <Text style={styles.messageText}>Hello, my user id is {matches[i].id}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
         );
       }
@@ -76,29 +90,6 @@ class Matches extends React.Component {
 
       console.log('PROPS: ', this.props);
 
-      // for (var i = 0; i < 10; i++) {
-      //   matches[i] = (
-      //     <View style={styles.matchItemContainer}>
-      //       <View style={styles.thumbImageContainer}>
-      //         <Image 
-      //           style={styles.thumbImage}
-      //           source={require('../images/blakelively001.jpg')}
-      //         />
-      //       </View>
-      //       <View style={styles.messageContainer}>
-      //         <TouchableOpacity 
-      //           style={styles.button}
-      //           onPress={this.handleMessage.bind(this)}
-      //           key={i}
-      //         >
-      //           <Text style={styles.messageText}>Name</Text>
-      //           <Text style={styles.messageText}>Hi Jake, how's things?</Text>
-      //         </TouchableOpacity>
-      //       </View>
-      //     </View>
-      //   );
-      // }
-      // return matches;
 
     })
     .catch(error => {
@@ -211,9 +202,14 @@ const styles = StyleSheet.create({
   messagesContainer: {
     //flex: 82,
   },
+  nameText: {
+    fontSize: 14,
+    color: '#00027F',
+    fontWeight: '800'
+  },
   messageText: {
     fontSize: 14,
-    color: 'navy',
+    color: '#70AEFF',
   },
   button: {
     backgroundColor: 'azure',
