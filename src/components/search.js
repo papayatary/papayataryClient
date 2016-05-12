@@ -23,7 +23,8 @@ class Search extends Component {
   constructor(props) {
     super(props);
   }
-
+  componentDidMount(){
+  }
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
     console.log(state, context.state);
@@ -48,6 +49,7 @@ class Search extends Component {
 
   handleNext() {
     // when someone clicks the check mark, display the next person in the queue
+    this.props.actions.incrementUsers();
   }
 
   handleMenu() {
@@ -69,7 +71,7 @@ class Search extends Component {
             <Text style={styles.titleBoxText}>Papayatary</Text>
           </View>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.navButton}
             onPress={this.handleMatches.bind(this)}
           >
@@ -88,18 +90,18 @@ class Search extends Component {
               <View style={styles.profileContainer}>
                 <View style={styles.profileLeft}>
                   <Text style={styles.profileText}>
-                    Blake Lively
+                    {this.props.user.users[this.props.user.usersIndex].firstName}
                   </Text>
                   <Text style={styles.profileText}>
-                    Age: 28
+                    Age: {this.props.user.users[this.props.user.usersIndex].age}
                   </Text>
                 </View>
                 <View style={styles.profileRight}>
                   <Text style={styles.profileText}>
-                    Resting HR: 62
+                    Resting HR: {this.props.user.users[this.props.user.usersIndex].restingHeartRate}
                   </Text>
                   <Text style={styles.profileText}>
-                    Avg Daily Steps: 5000
+                    Avg Daily Steps: {this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80}
                   </Text>
                 </View> 
               </View>
@@ -119,7 +121,7 @@ class Search extends Component {
                   style={styles.button}
                   onPress={this.handleConfirm.bind(this)}
                 >
-                  <Text style={styles.buttonText}>Send 5000 Steps</Text>
+                  <Text style={styles.buttonText}>Send {this.props.user.users[this.props.user.usersIndex].steps} Steps</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
