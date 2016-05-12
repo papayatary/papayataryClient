@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: 339,
     padding: 4,
-    marginBottom: 2,
+    // marginBottom: 2,
     backgroundColor: 'azure',
     borderBottomColor: '#433D4C',
     borderBottomWidth: 1,
