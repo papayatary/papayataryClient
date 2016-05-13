@@ -43,7 +43,7 @@ class Search extends Component {
   handleConfirm() {
     // check if user has enough currency
     if (this.props.user.steps > this.props.user.users[this.props.user.usersIndex].steps) {
-      fetch('http://localhost:8000/api/matchRequest/', {
+      fetch('http://localhost:8000/api/match/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
