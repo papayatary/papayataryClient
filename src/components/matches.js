@@ -48,7 +48,16 @@ class Matches extends React.Component {
     // First, delete from the store
     this.props.actions.deleteOneMatch(toUserId);
 
-    
+    // Then, update the database
+    fetch('http://localhost:8000/api/match?fromUserFacebookId=' + this.props.user.facebookId + '&toUserId=' + toUserId.toUserId, {
+      method: 'DELETE'
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((deletedUser) => {
+      // console.log('deletedUser: ', deletedUser);
+    });
 
   }
 
