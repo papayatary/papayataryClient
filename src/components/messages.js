@@ -22,8 +22,8 @@ import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import serverIpAddress from '../config/serverIpAddress';
 
-var GiftedMessenger = require('react-native-gifted-messenger');
-var Communications = require('react-native-communications');
+import GiftedMessenger from 'react-native-gifted-messenger';
+import Communications from 'react-native-communications';
 
 window.navigator.userAgent = 'react-native';
 // import './userAgent';
