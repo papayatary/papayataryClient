@@ -100,7 +100,7 @@ class Matches extends React.Component {
             right={swipeoutDeleteButton}
             backgroundColor='transparent'
             autoClose='true'
-
+            key={i}
           >
             <View style={styles.matchItemContainer}>
               <View style={styles.thumbImageContainer}>
