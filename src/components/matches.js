@@ -17,6 +17,7 @@ import TopNavBar from './topnavbar.js';
 import Messages from './messages.js';
 import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Swipeout from 'react-native-swipeout';
 
 class Matches extends React.Component {
   constructor(props) {
@@ -78,35 +79,51 @@ class Matches extends React.Component {
     .then((matches) => {
       // console.log('populateMatches MATCHES: ', matches);
 
+
+      // Add JSX syntax to matches data:
       var matchesJSX = [];
       for (var i = 0; i < matches.length; i++) {
+
+        // Define delete swipe button text:
+        var swipeoutDeleteButton = [
+          {
+            text: 'Delete',
+            backgroundColor: 'red',
+            color: 'azure',
+            onPress: this.handleDeleteMatch.bind( this, {toUserId: matches[i].id} ),
+          }
+        ];
+
         matchesJSX[i] = (
-          <View style={styles.matchItemContainer}>
-            <View style={styles.thumbImageContainer}>
-              <Image 
-                style={styles.thumbImage}
-                source={require('../images/blakelively001.jpg')}
-              />
-            </View>
-            <View style={styles.messageContainer}>
-              <TouchableOpacity 
-                style={styles.button}
-                onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
-                key={i}
-              >
-                <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
-                <Text style={styles.messageText}>Hello, my user id is {matches[i].id}</Text>
-                <TouchableOpacity
-                  onPress={this.handleDeleteMatch.bind( this, {toUserId: matches[i].id} )}
+          <Swipeout 
+            right={swipeoutDeleteButton}
+            backgroundColor='transparent'
+            autoClose='true'
+
+          >
+            <View style={styles.matchItemContainer}>
+              <View style={styles.thumbImageContainer}>
+                <Image 
+                  style={styles.thumbImage}
+                  source={require('../images/blakelively001.jpg')}
+                />
+              </View>
+              <View style={styles.messageContainer}>
+                <TouchableOpacity 
+                  style={styles.button}
+                  onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
+                  key={i}
                 >
-                  <Text style={styles.messageText}>Delete</Text>
+                  <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
+                  <Text style={styles.messageText}>Hello, my user id is {matches[i].id}</Text>
                 </TouchableOpacity>
-              </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          </Swipeout>
 
         );
       }
+      // Save both the "normal" matches data and the JSX matches data to the store:
       this.props.actions.saveAllMatches(matches, matchesJSX);
 
     })
@@ -117,9 +134,9 @@ class Matches extends React.Component {
   }
 
   render() {
-    // example of how to map messages {this.props.messages.map((messages, i) => ())};
-   return (
-      <View style={styles.container} >
+    return (
+      <View style={styles.container}>
+
         <View style={styles.navContainer}>
           <TouchableOpacity 
             style={styles.navButton}
