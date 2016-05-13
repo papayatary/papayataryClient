@@ -44,6 +44,23 @@ class Matches extends React.Component {
     });
   }
 
+  handleDeleteMatch(toUserId) {
+    // First, delete from the store
+    this.props.actions.deleteOneMatch(toUserId);
+
+    // Then, update the database
+    fetch('http://localhost:8000/api/match?fromUserFacebookId=' + this.props.user.facebookId + '&toUserId=' + toUserId.toUserId, {
+      method: 'DELETE'
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((deletedUser) => {
+      // console.log('deletedUser: ', deletedUser);
+    });
+
+  }
+
   componentWillMount() {
     // Do this once immediately before the page renders
     this.populateMatches();
@@ -79,6 +96,11 @@ class Matches extends React.Component {
               >
                 <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
                 <Text style={styles.messageText}>Hello, my user id is {matches[i].id}</Text>
+                <TouchableOpacity
+                  onPress={this.handleDeleteMatch.bind( this, {toUserId: matches[i].id} )}
+                >
+                  <Text style={styles.messageText}>Delete</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
             </View>
           </View>
