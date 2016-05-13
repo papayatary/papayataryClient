@@ -23,7 +23,17 @@ class Search extends Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount(){
+  componentWillMount() {
+    fetch(`http://localhost:8000/api/wallet?facebookId=${this.props.user.facebookId}`,{
+      method: 'GET',
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseData) => {
+      console.log(responseData);
+      this.props.actions.setSteps(responseData);
+    });
   }
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
@@ -32,8 +42,27 @@ class Search extends Component {
 
   handleConfirm() {
     // check if user has enough currency
-      // if so, take currency from user's wallet and connect users
-      // else, display error
+    if (this.props.user.steps > this.props.user.users[this.props.user.usersIndex].steps) {
+      fetch('http://localhost:8000/api/matchRequest/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          facebookId: this.props.user.facebookId,
+          likedUserId: this.props.user.users[this.props.user.usersIndex].id,
+        }),
+      }).then(response => {
+        return response.json();
+      }).then(responseData => {
+        if (responseData.newMatch) {
+        // alert the user they have a new match, and update the new match button
+        }
+        this.props.actions.setSteps(responseData.steps);
+        this.props.actions.incrementUsers();
+      });
+    }
   }
 
   handleMatches() {
@@ -133,7 +162,7 @@ class Search extends Component {
               </View>
               <View style={styles.balanceBox}>
                 <Text style={styles.balanceText}>
-                  Your Balance:  50,000 Steps
+                  Your Balance:  {this.props.user.steps} Steps
                 </Text>
               </View>
             </View>
