@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import CreateProfile from './createprofile.js';
+import serverIpAddress from '../config/serverIpAddress';
 
 class FitbitAuth extends React.Component {
   constructor(props) {
@@ -68,7 +69,7 @@ class FitbitAuth extends React.Component {
       url: event.url,
       facebookId: this.props.user.facebookId,
     };
-    fetch('http://localhost:8000/api/fitbit/', {
+    fetch(`http://${serverIpAddress}:8000/api/fitbit/`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

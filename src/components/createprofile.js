@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import actions from '../actions/actions';
+import serverIpAddress from '../config/serverIpAddress';
 import Search from './search';
 
 class CreateProfile extends Component {
@@ -30,7 +31,7 @@ class CreateProfile extends Component {
       zipCode: this.props.user.zipCode,
       picturePath: '/somePath',
     };
-    fetch('http://localhost:8000/api/profile', {
+    fetch(`http://${serverIpAddress}:8000/api/profile`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -43,7 +44,7 @@ class CreateProfile extends Component {
     })
     .then((responseText) => {
       // console.log('Create Profile Submit Response: ', responseText);
-      fetch(`http://localhost:8000/api/users?facebookId=${this.props.user.facebookId}&gender=${this.props.user.gender}`, {
+      fetch(`http://${serverIpAddress}:8000/api/users?facebookId=${this.props.user.facebookId}&gender=${this.props.user.gender}`, {
         method: 'GET',
       })
       .then((response) => {

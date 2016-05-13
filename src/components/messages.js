@@ -20,6 +20,7 @@ import actions from '../actions/actions';
 import TopNavBar from './topnavbar.js';
 import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import serverIpAddress from '../config/serverIpAddress';
 
 var GiftedMessenger = require('react-native-gifted-messenger');
 var Communications = require('react-native-communications');
@@ -89,7 +90,7 @@ class Messages extends React.Component {
       fromUserFacebookId: this.props.user.facebookId,
       toUserId: this.props.message.toUserId,
     };
-    fetch('http://localhost:8000/api/message?fromUserFacebookId=' + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
+    fetch(`http://${serverIpAddress}:8000/api/message?fromUserFacebookId=` + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
       method: 'GET',
     })
     .then((response) => {
@@ -192,7 +193,7 @@ class Messages extends React.Component {
       text: message.text, 
       timestamp: new Date(),
     };
-    fetch('http://localhost:8000/api/message', {
+    fetch(`http://${serverIpAddress}:8000/api/message`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

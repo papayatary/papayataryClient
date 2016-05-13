@@ -18,6 +18,7 @@ import Messages from './messages.js';
 import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swipeout from 'react-native-swipeout';
+import serverIpAddress from '../config/serverIpAddress';
 
 class Matches extends React.Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class Matches extends React.Component {
     this.props.actions.deleteOneMatch(toUserId);
 
     // Then, update the database
-    fetch('http://localhost:8000/api/match?fromUserFacebookId=' + this.props.user.facebookId + '&toUserId=' + toUserId.toUserId, {
+    fetch(`http://${serverIpAddress}:8000/api/match?fromUserFacebookId=` + this.props.user.facebookId + '&toUserId=' + toUserId.toUserId, {
       method: 'DELETE'
     })
     .then((response) => {
@@ -70,7 +71,7 @@ class Matches extends React.Component {
   populateMatches() {
 
     // Fetch all matches
-    fetch('http://localhost:8000/api/match?fromUserFacebookId=' + this.props.user.facebookId, {
+    fetch(`http://${serverIpAddress}:8000/api/match?fromUserFacebookId=` + this.props.user.facebookId, {
       method: 'GET',
     })
     .then((response) => {

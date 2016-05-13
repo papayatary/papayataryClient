@@ -16,6 +16,7 @@ import FBLogin from 'react-native-facebook-login';
 import FitbitAuth from './fitbitauth';
 import { FBLoginManager } from 'NativeModules';
 import Search from './search';
+import serverIpAddress from '../config/serverIpAddress';
 
 class FacebookAuth extends React.Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class FacebookAuth extends React.Component {
     }
   }
   checkAuth() {
-    fetch(`http://localhost:8000/auth?facebookId=${this.props.user.facebookId}`, {
+    fetch(`http://${serverIpAddress}:8000/auth?facebookId=${this.props.user.facebookId}`, {
       method: 'GET',
     })
       .then((response) => {
@@ -51,7 +52,7 @@ class FacebookAuth extends React.Component {
       });
   }
   eagerLoadUsers(callback) {
-    fetch(`http://localhost:8000/api/users?facebookId=${this.props.user.facebookId}&gender=${this.props.user.gender}`, {
+    fetch(`http://${serverIpAddress}:8000/api/users?facebookId=${this.props.user.facebookId}&gender=${this.props.user.gender}`, {
       method: 'GET',
     })
     .then((response) => {
@@ -80,7 +81,7 @@ class FacebookAuth extends React.Component {
         // };
 
         // Save credentials to server
-        fetch('http://localhost:8000/api/user', {
+        fetch(`http://${serverIpAddress}:8000/api/user`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
