@@ -43,15 +43,23 @@ class CreateProfile extends Component {
     })
     .then((responseText) => {
       // console.log('Create Profile Submit Response: ', responseText);
+      fetch(`http://localhost:8000/api/users?facebookId=${this.props.user.facebookId}&gender=${this.props.user.gender}`, {
+        method: 'GET',
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseData) => {
+        this.props.actions.saveUsers(responseData);
+      // Check if user is authenticated. If so, redirect somewhere...
+        this.props.navigator.push({
+          name: 'Search',
+          component: Search,
+        });
+      });
     })
     .catch(error => {
       console.error(error);
-    });
-
-    // Check if user is authenticated. If so, redirect somewhere...
-    this.props.navigator.push({
-      name: 'Search',
-      component: Search,
     });
   }
   render() {
