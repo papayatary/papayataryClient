@@ -16,6 +16,7 @@ import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Matches from './matches.js';
+import serverIpAddress from '../config/serverIpAddress';
 
 // import TopNavBar from './topnavbar.js';
 
@@ -24,7 +25,7 @@ class Search extends Component {
     super(props);
   }
   componentWillMount() {
-    fetch(`http://localhost:8000/api/wallet?facebookId=${this.props.user.facebookId}`,{
+    fetch(`http://${serverIpAddress}:8000/api/wallet?facebookId=${this.props.user.facebookId}`,{
       method: 'GET',
     })
     .then((response) => {
@@ -43,7 +44,7 @@ class Search extends Component {
   handleConfirm() {
     // check if user has enough currency
     if (this.props.user.steps > this.props.user.users[this.props.user.usersIndex].steps) {
-      fetch('http://localhost:8000/api/match/', {
+      fetch(`http://${serverIpAddress}:8000/api/match/`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
