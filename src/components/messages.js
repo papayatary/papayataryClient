@@ -25,12 +25,19 @@ import serverIpAddress from '../config/serverIpAddress';
 var GiftedMessenger = require('react-native-gifted-messenger');
 var Communications = require('react-native-communications');
 
+window.navigator.userAgent = 'react-native';
+// import './userAgent';
+import io from 'socket.io-client/socket.io';
+
+
 var STATUS_BAR_HEIGHT = Navigator.NavigationBar.Styles.General.StatusBarHeight;
 
 class Messages extends React.Component {
   constructor(props) {
     super(props);
-    
+
+    this.socket = io('localhost:8000', {jsonp: false});
+
     this._isMounted = false;
     this._messages = this.getInitialMessages() || [];
     
@@ -40,7 +47,6 @@ class Messages extends React.Component {
       typingMessage: '',
       allLoaded: false,
     };
-    
   }
 
   handleBackToMatches() {
@@ -288,6 +294,8 @@ class Messages extends React.Component {
   }
   
   render() {
+    this.socket.emit('testing', {test: 1});
+
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>

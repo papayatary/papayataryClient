@@ -134,16 +134,6 @@ class Matches extends React.Component {
   }
 
   render() {
-    // var ws = new WebSocket('ws://localhost:8000');
-
-    // ws.onopen = function(event) {
-    //   ws.send('does this work?');
-
-    //   ws.onmessage = function(event) {
-    //     console.log('client received a message: ', event);
-    //   };
-    // };
-
 
     return (
       <View style={styles.container}>
