@@ -31,4 +31,7 @@ module.exports = {
   deleteOneMatch: (match) => {
     return { type: 'DELETE_ONE_MATCH', match };
   },
+  setSteps: (steps) => {
+    return { type: 'SET_STEPS', steps};
+  },
 };
