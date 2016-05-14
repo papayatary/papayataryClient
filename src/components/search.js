@@ -86,7 +86,9 @@ class Search extends Component {
     // Redirect to edit profile page once implemented...
   }
 
-  render() {
+  render() { 
+    const picturx = this.props.user.users[this.props.user.usersIndex].picturePath;
+
     // this.props.actions.setCurrentPage('search');
     return (
       <View style={styles.container}>
@@ -137,7 +139,7 @@ class Search extends Component {
               </View>
               <Image
                 style={styles.image}
-                source={require('../images/blakelively001.jpg')}
+                source={{uri: picturx }}
               />
               <View style={styles.buttonContainer}>
                 <TouchableOpacity 
