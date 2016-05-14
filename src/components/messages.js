@@ -37,9 +37,6 @@ class Messages extends React.Component {
     super(props);
 
     this.socket = io('localhost:8000', {jsonp: false});
-    this.socket.on('asd', function() {
-      console.log('HELLO FROM THE OTHER SIDE');
-    });
 
     this._isMounted = false;
     this._messages = this.getInitialMessages() || [];
@@ -59,6 +56,10 @@ class Messages extends React.Component {
 
   handleMenu() {
     // Redirect to edit profile page once implemented...
+  }
+
+  componentWillMount() {
+    this.socket.emit('connectedFacebookId', this.props.user.facebookId);
   }
   
   componentDidMount() {
