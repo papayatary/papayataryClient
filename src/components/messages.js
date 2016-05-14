@@ -57,7 +57,7 @@ class Messages extends React.Component {
   }
 
   componentWillMount() {
-    this.socket = io('localhost:8000', {jsonp: false});
+    this.socket = io(`${serverIpAddress}:8000`, {jsonp: false});
 
     this.socket.emit('connectedFacebookId', this.props.user.facebookId);
 
