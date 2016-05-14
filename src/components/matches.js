@@ -111,7 +111,7 @@ class Matches extends React.Component {
               <View style={styles.messageContainer}>
                 <TouchableOpacity 
                   style={styles.button}
-                  onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
+                  onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, facebookId: matches[i].facebookId, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
                   key={i}
                 >
                   <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>

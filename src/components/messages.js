@@ -36,7 +36,6 @@ class Messages extends React.Component {
   constructor(props) {
     super(props);
 
-    this.socket = io('localhost:8000', {jsonp: false});
 
     this._isMounted = false;
     this._messages = this.getInitialMessages() || [];
@@ -47,7 +46,6 @@ class Messages extends React.Component {
       typingMessage: '',
       allLoaded: false,
     };
-
   }
 
   handleBackToMatches() {
@@ -59,7 +57,22 @@ class Messages extends React.Component {
   }
 
   componentWillMount() {
+    this.socket = io('localhost:8000', {jsonp: false});
+
     this.socket.emit('connectedFacebookId', this.props.user.facebookId);
+
+
+    this.socket.on( 'fetchLast', () => {
+      // console.log('CALL FETCH LAST FUNCTION!');
+      // console.log('THIS: ', this.getInitialMessages);
+      this.getInitialMessages();
+    } );
+
+    //---------- The ES6 arrow syntax above will will automatically bind "this" --------//
+    // this.socket.on( 'fetchLast', function() {
+    //   console.log('THIS: ', this);
+    // }.bind(this) );
+
   }
   
   componentDidMount() {
@@ -95,6 +108,7 @@ class Messages extends React.Component {
   }
   
   getInitialMessages() {
+    console.log('CALLED getInitialMessages!');
     // !!! Currently this will fetch all messages. Later on, implement this so that only 30 messages are retrieved immediately.
     // Fetch all messages between the current 2 users
     var _users = {
@@ -166,6 +180,57 @@ class Messages extends React.Component {
     // ];
   }
   
+  fetchLastMessage() {
+    // var _users = {
+    //   fromUserFacebookId: this.props.user.facebookId,
+    //   toUserId: this.props.message.toUserId,
+    // };
+    // fetch(`http://${serverIpAddress}:8000/api/message?fromUserFacebookId=` + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
+    //   method: 'GET',
+    // })
+    // .then((response) => {
+    //   // console.log(response);
+    //   return response.json();
+    // })
+    // .then((responseData) => {
+    //   // console.log('getInitialMessages RESPONSE DATA: ', responseData);
+    //   var _messages = [];
+    //   for (var i = 0; i < responseData.length; i++) {
+    //     // if the current message belongs to the "from" user...
+    //     if (responseData[i].hasOwnProperty('fromUserFacebookId')) {
+    //       _messages.push({
+    //         text: responseData[i].text,
+    //         name: this.props.user.firstName + ' ' + this.props.user.lastName,
+    //         image: null,
+    //         position: 'right',
+    //         date: responseData[i].timestamp,
+    //         uniqueId: responseData[i].id,
+    //       });
+    //     }
+    //     // if the current message belongs to the "to" user...
+    //     else {
+    //       _messages.push({
+    //         text: responseData[i].text,
+    //         name: this.props.message.firstName + ' ' + this.props.message.lastName,
+    //         image: {uri: this.props.message.picturePath},
+    //         position: 'left',
+    //         date: responseData[i].timestamp,
+    //         uniqueId: responseData[i].id,
+    //       });
+    //     }
+    //   }
+    //   this.setMessages(_messages);
+
+    //   // This should be an array of all initial messages
+    //   return this.state.messages;
+
+    // })
+    // .catch(error => {
+    //   console.error(error);
+    // });
+
+  }
+
   setMessageStatus(uniqueId, status) {
     let messages = [];
     let found = false;
@@ -222,7 +287,8 @@ class Messages extends React.Component {
       this.setMessages(this._messages.concat(message)); //Append message and update state
       // console.log('NEW STATE: ', this.state);
 
-      this.socket.emit('notifyOtherUserToFetchLast');
+      this.socket.emit('notifyOtherUserToFetchLast', { fromUserFacebookId: this.props.user.facebookId, toUserFacebookId: this.props.message.facebookId });
+
     })
     .catch(error => {
       console.error(error);
@@ -301,6 +367,7 @@ class Messages extends React.Component {
   }
   
   render() {
+
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>

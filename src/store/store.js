@@ -9,7 +9,7 @@ import devTools from 'remote-redux-devtools';
 
 //this is function that lets us add a "logger" middleware to the original createStore 
 let finalCreateStore = compose(
-  applyMiddleware(logger()),
+  // applyMiddleware(logger()), //State logger
   devTools()
 )(createStore);
 
