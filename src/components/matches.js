@@ -80,7 +80,6 @@ class Matches extends React.Component {
     .then((matches) => {
       // console.log('populateMatches MATCHES: ', matches);
 
-
       // Add JSX syntax to matches data:
       var matchesJSX = [];
       for (var i = 0; i < matches.length; i++) {
@@ -135,6 +134,7 @@ class Matches extends React.Component {
   }
 
   render() {
+
     return (
       <View style={styles.container}>
 

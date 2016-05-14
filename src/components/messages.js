@@ -22,15 +22,22 @@ import SearchBar from 'react-native-search-bar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import serverIpAddress from '../config/serverIpAddress';
 
-var GiftedMessenger = require('react-native-gifted-messenger');
-var Communications = require('react-native-communications');
+import GiftedMessenger from 'react-native-gifted-messenger';
+import Communications from 'react-native-communications';
+
+window.navigator.userAgent = 'react-native';
+// import './userAgent';
+import io from 'socket.io-client/socket.io';
+
 
 var STATUS_BAR_HEIGHT = Navigator.NavigationBar.Styles.General.StatusBarHeight;
 
 class Messages extends React.Component {
   constructor(props) {
     super(props);
-    
+
+    this.socket = io('localhost:8000', {jsonp: false});
+
     this._isMounted = false;
     this._messages = this.getInitialMessages() || [];
     
@@ -40,7 +47,7 @@ class Messages extends React.Component {
       typingMessage: '',
       allLoaded: false,
     };
-    
+
   }
 
   handleBackToMatches() {
@@ -49,6 +56,10 @@ class Messages extends React.Component {
 
   handleMenu() {
     // Redirect to edit profile page once implemented...
+  }
+
+  componentWillMount() {
+    this.socket.emit('connectedFacebookId', this.props.user.facebookId);
   }
   
   componentDidMount() {
@@ -210,6 +221,8 @@ class Messages extends React.Component {
       message.uniqueId = responseObject.id; //set a unique id for the message
       this.setMessages(this._messages.concat(message)); //Append message and update state
       // console.log('NEW STATE: ', this.state);
+
+      this.socket.emit('notifyOtherUserToFetchLast');
     })
     .catch(error => {
       console.error(error);
