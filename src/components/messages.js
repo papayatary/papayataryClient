@@ -37,6 +37,9 @@ class Messages extends React.Component {
     super(props);
 
     this.socket = io('localhost:8000', {jsonp: false});
+    this.socket.on('asd', function() {
+      console.log('HELLO FROM THE OTHER SIDE');
+    });
 
     this._isMounted = false;
     this._messages = this.getInitialMessages() || [];
@@ -47,6 +50,7 @@ class Messages extends React.Component {
       typingMessage: '',
       allLoaded: false,
     };
+
   }
 
   handleBackToMatches() {
@@ -216,6 +220,8 @@ class Messages extends React.Component {
       message.uniqueId = responseObject.id; //set a unique id for the message
       this.setMessages(this._messages.concat(message)); //Append message and update state
       // console.log('NEW STATE: ', this.state);
+
+      this.socket.emit('notifyOtherUserToFetchLast');
     })
     .catch(error => {
       console.error(error);
@@ -294,8 +300,6 @@ class Messages extends React.Component {
   }
   
   render() {
-    this.socket.emit('testing', {test: 1});
-
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>
