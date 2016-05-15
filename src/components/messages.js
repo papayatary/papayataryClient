@@ -45,6 +45,7 @@ class Messages extends React.Component {
       isLoadingEarlierMessages: false,
       typingMessage: '',
       allLoaded: false,
+      lastSentMessageId: '',
     };
   }
 
@@ -181,53 +182,53 @@ class Messages extends React.Component {
   }
   
   fetchLastMessage() {
-    // var _users = {
-    //   fromUserFacebookId: this.props.user.facebookId,
-    //   toUserId: this.props.message.toUserId,
-    // };
-    // fetch(`http://${serverIpAddress}:8000/api/message?fromUserFacebookId=` + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
-    //   method: 'GET',
-    // })
-    // .then((response) => {
-    //   // console.log(response);
-    //   return response.json();
-    // })
-    // .then((responseData) => {
-    //   // console.log('getInitialMessages RESPONSE DATA: ', responseData);
-    //   var _messages = [];
-    //   for (var i = 0; i < responseData.length; i++) {
-    //     // if the current message belongs to the "from" user...
-    //     if (responseData[i].hasOwnProperty('fromUserFacebookId')) {
-    //       _messages.push({
-    //         text: responseData[i].text,
-    //         name: this.props.user.firstName + ' ' + this.props.user.lastName,
-    //         image: null,
-    //         position: 'right',
-    //         date: responseData[i].timestamp,
-    //         uniqueId: responseData[i].id,
-    //       });
-    //     }
-    //     // if the current message belongs to the "to" user...
-    //     else {
-    //       _messages.push({
-    //         text: responseData[i].text,
-    //         name: this.props.message.firstName + ' ' + this.props.message.lastName,
-    //         image: {uri: this.props.message.picturePath},
-    //         position: 'left',
-    //         date: responseData[i].timestamp,
-    //         uniqueId: responseData[i].id,
-    //       });
-    //     }
-    //   }
-    //   this.setMessages(_messages);
+    var _users = {
+      fromUserFacebookId: this.props.user.facebookId,
+      toUserId: this.props.message.toUserId,
+    };
+    fetch(`http://${serverIpAddress}:8000/api/message/last?fromUserFacebookId=` + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
+      method: 'GET',
+    })
+    .then((response) => {
+      // console.log(response);
+      return response.json();
+    })
+    .then((responseData) => {
+      console.log('getInitialMessages RESPONSE DATA: ', responseData);
+      // var _messages = [];
+      // for (var i = 0; i < responseData.length; i++) {
+      //   // if the current message belongs to the "from" user...
+      //   if (responseData[i].hasOwnProperty('fromUserFacebookId')) {
+      //     _messages.push({
+      //       text: responseData[i].text,
+      //       name: this.props.user.firstName + ' ' + this.props.user.lastName,
+      //       image: null,
+      //       position: 'right',
+      //       date: responseData[i].timestamp,
+      //       uniqueId: responseData[i].id,
+      //     });
+      //   }
+      //   // if the current message belongs to the "to" user...
+      //   else {
+      //     _messages.push({
+      //       text: responseData[i].text,
+      //       name: this.props.message.firstName + ' ' + this.props.message.lastName,
+      //       image: {uri: this.props.message.picturePath},
+      //       position: 'left',
+      //       date: responseData[i].timestamp,
+      //       uniqueId: responseData[i].id,
+      //     });
+      //   }
+      // }
+      // this.setMessages(_messages);
 
-    //   // This should be an array of all initial messages
-    //   return this.state.messages;
+      // // This should be an array of all initial messages
+      // return this.state.messages;
 
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    // });
+    })
+    .catch(error => {
+      console.error(error);
+    });
 
   }
 
@@ -287,7 +288,14 @@ class Messages extends React.Component {
       this.setMessages(this._messages.concat(message)); //Append message and update state
       // console.log('NEW STATE: ', this.state);
 
-      this.socket.emit('notifyOtherUserToFetchLast', { fromUserFacebookId: this.props.user.facebookId, toUserFacebookId: this.props.message.facebookId });
+      this.setState({
+        lastSentMessageId: responseObject.id,
+      });
+      this.socket.emit('notifyOtherUserToFetchLast', { 
+        fromUserFacebookId: this.props.user.facebookId, 
+        toUserFacebookId: this.props.message.facebookId,
+        lastSentMessageId: this.state.lastSentMessageId,
+      });
 
     })
     .catch(error => {
