@@ -406,6 +406,20 @@ class Messages extends React.Component {
                 height: 603,
                 width: 375,
               },
+              textInput: {
+                alignSelf: 'center',
+                height: 30,
+                width: 100,
+                backgroundColor: 'azure',
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: '#ccc',
+                paddingLeft: 10,
+                flex: 1,
+                padding: 0,
+                margin: 0,
+                fontSize: 15,
+              },
             }}
             
             autoFocus={false} //text input auto focus
@@ -414,6 +428,7 @@ class Messages extends React.Component {
             onErrorButtonPress={this.onErrorButtonPress.bind(this)}
             // maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT} //667 - 44 - 20 = 603
             maxHeight={603}
+            placeholder={'Type a message...'}
 
             loadEarlierMessagesButton={!this.state.allLoaded}
             onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
