@@ -63,10 +63,9 @@ class Messages extends React.Component {
     this.socket.emit('connectedFacebookId', this.props.user.facebookId);
 
 
-    this.socket.on( 'fetchLast', () => {
-      // console.log('CALL FETCH LAST FUNCTION!');
-      // console.log('THIS: ', this.getInitialMessages);
-      this.getInitialMessages();
+    this.socket.on( 'fetchLast', (incomingMessageId) => {
+      console.log('CALL FETCH LAST FUNCTION!', incomingMessageId);
+      this.fetchLastMessage(incomingMessageId);
     } );
 
     //---------- The ES6 arrow syntax above will will automatically bind "this" --------//
@@ -79,29 +78,29 @@ class Messages extends React.Component {
   componentDidMount() {
     this._isMounted = true;    
     
-    setTimeout(() => {
-      this.setState({
-        typingMessage: this.props.message.firstName + ' ' + this.props.message.lastName + ' is typing a message...',
-      });
-    }, 1000); // simulating network
+    // setTimeout(() => {
+    //   this.setState({
+    //     typingMessage: this.props.message.firstName + ' ' + this.props.message.lastName + ' is typing a message...',
+    //   });
+    // }, 1000); // simulating network
 
-    setTimeout(() => {
-      this.setState({
-        typingMessage: '',
-      });
-    }, 3000); // simulating network
+    // setTimeout(() => {
+    //   this.setState({
+    //     typingMessage: '',
+    //   });
+    // }, 3000); // simulating network
     
     
-    setTimeout(() => {
-      this.handleReceive({
-        text: 'Lets get coffee?', 
-        name: this.props.message.firstName + ' ' + this.props.message.lastName, 
-        image: {uri: this.props.message.picturePath}, 
-        position: 'left', 
-        date: new Date(),
-        uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
-      });
-    }, 3300); // simulating network
+    // setTimeout(() => {
+    //   this.handleReceive({
+    //     text: 'Lets get coffee?', 
+    //     name: this.props.message.firstName + ' ' + this.props.message.lastName, 
+    //     image: {uri: this.props.message.picturePath}, 
+    //     position: 'left', 
+    //     date: new Date(),
+    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
+    //   });
+    // }, 3300); // simulating network
   }
 
   componentWillUnmount() {
@@ -181,12 +180,13 @@ class Messages extends React.Component {
     // ];
   }
   
-  fetchLastMessage() {
-    var _users = {
-      fromUserFacebookId: this.props.user.facebookId,
-      toUserId: this.props.message.toUserId,
-    };
-    fetch(`http://${serverIpAddress}:8000/api/message/last?fromUserFacebookId=` + _users.fromUserFacebookId + '&toUserId=' + _users.toUserId, {
+  fetchLastMessage(incomingMessageId) {
+
+    this.setState({
+      typingMessage: this.props.message.firstName + ' ' + this.props.message.lastName + ' is typing a message...',
+    });
+
+    fetch(`http://${serverIpAddress}:8000/api/message/last?incomingMessageId=` + incomingMessageId, {
       method: 'GET',
     })
     .then((response) => {
@@ -194,36 +194,22 @@ class Messages extends React.Component {
       return response.json();
     })
     .then((responseData) => {
-      console.log('getInitialMessages RESPONSE DATA: ', responseData);
-      // var _messages = [];
-      // for (var i = 0; i < responseData.length; i++) {
-      //   // if the current message belongs to the "from" user...
-      //   if (responseData[i].hasOwnProperty('fromUserFacebookId')) {
-      //     _messages.push({
-      //       text: responseData[i].text,
-      //       name: this.props.user.firstName + ' ' + this.props.user.lastName,
-      //       image: null,
-      //       position: 'right',
-      //       date: responseData[i].timestamp,
-      //       uniqueId: responseData[i].id,
-      //     });
-      //   }
-      //   // if the current message belongs to the "to" user...
-      //   else {
-      //     _messages.push({
-      //       text: responseData[i].text,
-      //       name: this.props.message.firstName + ' ' + this.props.message.lastName,
-      //       image: {uri: this.props.message.picturePath},
-      //       position: 'left',
-      //       date: responseData[i].timestamp,
-      //       uniqueId: responseData[i].id,
-      //     });
-      //   }
-      // }
-      // this.setMessages(_messages);
+      console.log('fetchLastMessage RESPONSE DATA: ', responseData);
 
-      // // This should be an array of all initial messages
-      // return this.state.messages;
+      this.setState({
+        typingMessage: '',
+      });
+
+      var incomingMessage = {
+        text: responseData.text,
+        name: this.props.message.firstName + ' ' + this.props.message.lastName,
+        image: {url: this.props.message.picturePath},
+        position: 'left',
+        date: responseData.timestamp,
+        uniqueId: responseData.id,
+      };
+
+      this.setMessages(this._messages.concat(incomingMessage));
 
     })
     .catch(error => {
@@ -298,7 +284,7 @@ class Messages extends React.Component {
       });
 
     })
-    .catch(error => {
+    .catch(error => {M
       console.error(error);
     });
 
