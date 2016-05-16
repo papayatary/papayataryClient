@@ -284,7 +284,7 @@ class Messages extends React.Component {
       });
 
     })
-    .catch(error => {M
+    .catch(error => {
       console.error(error);
     });
 
