@@ -83,7 +83,7 @@ class Matches extends React.Component {
       // Add JSX syntax to matches data:
       var matchesJSX = [];
       for (var i = 0; i < matches.length; i++) {
-
+        console.log("matches of i", matches[i]);
         // Define delete swipe button text:
         var swipeoutDeleteButton = [
           {

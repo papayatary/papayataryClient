@@ -25,6 +25,7 @@ import serverIpAddress from '../config/serverIpAddress';
 import GiftedMessenger from 'react-native-gifted-messenger';
 import Communications from 'react-native-communications';
 
+
 window.navigator.userAgent = 'react-native';
 // import './userAgent';
 import io from 'socket.io-client/socket.io';
@@ -62,10 +63,17 @@ class Messages extends React.Component {
 
     this.socket.emit('connectedFacebookId', this.props.user.facebookId);
 
-
     this.socket.on( 'fetchLast', (incomingMessageId) => {
       console.log('CALL FETCH LAST FUNCTION!', incomingMessageId);
       this.fetchLastMessage(incomingMessageId);
+    this.socket = io(`${serverIpAddress}:8000`, {jsonp: false});
+
+    this.socket.emit('connectedFacebookId', this.props.user.facebookId);
+
+    this.socket.on( 'fetchLast', () => {
+      // console.log('CALL FETCH LAST FUNCTION!');
+      // console.log('THIS: ', this.getInitialMessages);
+      this.getInitialMessages();
     } );
 
     //---------- The ES6 arrow syntax above will will automatically bind "this" --------//

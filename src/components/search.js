@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: 'contain', // cover, contain, stretch, auto
-    height: 460,
+    height: 420,
     width: 340,
     justifyContent: 'center',
     alignItems: 'flex-start',
