@@ -87,30 +87,6 @@ class Messages extends React.Component {
   
   componentDidMount() {
     this._isMounted = true;    
-    
-    // setTimeout(() => {
-    //   this.setState({
-    //     typingMessage: this.props.message.firstName + ' ' + this.props.message.lastName + ' is typing a message...',
-    //   });
-    // }, 1000); // simulating network
-
-    // setTimeout(() => {
-    //   this.setState({
-    //     typingMessage: '',
-    //   });
-    // }, 3000); // simulating network
-    
-    
-    // setTimeout(() => {
-    //   this.handleReceive({
-    //     text: 'Lets get coffee?', 
-    //     name: this.props.message.firstName + ' ' + this.props.message.lastName, 
-    //     image: {uri: this.props.message.picturePath}, 
-    //     position: 'left', 
-    //     date: new Date(),
-    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
-    //   });
-    // }, 3300); // simulating network
   }
 
   componentWillUnmount() {
