@@ -415,6 +415,7 @@ class Messages extends React.Component {
                 borderRadius: 5,
                 borderColor: '#ccc',
                 paddingLeft: 10,
+                paddingRight: 5,
                 flex: 1,
                 padding: 0,
                 margin: 0,
