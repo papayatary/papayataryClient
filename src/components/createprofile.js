@@ -25,9 +25,11 @@ class CreateProfile extends Component {
   handleSubmitButton() {
     // If either the age and zip code fields are missing, re-render the page.
     if (this.props.user.age === null || this.props.user.zipCode === null) {
-      this.props.actions.toggleMissingAgeOrZip();
-      this.props.user.missingAgeOrZip; 
-      this.forceUpdate();
+      // Set missing to true if it's not already true
+      if (this.props.user.missingAgeOrZip !== true) {
+        this.props.actions.toggleMissingAgeOrZip();
+      }
+      this.forceUpdate(); //force the page to re-render
     }
     // Otherwise, submit the data
     else {
@@ -148,7 +150,7 @@ class CreateProfile extends Component {
           <View style={styles.fieldContainer}>
             <Text style={styles.pageTitle}>Submit Your Profile</Text>
 
-            <Text style={styles.fieldLabel}>Name</Text> 
+            <Text style={styles.fieldLabelDefault}>Name</Text> 
             <TextInput
               style={styles.fieldInput}
               value={this.props.user.firstName+' '+this.props.user.lastName}
@@ -159,8 +161,10 @@ class CreateProfile extends Component {
               style={styles.fieldInput}
               value={this.props.user.gender}
             />
-
-            <Text style={styles.fieldLabel}>Age</Text>
+            <Text style={styles.fieldLabel}>
+              <Text style={styles.fieldLabelDefault}>Age</Text>
+              <Text style={styles.fieldLabelError}>  *this is a required field</Text>
+            </Text>
             {/*Add logic for PickerIOS*/}
             <TextInput 
               style={styles.fieldInput}
@@ -171,7 +175,10 @@ class CreateProfile extends Component {
               placeholder={'enter age'}
             />
 
-            <Text style={styles.fieldLabel}>Zip Code</Text>
+            <Text style={styles.fieldLabel}>
+              <Text style={styles.fieldLabelDefault}>Zip Code</Text>
+              <Text style={styles.fieldLabelError}>  *this is a required field</Text>
+            </Text>
             <TextInput 
               style={styles.fieldInput}
               keyboardType={'number-pad'}
@@ -239,6 +246,15 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     fontSize: 18,
     color: 'navy',
+  },
+  fieldLabelDefault: {
+    alignSelf: 'flex-start',
+    fontSize: 18,
+    color: 'navy'
+  },
+  fieldLabelError: {
+    fontSize: 11,
+    color: 'red',
   },
   fieldInput: {
     height: 40,
