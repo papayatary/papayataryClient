@@ -116,6 +116,7 @@ class Matches extends React.Component {
                 >
                   <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
                   <Text style={styles.messageText}>Hello, my user id is {matches[i].id}</Text>
+                  <Text style={styles.messageText}>{this.props.message.lastMessage.text}</Text>
                 </TouchableOpacity>
               </View>
             </View>

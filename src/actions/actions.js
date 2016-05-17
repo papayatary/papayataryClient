@@ -16,9 +16,6 @@ module.exports = {
   setCurrentMessageId: (toUserData) => {
     return { type: 'SET_CURRENT_MESSAGE_ID', toUserData };
   },
-  setLastMessage: (message) => {
-    return { type: 'SET_LAST_MESSAGE', message };
-  },
   saveUsers: (users) => {
     return { type: 'SAVE_USERS', users };
   },
