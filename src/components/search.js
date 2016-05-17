@@ -125,19 +125,22 @@ class Search extends Component {
             <View style={styles.swiperInnerContainer}>
               <View style={styles.profileContainer}>
                 <View style={styles.profileLeft}>
-                  <Text style={styles.profileText}>
+                  <Text style={styles.profileTextStrong}>
                     {this.props.user.users[this.props.user.usersIndex].firstName}
                   </Text>
-                  <Text style={styles.profileText}>
-                    Age: {this.props.user.users[this.props.user.usersIndex].age}
+                  <Text>
+                    <Text style={styles.profileTextStrong}>Age:  </Text>
+                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].age}</Text>
                   </Text>
                 </View>
                 <View style={styles.profileRight}>
-                  <Text style={styles.profileText}>
-                    Resting HR: {this.props.user.users[this.props.user.usersIndex].restingHeartRate}
+                  <Text>
+                    <Text style={styles.profileTextStrong}>Resting Heart Rate:  </Text>
+                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].restingHeartRate}</Text>
                   </Text>
-                  <Text style={styles.profileText}>
-                    Avg Daily Steps: {this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80}
+                  <Text>
+                    <Text style={styles.profileTextStrong}>Avg Daily Steps:  </Text>
+                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80}</Text>
                   </Text>
                 </View> 
               </View>
@@ -244,14 +247,14 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     flexDirection: 'row',
-    height: 72,
+    height: 60,
     width: 340,
     justifyContent: 'space-between',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'azure',
+    backgroundColor: 'transparent',
     marginTop: 6,
-    marginBottom: 6,
+    marginBottom: 2,
     // borderColor: 'lightgray',
     // borderWidth: 2,
   },
@@ -267,11 +270,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     overflow: 'hidden',
   },
-  profileText: {
+  profileTextNormal: {
     fontSize: 16,
-    color: 'navy',
+    fontWeight: '400',
+    color: '#35638A',
+  },
+  profileTextStrong: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#35638A',
   },
   image: {
+    backgroundColor: 'transparent',
     resizeMode: 'contain', // cover, contain, stretch, auto
     height: 420,
     width: 340,
@@ -285,12 +295,13 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   buttonContainer: {
+    backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'absolute',
     left: 0,
     bottom: 6,
-    height: 90,
+    height: 100,
     width: 375,
     alignSelf: 'stretch',
     paddingTop: 20,
