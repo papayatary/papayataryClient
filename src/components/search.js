@@ -33,13 +33,15 @@ class Search extends Component {
       return response.json();
     })
     .then((responseData) => {
-      console.log(responseData);
       this.props.actions.setSteps(responseData);
     });
   }
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
-    console.log(state, context.state);
+    console.log(e, state, context.state);
+    // console.log('this.props', this.props);
+    // this.props.actions.incrementUsers();
+
   }
 
   handleConfirm() {
@@ -89,8 +91,10 @@ class Search extends Component {
 
   render() { 
     // this.props.actions.setCurrentPage('search');
+    console.log(this.props);
     return (
       <View style={styles.container}>
+        {/** Begin top nav bar: **/}
         <View style={styles.navContainer}>
           <TouchableOpacity 
             style={styles.navButton}
@@ -109,14 +113,18 @@ class Search extends Component {
             <Icon style={styles.buttonIcon} name="heartbeat" size={30} color="white" />
           </TouchableOpacity>
         </View>
+
+        {/** Begin swipe: **/}
         <View style={styles.swiperOuterContainer}>
           <Swiper 
             nextButton={(<Text style={styles.swiperText}>›</Text>)}
             prevButton={(<Text style={styles.swiperText}>‹</Text>)}
-            onMomentumScrollEnd={this._onMomentumScrollEnd}
+            onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
             showsButtons={false}
             buttonWrapperStyle={styles.swiperButton}
           >
+            
+
             <View style={styles.swiperInnerContainer}>
               <View style={styles.profileContainer}>
                 <View style={styles.profileLeft}>
@@ -172,7 +180,6 @@ class Search extends Component {
               </View>
             </View>
 
-            
           </Swiper>
         </View>
       </View>
