@@ -286,6 +286,8 @@ class Messages extends React.Component {
   
   onLoadEarlierMessages() {
 
+    //--------------- Implement this function if we have time -------------------//
+    /*
     // display a loader until you retrieve the messages from your server
     this.setState({
       isLoadingEarlierMessages: true,
@@ -321,7 +323,7 @@ class Messages extends React.Component {
         allLoaded: true, // hide the `Load earlier messages` button
       });
     }, 1000); // simulating network
-    
+    */
   }
   
   handleReceive(message = {}) {
