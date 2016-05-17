@@ -287,6 +287,17 @@ class Messages extends React.Component {
   onLoadEarlierMessages() {
 
     //--------------- Implement this function if we have time -------------------//
+    //For now, let's just show a dummy loading spinner. Delete this entire block if we decide to implement the actual functionality
+    this.setState({
+      isLoadingEarlierMessages: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        isLoadingEarlierMessages: false, // hide the loader
+        allLoaded: true, // hide the `Load earlier messages` button
+      });
+    }, 1000);
+
     /*
     // display a loader until you retrieve the messages from your server
     this.setState({
