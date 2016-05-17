@@ -25,9 +25,8 @@ import serverIpAddress from '../config/serverIpAddress';
 import GiftedMessenger from 'react-native-gifted-messenger';
 import Communications from 'react-native-communications';
 
-
+// window.navigator.userAgent = 'react-native';
 import './userAgent';
-
 import io from 'socket.io-client/socket.io';
 
 
