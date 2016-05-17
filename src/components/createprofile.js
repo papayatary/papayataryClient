@@ -61,6 +61,7 @@ class CreateProfile extends Component {
           return response.json();
         })
         .then((responseData) => {
+          console.log('MADE IT!');
           this.props.actions.saveUsers(responseData);
         // Check if user is authenticated. If so, redirect somewhere...
           this.props.navigator.push({
