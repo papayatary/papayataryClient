@@ -8,7 +8,8 @@
 // };
 const initialState = {
   age: null,
-  zipCode: null
+  zipCode: null,
+  missingAgeOrZip: false,
 };
 
 export default function user (state = initialState, action) {
@@ -33,6 +34,10 @@ export default function user (state = initialState, action) {
     case 'SAVE_ZIP_CODE':
       var newState = Object.assign({}, state);
       newState.zipCode = Number(action.zipCode.text);
+      return newState;
+    case 'TOGGLE_MISSING_AGE_OR_ZIP':
+      var newState = Object.assign({}, state);
+      newState.missingAgeOrZip = !newState.missingAgeOrZip;
       return newState;
     case 'SAVE_USERS':
       var newState = Object.assign({}, state);

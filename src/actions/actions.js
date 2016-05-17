@@ -10,6 +10,9 @@ module.exports = {
   saveZipCode: (zipCode) => {
     return { type: 'SAVE_ZIP_CODE', zipCode };
   },
+  toggleMissingAgeOrZip: () => {
+    return { type: 'TOGGLE_MISSING_AGE_OR_ZIP' };
+  },  
   setCurrentPage: (currentPage) => {
     return { type: 'SET_CURRENT_PAGE', currentPage };
   },

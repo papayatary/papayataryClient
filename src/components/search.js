@@ -88,7 +88,6 @@ class Search extends Component {
 
   render() { 
     // this.props.actions.setCurrentPage('search');
-    console.log(this.props.user);
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>
