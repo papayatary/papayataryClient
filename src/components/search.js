@@ -177,6 +177,8 @@ class Search extends Component {
                 </Text>
               </View>
             </View>
+
+            
           </Swiper>
         </View>
       </View>
