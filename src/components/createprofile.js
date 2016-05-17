@@ -61,7 +61,6 @@ class CreateProfile extends Component {
           return response.json();
         })
         .then((responseData) => {
-          console.log('MADE IT!');
           this.props.actions.saveUsers(responseData);
         // Check if user is authenticated. If so, redirect somewhere...
           this.props.navigator.push({
@@ -96,7 +95,7 @@ class CreateProfile extends Component {
             <Text style={styles.fieldLabel}>Name</Text> 
             <TextInput
               style={styles.fieldInput}
-              value={this.props.user.firstName+' '+this.props.user.lastName}
+              value={this.props.user.firstName + ' ' + this.props.user.lastName}
             />
 
             <Text style={styles.fieldLabel}>Gender</Text>
@@ -106,7 +105,7 @@ class CreateProfile extends Component {
             />
 
             <Text style={styles.fieldLabel}>Age</Text>
-            {/*Add logic for PickerIOS*/}
+            {/*Add logic for PickerIOS if wanted*/}
             <TextInput 
               style={styles.fieldInput}
               keyboardType={'number-pad'}
