@@ -196,6 +196,12 @@ class Messages extends React.Component {
 
       this.setMessages(this._messages.concat(incomingMessage));
 
+      // Update the store with the last message for the matches page to use
+      this.props.actions.setLastMessage({
+        text: responseData.text,
+        date: responseData.timestamp,
+      });
+
     })
     .catch(error => {
       console.error(error);
@@ -234,13 +240,21 @@ class Messages extends React.Component {
   
   handleSend(message = {}) {
     
-    // Save one message to database
+    // Define the message to save
     var _message = {
       fromUserFacebookId: this.props.user.facebookId,
       toUserId: this.props.message.toUserId,
       text: message.text, 
       timestamp: new Date(),
     };
+
+    // Update the store with the last message for the matches page to use
+    this.props.actions.setLastMessage({
+      text: _message.text,
+      date: _message.timestamp,
+    });
+
+    // Save one message to database
     fetch(`http://${serverIpAddress}:8000/api/message`, {
       method: 'POST',
       headers: {
@@ -346,7 +360,6 @@ class Messages extends React.Component {
   }
   
   render() {
-
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>
