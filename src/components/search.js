@@ -87,9 +87,8 @@ class Search extends Component {
   }
 
   render() { 
-    const picturx = this.props.user.users[this.props.user.usersIndex].picturePath;
-
     // this.props.actions.setCurrentPage('search');
+    console.log(this.props.user);
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>
@@ -139,7 +138,7 @@ class Search extends Component {
               </View>
               <Image
                 style={styles.image}
-                source={{uri: picturx }}
+                source={{ uri: this.props.user.users[this.props.user.usersIndex].picturePath }}
               />
               <View style={styles.buttonContainer}>
                 <TouchableOpacity 
@@ -269,7 +268,7 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: 'contain', // cover, contain, stretch, auto
-    height: 460,
+    height: 420,
     width: 340,
     justifyContent: 'center',
     alignItems: 'flex-start',
