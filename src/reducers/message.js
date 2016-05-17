@@ -22,7 +22,7 @@ export default function message (state = initialState, action) {
       newState.facebookId = action.toUserData.facebookId;
       newState.firstName = action.toUserData.firstName;
       newState.lastName = action.toUserData.lastName;
-      newState.picturePath = 'http://hbz.h-cdn.co/assets/cm/14/52/54988f0f50262_-_hbz-blake-lively-style-alert-promo-xln.jpg';
+      newState.picturePath = action.toUserData.picturePath;
       return newState;
     default:
       return state;

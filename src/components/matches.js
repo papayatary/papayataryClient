@@ -78,12 +78,12 @@ class Matches extends React.Component {
       return response.json();
     })
     .then((matches) => {
-      // console.log('populateMatches MATCHES: ', matches);
+      console.log('populateMatches MATCHES!!!!!!!!!!!: ', matches);
 
       // Add JSX syntax to matches data:
       var matchesJSX = [];
       for (var i = 0; i < matches.length; i++) {
-        console.log("matches of i", matches[i]);
+        // console.log("matches of i", matches[i]);
         // Define delete swipe button text:
         var swipeoutDeleteButton = [
           {
@@ -105,13 +105,13 @@ class Matches extends React.Component {
               <View style={styles.thumbImageContainer}>
                 <Image 
                   style={styles.thumbImage}
-                  source={require('../images/blakelively001.jpg')}
+                  source={{ uri: matches[i].profile.picturePath }}
                 />
               </View>
               <View style={styles.messageContainer}>
                 <TouchableOpacity 
                   style={styles.button}
-                  onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, facebookId: matches[i].facebookId, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: null} )}
+                  onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: matches[i].profile.picturePath} )}
                   key={i}
                 >
                   <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>

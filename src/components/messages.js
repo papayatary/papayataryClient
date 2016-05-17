@@ -66,6 +66,8 @@ class Messages extends React.Component {
     this.socket.on( 'fetchLast', (incomingMessageId) => {
       console.log('CALL FETCH LAST FUNCTION!', incomingMessageId);
       this.fetchLastMessage(incomingMessageId);
+    });
+    
     this.socket = io(`${serverIpAddress}:8000`, {jsonp: false});
 
     this.socket.emit('connectedFacebookId', this.props.user.facebookId);

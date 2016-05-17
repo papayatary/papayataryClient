@@ -29,7 +29,7 @@ class CreateProfile extends Component {
       age: this.props.user.age,
       gender: this.props.user.gender,
       zipCode: this.props.user.zipCode,
-      picturePath: '/somePath',
+      picturePath: this.props.user.picture.data.url,
     };
     fetch(`http://${serverIpAddress}:8000/api/profile`, {
       method: 'POST',
