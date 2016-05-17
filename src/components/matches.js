@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   matchListContainer: {
-    height: 560 ,
+    height: 580 ,
     width: 340,
     alignSelf: 'center',
     alignItems: 'flex-start',
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     width: 339,
     paddingTop: 20,
     paddingBottom: 20,
-    // marginBottom: 2,
+    // marginBottom: 5,
     backgroundColor: 'transparent',
     borderBottomColor: 'steelblue',
     borderBottomWidth: 1,

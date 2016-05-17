@@ -114,7 +114,7 @@ class Search extends Component {
             nextButton={(<Text style={styles.swiperText}>›</Text>)}
             prevButton={(<Text style={styles.swiperText}>‹</Text>)}
             onMomentumScrollEnd={this._onMomentumScrollEnd}
-            showsButtons={true}
+            showsButtons={false}
             buttonWrapperStyle={styles.swiperButton}
           >
             <View style={styles.swiperInnerContainer}>
