@@ -316,8 +316,10 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 12,
+    marginLeft: 25,
+    marginRight: 25,
     padding: 8,
-    width: 250,
+    width: 200,
     height: 42,
     backgroundColor: 'cadetblue',
     justifyContent: 'center',
