@@ -145,7 +145,7 @@ class Search extends Component {
 
                   <Text>
                     <Text style={styles.profileTextStrong}>Avg Daily Steps:  </Text>
-                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80}</Text>
+                    <Text style={styles.profileTextNormal}>{helpers.numberWithCommas( this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80 )}</Text>
                   </Text>
                 </View>
 
@@ -165,7 +165,7 @@ class Search extends Component {
                   style={styles.button}
                   onPress={this.handleConfirm.bind(this)}
                 >
-                  <Text style={styles.buttonText}>Send {this.props.user.users[this.props.user.usersIndex].steps} Steps</Text>
+                  <Text style={styles.buttonText}>Send {helpers.numberWithCommas( this.props.user.users[this.props.user.usersIndex].steps )} Steps</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
@@ -176,7 +176,7 @@ class Search extends Component {
               </View>
               <View style={styles.balanceBox}>
                 <Text style={styles.balanceText}>
-                  Your Balance:  {this.props.user.steps} Steps
+                  Your Balance:  {helpers.numberWithCommas( this.props.user.steps )} Steps
                 </Text>
               </View>
             </View>
