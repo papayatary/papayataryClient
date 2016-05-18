@@ -17,6 +17,7 @@ import actions from '../actions/actions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Matches from './matches.js';
 import serverIpAddress from '../config/serverIpAddress';
+import MatchModal from './modal.js';
 
 // import TopNavBar from './topnavbar.js';
 
@@ -25,16 +26,18 @@ class Search extends Component {
     super(props);
   }
   componentWillMount() {
-    fetch(`http://${serverIpAddress}:8000/api/wallet?facebookId=${this.props.user.facebookId}`,{
+    this.props.actions.setSearchModalVisible(false);
+    this.props.actions.saveMatch({ match: { firstName: null, picturePath: null } });
+    fetch(`http://${serverIpAddress}:8000/api/wallet?facebookId=${this.props.user.facebookId}`, {
       method: 'GET',
     })
     .then((response) => {
       return response.json();
     })
     .then((responseData) => {
-      console.log(responseData);
       this.props.actions.setSteps(responseData);
     });
+    this.props.actions.setSteps(5000);
   }
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
@@ -57,11 +60,13 @@ class Search extends Component {
       }).then(response => {
         return response.json();
       }).then(responseData => {
-        if (responseData.newMatch) {
-        // alert the user they have a new match, and update the new match button
-        }
         this.props.actions.setSteps(responseData.steps);
         this.props.actions.incrementUsers();
+        if (responseData.newMatch) {
+          this.props.actions.saveMatch({ match: responseData.newMatch });
+          this.props.actions.setSearchModalVisible(true);
+        // alert the user they have a new match, and update the new match button
+        }
       });
     }
   }
@@ -88,9 +93,9 @@ class Search extends Component {
 
   render() { 
     // this.props.actions.setCurrentPage('search');
-    console.log(this.props.user);
     return (
       <View style={styles.container}>
+        <MatchModal navigator={this.props.navigator} />
         <View style={styles.navContainer}>
           <TouchableOpacity 
             style={styles.navButton}
