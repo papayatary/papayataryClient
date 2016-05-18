@@ -1,3 +1,4 @@
+
 import React, {
   AppRegistry,
   Component,
@@ -10,6 +11,8 @@ import React, {
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
+// import Swiper from './swiper.js';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
@@ -17,8 +20,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Matches from './matches.js';
 import helpers from '../utilities/helpers.js';
 import serverIpAddress from '../config/serverIpAddress';
-import MatchModal from './modal.js';
-import helpers from '../utilities/helpers.js';
 
 // import TopNavBar from './topnavbar.js';
 
@@ -27,9 +28,7 @@ class Search extends Component {
     super(props);
   }
   componentWillMount() {
-    this.props.actions.setSearchModalVisible(false);
-    this.props.actions.saveMatch({ match: { firstName: null, picturePath: null } });
-    fetch(`http://${serverIpAddress}:8000/api/wallet?facebookId=${this.props.user.facebookId}`, {
+    fetch(`http://${serverIpAddress}:8000/api/wallet?facebookId=${this.props.user.facebookId}`,{
       method: 'GET',
     })
     .then((response) => {
@@ -38,19 +37,30 @@ class Search extends Component {
     .then((responseData) => {
       this.props.actions.setSteps(responseData);
     });
-    this.props.actions.setSteps(5000);
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // Prevent re-render when state is updated!
+    console.log('NEXT PROPS: ', nextProps);
+    console.log('NEXT STATE: ', nextState);
+
+    return false;
+  }
+
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
-    console.log(e, state, context.state);
-    // console.log('this.props', this.props);
-    // this.props.actions.incrementUsers();
-
+    // console.log('STATE: ', state);
+    // console.log('CONTEXT: ', context.state);
+    // console.log('USERS: ', this.props.user.users);
+    var currentSearchUser = this.props.user.users[state.index];
+    // console.log('CURRENT SEARCH USER: ', currentSearchUser);
+    this.props.actions.setCurrentSearchUser(currentSearchUser);
   }
 
   handleConfirm() {
+
     // check if user has enough currency
-    if (this.props.user.steps > this.props.user.users[this.props.user.usersIndex].steps) {
+    if (this.props.user.steps > this.props.user.currentSearchUser.steps) {
       fetch(`http://${serverIpAddress}:8000/api/match/`, {
         method: 'POST',
         headers: {
@@ -59,18 +69,16 @@ class Search extends Component {
         },
         body: JSON.stringify({
           facebookId: this.props.user.facebookId,
-          likedUserId: this.props.user.users[this.props.user.usersIndex].id,
+          likedUserId: this.props.user.currentSearchUser.id,
         }),
       }).then(response => {
         return response.json();
       }).then(responseData => {
-        this.props.actions.setSteps(responseData.steps);
-        this.props.actions.incrementUsers();
         if (responseData.newMatch) {
-          this.props.actions.saveMatch({ match: responseData.newMatch });
-          this.props.actions.setSearchModalVisible(true);
         // alert the user they have a new match, and update the new match button
         }
+        this.props.actions.setSteps(responseData.steps); //update my balance
+        // this.props.actions.incrementUsers(); //*UPDATE THIS**********************!
       });
     }
   }
@@ -87,8 +95,7 @@ class Search extends Component {
   }
 
   handleNext() {
-    // when someone clicks the check mark, display the next person in the queue
-    this.props.actions.incrementUsers();
+    // When the next button is clicked, remove the current user from the store, but don't delete it from the database.
   }
 
   handleMenu() {
@@ -96,11 +103,8 @@ class Search extends Component {
   }
 
   render() { 
-    // this.props.actions.setCurrentPage('search');
     return (
       <View style={styles.container}>
-        <MatchModal navigator={this.props.navigator} />
-
         {/** Begin top nav bar: **/}
         <View style={styles.navContainer}>
           <TouchableOpacity 
@@ -124,67 +128,81 @@ class Search extends Component {
         {/** Begin swipe: **/}
         <View style={styles.swiperOuterContainer}>
           <Swiper 
-            nextButton={(<Text style={styles.swiperText}>›</Text>)}
-            prevButton={(<Text style={styles.swiperText}>‹</Text>)}
-            onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
-            showsButtons={false}
-            buttonWrapperStyle={styles.swiperButton}
-          >
-            <View style={styles.swiperInnerContainer} key={this.props.user.users[this.props.user.usersIndex].id}>
-              <View style={styles.profileContainer}>
-
-                <View style={styles.profileLeft}>
-                  <Text style={styles.profileTextStrong}>{this.props.user.users[this.props.user.usersIndex].firstName}</Text>
-                  <Text>
-                    <Text style={styles.profileTextStrong}>Age:  </Text>
-                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].age}</Text>
-                  </Text>
-                </View>
-
-                <View style={styles.profileRight}>
-                  <Text>
-                    <Text style={styles.profileTextStrong}>Resting Heart Rate:  </Text>
-                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].restingHeartRate}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={styles.profileTextStrong}>Avg Daily Steps:  </Text>
-                    <Text style={styles.profileTextNormal}>{helpers.numberWithCommas( this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80) }</Text>
-                  </Text>
-                </View>
-
-              </View>
-              <Image
-                style={styles.image}
-                source={{ uri: this.props.user.users[this.props.user.usersIndex].picturePath }}
+            nextButton={(
+              <Icon 
+                style={styles.nextIcon} 
+                name="chevron-circle-right" 
+                size={32} 
+                color="mediumvioletred" 
+                // onPress={this.handleNext.bind(this)}
               />
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                  onPress={this.handleDelete.bind(this)}
-                >
-                  <Icon style={styles.nextButton} name="times-circle" size={32} color="navy" />
-                </TouchableOpacity>
+            )}
+            prevButton={(
+              <Icon style={styles.noInterestIcon} name="times-circle" size={32} color="navy" />
+            )}
+            submitButton={(
+              <TouchableOpacity 
+                style={styles.button}
+                onPress={this.handleConfirm.bind(this)}
+              >
+                <Text style={styles.buttonText}>Send {helpers.numberWithCommas( this.props.user.currentSearchUser.steps )} Steps</Text>
+              </TouchableOpacity>
+            )}
+            onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
+            showsButtons={true}
+            buttonWrapperStyle={styles.swiperButton}
+            loop={true}
+          >
 
-                <TouchableOpacity 
-                  style={styles.button}
-                  onPress={this.handleConfirm.bind(this)}
-                >
-                  <Text style={styles.buttonText}>Send {helpers.numberWithCommas( this.props.user.users[this.props.user.usersIndex].steps )} Steps</Text>
-                </TouchableOpacity>
+            {this.props.user.users.map((user) => {
+              return (
+                <View style={styles.swiperInnerContainer} key={user.id}>
+                  <View style={styles.profileContainer}>
+                    <View style={styles.profileLeft}>
+                      <Text style={styles.profileTextStrong}>{user.firstName}</Text>
 
-                <TouchableOpacity 
-                  onPress={this.handleNext.bind(this)}
-                >
-                  <Icon style={styles.nextButton} name="chevron-circle-right" size={32} color="mediumvioletred" />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.balanceBox}>
-                <Text style={styles.balanceText}>
-                  Your Balance:  {helpers.numberWithCommas( this.props.user.steps )} Steps
-                </Text>
-              </View>
-            </View>
+                      
+                      <Text>
+                        <Text style={styles.profileTextStrong}>Age:  </Text>
+                        <Text style={styles.profileTextNormal}>{user.age}</Text>
+                      </Text>
+                    </View>
+                    <View style={styles.profileRight}>
+                      <Text>
+                        <Text style={styles.profileTextStrong}>Resting Heart Rate:  </Text>
+                        <Text style={styles.profileTextNormal}>{user.restingHeartRate}</Text>
+                      </Text>
+                      <Text>
+                        <Text style={styles.profileTextStrong}>Avg Daily Steps:  </Text>
+                        <Text style={styles.profileTextNormal}>{helpers.numberWithCommas( user.restingHeartRate * 80) }</Text>
+                      </Text>
+                    </View> 
+                  </View>
+                  <Image
+                    style={styles.image}
+                    source={{ uri: user.picturePath }}
+                  />
+                  <View style={styles.buttonContainer}>
 
+                    <TouchableOpacity 
+                      style={styles.button}
+                      onPress={this.handleConfirm.bind(this, user)}
+                    >
+                      <Text style={styles.buttonText}>Send {helpers.numberWithCommas( user.steps )} Steps</Text>
+                    </TouchableOpacity>
+
+                  </View>
+                </View>
+
+              );  
+            })}
           </Swiper>
+
+          <View style={styles.balanceBox}>
+            <Text style={styles.balanceText}>
+              Your Balance:  {helpers.numberWithCommas( this.props.user.steps )} Steps
+            </Text>
+          </View>
         </View>
       </View>
     );
@@ -316,9 +334,30 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
     alignItems: 'center',
   },
-  nextButton: {
+  checkButton: {
     width: 30,
     height: 30,
+    alignSelf: 'center',
+  },
+  nextIcon: {
+    position: 'absolute',
+    height: 30,
+    left: -40,
+    bottom: -250,
+    alignSelf: 'center',
+  },
+  noInterestIcon: {
+    position: 'absolute',
+    height: 30,
+    bottom: -250,
+    left: 15,
+    alignSelf: 'center',
+  },
+  submitIcon: {
+    position: 'absolute',
+    height: 30,
+    bottom: -250,
+    left: -30,
     alignSelf: 'center',
   },
   button: {

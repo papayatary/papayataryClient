@@ -10,7 +10,6 @@ const initialState = {
   age: null,
   zipCode: null,
   missingAgeOrZip: false,
-  currentSearchUser: {},
 };
 
 export default function user (state = initialState, action) {
