@@ -28,6 +28,9 @@ module.exports = {
   incrementUsers: () => {
     return { type: 'INCREMENT_USERS' };
   },
+  setCurrentSearchUser: (user) => {
+    return { type: 'SET_CURRENT_SEARCH_USER', user };
+  },
   saveAllMatches: (matches, matchesJSX) => {
     return { type: 'SAVE_ALL_MATCHES', matches, matchesJSX };
   },

@@ -10,6 +10,7 @@ const initialState = {
   age: null,
   zipCode: null,
   missingAgeOrZip: false,
+  currentSearchUser: {},
 };
 
 export default function user (state = initialState, action) {
@@ -51,6 +52,10 @@ export default function user (state = initialState, action) {
       } else {
         newState.usersIndex = state.usersIndex + 1;
       }
+      return newState;
+    case 'SET_CURRENT_SEARCH_USER':
+      var newState = Object.assign({}, state);
+      newState.currentSearchUser = action.user;
       return newState;
     case 'SET_AUTH':
       var newState = Object.assign({}, state);
