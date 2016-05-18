@@ -5,9 +5,8 @@ import React, {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -78,20 +77,24 @@ class Matches extends React.Component {
       return response.json();
     })
     .then((matches) => {
-      console.log('populateMatches MATCHES!!!!!!!!!!!: ', matches);
+      // console.log('populateMatches MATCHES: ', matches);
 
       // Add JSX syntax to matches data:
       var matchesJSX = [];
       for (var i = 0; i < matches.length; i++) {
-        // console.log("matches of i", matches[i]);
+        // trim the message down to two lines if longer than that
+        let currentMessage = matches[i].profile.text;
+        if (currentMessage.length > 55) {
+          currentMessage = (matches[i].profile.text).slice(0, 56) + '...';
+        }
         // Define delete swipe button text:
-        var swipeoutDeleteButton = [
+        let swipeoutDeleteButton = [
           {
             text: 'Delete',
             backgroundColor: 'red',
             color: 'azure',
-            onPress: this.handleDeleteMatch.bind( this, {toUserId: matches[i].id} ),
-          }
+            onPress: this.handleDeleteMatch.bind(this, { toUserId: matches[i].id }),
+          },
         ];
 
         matchesJSX[i] = (
@@ -115,7 +118,7 @@ class Matches extends React.Component {
                   key={i}
                 >
                   <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
-                  <Text style={styles.messageText}>Hello, my user id is {matches[i].id}</Text>
+                  <Text style={styles.messageText}>{currentMessage}</Text>
                 </TouchableOpacity>
               </View>
             </View>
