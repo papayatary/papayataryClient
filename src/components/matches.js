@@ -83,7 +83,7 @@ class Matches extends React.Component {
       for (var i = 0; i < matches.length; i++) {
         // trim the message down to two lines if longer than that
         let currentMessage = matches[i].profile.text;
-        if (currentMessage.length > 55) {
+        if (currentMessage !== null && currentMessage.length > 55) {
           currentMessage = (matches[i].profile.text).slice(0, 56) + '...';
         }
         // Define delete swipe button text:
