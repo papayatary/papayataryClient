@@ -18,7 +18,6 @@ import Matches from './matches.js';
 import helpers from '../utilities/helpers.js';
 import serverIpAddress from '../config/serverIpAddress';
 import MatchModal from './modal.js';
-import helpers from '../utilities/helpers.js';
 
 // import TopNavBar from './topnavbar.js';
 
