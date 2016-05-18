@@ -46,20 +46,25 @@ export default function user (state = initialState, action) {
       newState.usersIndex = 0;
       newState.currentSearchUser = newState.users[0];
       return newState;
-    case 'INCREMENT_USERS':
+    case 'REMOVE_CURRENT_SEARCH_USER':
       var newState = Object.assign({}, state);
-      if(state.users.length -1 === state.usersIndex){
-        newState.usersIndex = 0;
-      } else {
-        newState.usersIndex = state.usersIndex + 1;
-      }
+      newState.users.splice(0, 1);
+      newState.currentSearchUser = newState.users[0];
       return newState;
+    // case 'INCREMENT_USERS':
+    //   var newState = Object.assign({}, state);
+    //   if(state.users.length -1 === state.usersIndex){
+    //     newState.usersIndex = 0;
+    //   } else {
+    //     newState.usersIndex = state.usersIndex + 1;
+    //   }
+    //   return newState;
     case 'SET_CURRENT_SEARCH_USER':
-      console.log('STATE: ', state);
-      console.log('ACTION: ', action);
+      // console.log('STATE: ', state);
+      // console.log('ACTION: ', action);
       var newState = Object.assign({}, state);
       newState.currentSearchUser = action.user;
-      console.log('NEW STATE: ', newState);
+      // console.log('NEW STATE: ', newState);
       return newState;
     case 'SET_AUTH':
       var newState = Object.assign({}, state);

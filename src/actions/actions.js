@@ -22,6 +22,9 @@ module.exports = {
   saveUsers: (users) => {
     return { type: 'SAVE_USERS', users };
   },
+  removeCurrentSearchUser: () => {
+    return { type: 'REMOVE_CURRENT_SEARCH_USER' };
+  },
   setAuth: (auth) => {
     return { type: 'SET_AUTH', auth };
   },
