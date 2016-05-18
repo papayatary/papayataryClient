@@ -1,4 +1,3 @@
-
 import React, {
   AppRegistry,
   Component,
@@ -16,7 +15,6 @@ import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Matches from './matches.js';
-import helpers from '../utilities/helpers.js';
 import serverIpAddress from '../config/serverIpAddress';
 import MatchModal from './modal.js';
 
@@ -42,10 +40,7 @@ class Search extends Component {
   }
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
-    console.log(e, state, context.state);
-    // console.log('this.props', this.props);
-    // this.props.actions.incrementUsers();
-
+    console.log(state, context.state);
   }
 
   handleConfirm() {
@@ -97,14 +92,9 @@ class Search extends Component {
 
   render() { 
     // this.props.actions.setCurrentPage('search');
-    console.log(this.props);
     return (
       <View style={styles.container}>
-<<<<<<< 84426fc9f77e36ab3a029fec6f75379aa8088061
         <MatchModal navigator={this.props.navigator} />
-=======
-        {/** Begin top nav bar: **/}
->>>>>>> (log) Add comments for implementing swipe feature
         <View style={styles.navContainer}>
           <TouchableOpacity 
             style={styles.navButton}
@@ -123,77 +113,66 @@ class Search extends Component {
             <Icon style={styles.buttonIcon} name="heartbeat" size={30} color="white" />
           </TouchableOpacity>
         </View>
-
-        {/** Begin swipe: **/}
         <View style={styles.swiperOuterContainer}>
           <Swiper 
             nextButton={(<Text style={styles.swiperText}>›</Text>)}
             prevButton={(<Text style={styles.swiperText}>‹</Text>)}
-            onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
-            showsButtons={false}
+            onMomentumScrollEnd={this._onMomentumScrollEnd}
+            showsButtons={true}
             buttonWrapperStyle={styles.swiperButton}
           >
-
-            {this.props.user.users.map((user) => {
-              return (
-
-                <View style={styles.swiperInnerContainer} key={user.id}>
-                  <View style={styles.profileContainer}>
-                    <View style={styles.profileLeft}>
-                      <Text style={styles.profileTextStrong}>{user.firstName}</Text>
-                      <Text>
-                        <Text style={styles.profileTextStrong}>Age:  </Text>
-                        <Text style={styles.profileTextNormal}>{user.age}</Text>
-                      </Text>
-                    </View>
-                    <View style={styles.profileRight}>
-                      <Text>
-                        <Text style={styles.profileTextStrong}>Resting Heart Rate:  </Text>
-                        <Text style={styles.profileTextNormal}>{user.restingHeartRate}</Text>
-                      </Text>
-                      <Text>
-                        <Text style={styles.profileTextStrong}>Avg Daily Steps:  </Text>
-                        <Text style={styles.profileTextNormal}>{helpers.numberWithCommas( user.restingHeartRate * 80) }</Text>
-                      </Text>
-                    </View> 
-                  </View>
-                  <Image
-                    style={styles.image}
-                    source={{ uri: user.picturePath }}
-                  />
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity 
-                      style={styles.checkButton}
-                      onPress={this.handleDelete.bind(this)}
-                    >
-                      <Icon style={styles.checkIcon} name="times-circle" size={32} color="navy" />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity 
-                      style={styles.button}
-                      onPress={this.handleConfirm.bind(this)}
-                    >
-                      <Text style={styles.buttonText}>Send {helpers.numberWithCommas( user.steps )} Steps</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity 
-                      style={styles.checkButton}
-                      onPress={this.handleNext.bind(this)}
-                    >
-                      <Icon style={styles.checkIcon} name="check-circle" size={32} color="mediumvioletred" />
-                    </TouchableOpacity>
-                  </View>
+            <View style={styles.swiperInnerContainer}>
+              <View style={styles.profileContainer}>
+                <View style={styles.profileLeft}>
+                  <Text style={styles.profileText}>
+                    {this.props.user.users[this.props.user.usersIndex].firstName}
+                  </Text>
+                  <Text style={styles.profileText}>
+                    Age: {this.props.user.users[this.props.user.usersIndex].age}
+                  </Text>
                 </View>
+                <View style={styles.profileRight}>
+                  <Text style={styles.profileText}>
+                    Resting HR: {this.props.user.users[this.props.user.usersIndex].restingHeartRate}
+                  </Text>
+                  <Text style={styles.profileText}>
+                    Avg Daily Steps: {this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80}
+                  </Text>
+                </View> 
+              </View>
+              <Image
+                style={styles.image}
+                source={{ uri: this.props.user.users[this.props.user.usersIndex].picturePath }}
+              />
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity 
+                  style={styles.checkButton}
+                  onPress={this.handleDelete.bind(this)}
+                >
+                  <Icon style={styles.checkIcon} name="times-circle" size={32} color="navy" />
+                </TouchableOpacity>
 
-              );  
-            })}
+                <TouchableOpacity 
+                  style={styles.button}
+                  onPress={this.handleConfirm.bind(this)}
+                >
+                  <Text style={styles.buttonText}>Send {this.props.user.users[this.props.user.usersIndex].steps} Steps</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                  style={styles.checkButton}
+                  onPress={this.handleNext.bind(this)}
+                >
+                  <Icon style={styles.checkIcon} name="check-circle" size={32} color="mediumvioletred" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.balanceBox}>
+                <Text style={styles.balanceText}>
+                  Your Balance:  {this.props.user.steps} Steps
+                </Text>
+              </View>
+            </View>
           </Swiper>
-
-          <View style={styles.balanceBox}>
-            <Text style={styles.balanceText}>
-              Your Balance:  {helpers.numberWithCommas( this.props.user.steps )} Steps
-            </Text>
-          </View>
         </View>
       </View>
     );
@@ -264,14 +243,14 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     flexDirection: 'row',
-    height: 60,
+    height: 72,
     width: 340,
     justifyContent: 'space-between',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: 'azure',
     marginTop: 6,
-    marginBottom: 2,
+    marginBottom: 6,
     // borderColor: 'lightgray',
     // borderWidth: 2,
   },
@@ -287,18 +266,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     overflow: 'hidden',
   },
-  profileTextNormal: {
+  profileText: {
     fontSize: 16,
-    fontWeight: '400',
-    color: '#35638A',
-  },
-  profileTextStrong: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#35638A',
+    color: 'navy',
   },
   image: {
-    backgroundColor: 'transparent',
     resizeMode: 'contain', // cover, contain, stretch, auto
     height: 420,
     width: 340,
@@ -312,13 +284,12 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   buttonContainer: {
-    backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'absolute',
     left: 0,
     bottom: 6,
-    height: 100,
+    height: 90,
     width: 375,
     alignSelf: 'stretch',
     paddingTop: 20,
@@ -332,10 +303,8 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 12,
-    marginLeft: 25,
-    marginRight: 25,
     padding: 8,
-    width: 200,
+    width: 250,
     height: 42,
     backgroundColor: 'cadetblue',
     justifyContent: 'center',
