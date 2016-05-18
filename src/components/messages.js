@@ -152,7 +152,7 @@ class Messages extends React.Component {
           _messages.push({
             text: responseData[i].text,
             name: this.props.message.firstName + ' ' + this.props.message.lastName,
-            image: {uri: this.props.message.picturePath},
+            image: { uri: this.props.message.picturePath },
             position: 'left',
             date: responseData[i].timestamp,
             uniqueId: responseData[i].id,

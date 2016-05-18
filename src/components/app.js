@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FacebookAuth from './facebookauth';
-import actions from '../actions/actions'
+import actions from '../actions/actions';
 
 class App extends Component {
   render() {
@@ -21,14 +21,14 @@ class App extends Component {
       <Navigator
         initialRoute = {{ name: 'FacebookAuth', component: FacebookAuth }}
         configureScene = {() => {
-            return Navigator.SceneConfigs.FloatFromRight; //define the route change animation
+          return Navigator.SceneConfigs.FloatFromRight; // define the route change animation
         }}
         renderScene = {(route, navigator) => {
           // count the number of func calls
-          // console.log(route, navigator); 
+          // console.log(route, navigator);
 
           if (route.component) {
-              return React.createElement(route.component, { navigator });
+            return React.createElement(route.component, { navigator });
           }
         }}
      />
@@ -50,16 +50,16 @@ var styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return state; //the App component should have access to all of the state
-};
+  return state; // the App component should have access to all of the state
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch) //don't have to call this.props.dispatch(actions.addTodo(this.state.inputText));
+    actions: bindActionCreators(actions, dispatch) // don't have to call this.props.dispatch(actions.addTodo(this.state.inputText));
     // can directly call the action instead
   };
-};
+}
 
 // export default App;
-export default connect(mapStateToProps, mapDispatchToProps)(App); //connects the App to the state so App can access it
+export default connect(mapStateToProps, mapDispatchToProps)(App); // connects the App to the state so App can access it
 
