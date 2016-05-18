@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Matches from './matches.js';
 import serverIpAddress from '../config/serverIpAddress';
 import MatchModal from './modal.js';
+import helpers from '../utilities/helpers.js';
 
 // import TopNavBar from './topnavbar.js';
 
@@ -95,6 +96,8 @@ class Search extends Component {
     return (
       <View style={styles.container}>
         <MatchModal navigator={this.props.navigator} />
+
+        {/** Begin top nav bar: **/}
         <View style={styles.navContainer}>
           <TouchableOpacity 
             style={styles.navButton}
@@ -113,32 +116,39 @@ class Search extends Component {
             <Icon style={styles.buttonIcon} name="heartbeat" size={30} color="white" />
           </TouchableOpacity>
         </View>
+
+        {/** Begin swipe: **/}
         <View style={styles.swiperOuterContainer}>
           <Swiper 
             nextButton={(<Text style={styles.swiperText}>›</Text>)}
             prevButton={(<Text style={styles.swiperText}>‹</Text>)}
             onMomentumScrollEnd={this._onMomentumScrollEnd}
-            showsButtons={true}
+            showsButtons={false}
             buttonWrapperStyle={styles.swiperButton}
           >
-            <View style={styles.swiperInnerContainer}>
+            <View style={styles.swiperInnerContainer} key={this.props.user.users[this.props.user.usersIndex].id}>
               <View style={styles.profileContainer}>
+
                 <View style={styles.profileLeft}>
-                  <Text style={styles.profileText}>
-                    {this.props.user.users[this.props.user.usersIndex].firstName}
-                  </Text>
-                  <Text style={styles.profileText}>
-                    Age: {this.props.user.users[this.props.user.usersIndex].age}
+                  <Text style={styles.profileTextStrong}>{this.props.user.users[this.props.user.usersIndex].firstName}</Text>
+                  <Text>
+                    <Text style={styles.profileTextStrong}>Age:  </Text>
+                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].age}</Text>
                   </Text>
                 </View>
+
                 <View style={styles.profileRight}>
-                  <Text style={styles.profileText}>
-                    Resting HR: {this.props.user.users[this.props.user.usersIndex].restingHeartRate}
+                  <Text>
+                    <Text style={styles.profileTextStrong}>Resting Heart Rate:  </Text>
+                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].restingHeartRate}</Text>
                   </Text>
-                  <Text style={styles.profileText}>
-                    Avg Daily Steps: {this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80}
+
+                  <Text>
+                    <Text style={styles.profileTextStrong}>Avg Daily Steps:  </Text>
+                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80}</Text>
                   </Text>
-                </View> 
+                </View>
+
               </View>
               <Image
                 style={styles.image}
@@ -146,10 +156,9 @@ class Search extends Component {
               />
               <View style={styles.buttonContainer}>
                 <TouchableOpacity 
-                  style={styles.checkButton}
                   onPress={this.handleDelete.bind(this)}
                 >
-                  <Icon style={styles.checkIcon} name="times-circle" size={32} color="navy" />
+                  <Icon style={styles.nextButton} name="times-circle" size={32} color="navy" />
                 </TouchableOpacity>
 
                 <TouchableOpacity 
@@ -160,10 +169,9 @@ class Search extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                  style={styles.checkButton}
                   onPress={this.handleNext.bind(this)}
                 >
-                  <Icon style={styles.checkIcon} name="check-circle" size={32} color="mediumvioletred" />
+                  <Icon style={styles.nextButton} name="chevron-circle-right" size={32} color="mediumvioletred" />
                 </TouchableOpacity>
               </View>
               <View style={styles.balanceBox}>
@@ -266,11 +274,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     overflow: 'hidden',
   },
-  profileText: {
+  profileTextNormal: {
     fontSize: 16,
-    color: 'navy',
+    fontWeight: '400',
+    color: '#35638A',
+  },
+  profileTextStrong: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#35638A',
   },
   image: {
+    backgroundColor: 'transparent',
     resizeMode: 'contain', // cover, contain, stretch, auto
     height: 420,
     width: 340,
@@ -284,19 +299,20 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   buttonContainer: {
+    backgroundColor: 'transparent',
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'absolute',
     left: 0,
     bottom: 6,
-    height: 90,
+    height: 100,
     width: 375,
     alignSelf: 'stretch',
     paddingTop: 20,
     paddingBottom: 50,
     alignItems: 'center',
   },
-  checkButton: {
+  nextButton: {
     width: 30,
     height: 30,
     alignSelf: 'center',
