@@ -44,6 +44,7 @@ export default function user (state = initialState, action) {
       var newState = Object.assign({}, state);
       newState.users = Object(action.users.userQueue);
       newState.usersIndex = 0;
+      newState.currentSearchUser = newState.users[0];
       return newState;
     case 'INCREMENT_USERS':
       var newState = Object.assign({}, state);
@@ -54,8 +55,11 @@ export default function user (state = initialState, action) {
       }
       return newState;
     case 'SET_CURRENT_SEARCH_USER':
+      console.log('STATE: ', state);
+      console.log('ACTION: ', action);
       var newState = Object.assign({}, state);
       newState.currentSearchUser = action.user;
+      console.log('NEW STATE: ', newState);
       return newState;
     case 'SET_AUTH':
       var newState = Object.assign({}, state);
