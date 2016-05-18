@@ -1,6 +1,5 @@
 'use strict';
 
-
 import React, {
   Animated,
   AppRegistry,
@@ -25,10 +24,6 @@ class MatchModal extends Component {
 
   constructor(props) {
     super(props);
-      this.state = {
-        animationType: 'none',
-        modalVisible: false,
-    };
   }
   handleMatches() {
     this.props.actions.setSearchModalVisible(false);
@@ -51,10 +46,13 @@ class MatchModal extends Component {
           transparent={true}
           visible={this.props.user.isModalVisible}
           >
-          <Animatable.View animation="fadeIn" duration={300} style={[styles.container, modalBackgroundStyle]}>
+          <Animatable.View
+            animation="fadeIn"
+            duration={300}
+            style={[styles.container, modalBackgroundStyle]}>
             <Animatable.View animation="bounceInRight" duration={800} style={styles.innerContainer}>
               <Text style={styles.buttonText}>
-              You have matched with {this.props.user.match.firstName }
+              You have matched with {this.props.user.match.firstName}
               </Text>
               <Text style={styles.buttonText}>
               </Text>
@@ -87,7 +85,6 @@ class MatchModal extends Component {
     );
   }
 };
-
 
 const styles = StyleSheet.create({
   container: {
