@@ -10,6 +10,9 @@ module.exports = {
   saveZipCode: (zipCode) => {
     return { type: 'SAVE_ZIP_CODE', zipCode };
   },
+  toggleMissingAgeOrZip: () => {
+    return { type: 'TOGGLE_MISSING_AGE_OR_ZIP' };
+  },  
   setCurrentPage: (currentPage) => {
     return { type: 'SET_CURRENT_PAGE', currentPage };
   },
@@ -19,11 +22,17 @@ module.exports = {
   saveUsers: (users) => {
     return { type: 'SAVE_USERS', users };
   },
+  removeCurrentSearchUser: () => {
+    return { type: 'REMOVE_CURRENT_SEARCH_USER' };
+  },
   setAuth: (auth) => {
     return { type: 'SET_AUTH', auth };
   },
   incrementUsers: () => {
     return { type: 'INCREMENT_USERS' };
+  },
+  setCurrentSearchUser: (user) => {
+    return { type: 'SET_CURRENT_SEARCH_USER', user };
   },
   saveAllMatches: (matches, matchesJSX) => {
     return { type: 'SAVE_ALL_MATCHES', matches, matchesJSX };

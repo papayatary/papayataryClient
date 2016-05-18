@@ -25,9 +25,8 @@ import serverIpAddress from '../config/serverIpAddress';
 import GiftedMessenger from 'react-native-gifted-messenger';
 import Communications from 'react-native-communications';
 
-
+// window.navigator.userAgent = 'react-native';
 import './userAgent';
-
 import io from 'socket.io-client/socket.io';
 
 
@@ -87,30 +86,6 @@ class Messages extends React.Component {
   
   componentDidMount() {
     this._isMounted = true;    
-    
-    // setTimeout(() => {
-    //   this.setState({
-    //     typingMessage: this.props.message.firstName + ' ' + this.props.message.lastName + ' is typing a message...',
-    //   });
-    // }, 1000); // simulating network
-
-    // setTimeout(() => {
-    //   this.setState({
-    //     typingMessage: '',
-    //   });
-    // }, 3000); // simulating network
-    
-    
-    // setTimeout(() => {
-    //   this.handleReceive({
-    //     text: 'Lets get coffee?', 
-    //     name: this.props.message.firstName + ' ' + this.props.message.lastName, 
-    //     image: {uri: this.props.message.picturePath}, 
-    //     position: 'left', 
-    //     date: new Date(),
-    //     uniqueId: Math.round(Math.random() * 10000), // simulating server-side unique id generation
-    //   });
-    // }, 3300); // simulating network
   }
 
   componentWillUnmount() {
@@ -118,7 +93,6 @@ class Messages extends React.Component {
   }
   
   getInitialMessages() {
-    console.log('CALLED getInitialMessages!');
     // !!! Currently this will fetch all messages. Later on, implement this so that only 30 messages are retrieved immediately.
     // Fetch all messages between the current 2 users
     var _users = {
@@ -259,13 +233,15 @@ class Messages extends React.Component {
   
   handleSend(message = {}) {
     
-    // Save one message to database
+    // Define the message to save
     var _message = {
       fromUserFacebookId: this.props.user.facebookId,
       toUserId: this.props.message.toUserId,
       text: message.text, 
       timestamp: new Date(),
     };
+
+    // Save one message to database
     fetch(`http://${serverIpAddress}:8000/api/message`, {
       method: 'POST',
       headers: {
@@ -310,6 +286,19 @@ class Messages extends React.Component {
   
   onLoadEarlierMessages() {
 
+    //--------------- Implement this function if we have time -------------------//
+    //For now, let's just show a dummy loading spinner. Delete this entire block if we decide to implement the actual functionality
+    this.setState({
+      isLoadingEarlierMessages: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        isLoadingEarlierMessages: false, // hide the loader
+        allLoaded: true, // hide the `Load earlier messages` button
+      });
+    }, 1000);
+
+    /*
     // display a loader until you retrieve the messages from your server
     this.setState({
       isLoadingEarlierMessages: true,
@@ -345,7 +334,7 @@ class Messages extends React.Component {
         allLoaded: true, // hide the `Load earlier messages` button
       });
     }, 1000); // simulating network
-    
+    */
   }
   
   handleReceive(message = {}) {
@@ -371,7 +360,6 @@ class Messages extends React.Component {
   }
   
   render() {
-
     return (
       <View style={styles.container}>
         <View style={styles.navContainer}>
@@ -406,6 +394,21 @@ class Messages extends React.Component {
                 height: 603,
                 width: 375,
               },
+              textInput: {
+                alignSelf: 'center',
+                height: 30,
+                width: 100,
+                backgroundColor: 'azure',
+                borderWidth: 1,
+                borderRadius: 5,
+                borderColor: '#ccc',
+                paddingLeft: 10,
+                paddingRight: 5,
+                flex: 1,
+                padding: 0,
+                margin: 0,
+                fontSize: 15,
+              },
             }}
             
             autoFocus={false} //text input auto focus
@@ -414,6 +417,7 @@ class Messages extends React.Component {
             onErrorButtonPress={this.onErrorButtonPress.bind(this)}
             // maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT} //667 - 44 - 20 = 603
             maxHeight={603}
+            placeholder={'Type a message...'}
 
             loadEarlierMessagesButton={!this.state.allLoaded}
             onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}

@@ -8,7 +8,8 @@
 // };
 const initialState = {
   age: null,
-  zipCode: null
+  zipCode: null,
+  missingAgeOrZip: false,
 };
 
 export default function user (state = initialState, action) {
@@ -34,10 +35,20 @@ export default function user (state = initialState, action) {
       var newState = Object.assign({}, state);
       newState.zipCode = Number(action.zipCode.text);
       return newState;
+    case 'TOGGLE_MISSING_AGE_OR_ZIP':
+      var newState = Object.assign({}, state);
+      newState.missingAgeOrZip = !newState.missingAgeOrZip;
+      return newState;
     case 'SAVE_USERS':
       var newState = Object.assign({}, state);
       newState.users = Object(action.users.userQueue);
       newState.usersIndex = 0;
+      newState.currentSearchUser = newState.users[0];
+      return newState;
+    case 'REMOVE_CURRENT_SEARCH_USER':
+      var newState = Object.assign({}, state);
+      newState.users.splice(0, 1);
+      newState.currentSearchUser = newState.users[0];
       return newState;
     case 'INCREMENT_USERS':
       var newState = Object.assign({}, state);
@@ -46,6 +57,10 @@ export default function user (state = initialState, action) {
       } else {
         newState.usersIndex = state.usersIndex + 1;
       }
+      return newState;
+    case 'SET_CURRENT_SEARCH_USER':
+      var newState = Object.assign({}, state);
+      newState.currentSearchUser = action.user;
       return newState;
     case 'SET_AUTH':
       var newState = Object.assign({}, state);
