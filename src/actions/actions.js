@@ -32,6 +32,12 @@ module.exports = {
     return { type: 'DELETE_ONE_MATCH', match };
   },
   setSteps: (steps) => {
-    return { type: 'SET_STEPS', steps};
+    return { type: 'SET_STEPS', steps };
+  },
+  setSearchModalVisible: (isModalVisible) => {
+    return { type: 'SET_SEARCH_MODAL_VISIBLE', isModalVisible };
+  },
+  saveMatch: (match) => {
+    return { type: 'SAVE_MATCH', match };
   },
 };

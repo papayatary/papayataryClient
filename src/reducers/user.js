@@ -52,10 +52,15 @@ export default function user (state = initialState, action) {
       newState.isAuthed = Boolean(action.auth.isAuthed)
       return newState;
     case 'SET_STEPS':
-      console.log(action);
       var newState = Object.assign({}, state);
       newState.steps = Number(action.steps);
       return newState;
+    case 'SET_SEARCH_MODAL_VISIBLE':
+      var newState = Object.assign({}, state);
+      newState.isModalVisible = Boolean(action.isModalVisible);
+      return newState;
+    case 'SAVE_MATCH':
+      return {...state, ...action.match}
     default:
       return state;
   }
