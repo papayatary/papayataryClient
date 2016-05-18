@@ -133,64 +133,67 @@ class Search extends Component {
             showsButtons={false}
             buttonWrapperStyle={styles.swiperButton}
           >
-            
 
-            <View style={styles.swiperInnerContainer}>
-              <View style={styles.profileContainer}>
-                <View style={styles.profileLeft}>
-                  <Text style={styles.profileTextStrong}>
-                    {this.props.user.users[this.props.user.usersIndex].firstName}
-                  </Text>
-                  <Text>
-                    <Text style={styles.profileTextStrong}>Age:  </Text>
-                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].age}</Text>
-                  </Text>
+            {this.props.user.users.map((user) => {
+              return (
+
+                <View style={styles.swiperInnerContainer} key={user.id}>
+                  <View style={styles.profileContainer}>
+                    <View style={styles.profileLeft}>
+                      <Text style={styles.profileTextStrong}>{user.firstName}</Text>
+                      <Text>
+                        <Text style={styles.profileTextStrong}>Age:  </Text>
+                        <Text style={styles.profileTextNormal}>{user.age}</Text>
+                      </Text>
+                    </View>
+                    <View style={styles.profileRight}>
+                      <Text>
+                        <Text style={styles.profileTextStrong}>Resting Heart Rate:  </Text>
+                        <Text style={styles.profileTextNormal}>{user.restingHeartRate}</Text>
+                      </Text>
+                      <Text>
+                        <Text style={styles.profileTextStrong}>Avg Daily Steps:  </Text>
+                        <Text style={styles.profileTextNormal}>{helpers.numberWithCommas( user.restingHeartRate * 80) }</Text>
+                      </Text>
+                    </View> 
+                  </View>
+                  <Image
+                    style={styles.image}
+                    source={{ uri: user.picturePath }}
+                  />
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity 
+                      style={styles.checkButton}
+                      onPress={this.handleDelete.bind(this)}
+                    >
+                      <Icon style={styles.checkIcon} name="times-circle" size={32} color="navy" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity 
+                      style={styles.button}
+                      onPress={this.handleConfirm.bind(this)}
+                    >
+                      <Text style={styles.buttonText}>Send {helpers.numberWithCommas( user.steps )} Steps</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity 
+                      style={styles.checkButton}
+                      onPress={this.handleNext.bind(this)}
+                    >
+                      <Icon style={styles.checkIcon} name="check-circle" size={32} color="mediumvioletred" />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View style={styles.profileRight}>
-                  <Text>
-                    <Text style={styles.profileTextStrong}>Resting Heart Rate:  </Text>
-                    <Text style={styles.profileTextNormal}>{this.props.user.users[this.props.user.usersIndex].restingHeartRate}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={styles.profileTextStrong}>Avg Daily Steps:  </Text>
-                    <Text style={styles.profileTextNormal}>{helpers.numberWithCommas( this.props.user.users[this.props.user.usersIndex].restingHeartRate * 80) }</Text>
-                  </Text>
-                </View> 
-              </View>
-              <Image
-                style={styles.image}
-                source={{ uri: this.props.user.users[this.props.user.usersIndex].picturePath }}
-              />
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                  style={styles.checkButton}
-                  onPress={this.handleDelete.bind(this)}
-                >
-                  <Icon style={styles.checkIcon} name="times-circle" size={32} color="navy" />
-                </TouchableOpacity>
 
-                <TouchableOpacity 
-                  style={styles.button}
-                  onPress={this.handleConfirm.bind(this)}
-                >
-                  <Text style={styles.buttonText}>Send {helpers.numberWithCommas( this.props.user.users[this.props.user.usersIndex].steps )} Steps</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                  style={styles.checkButton}
-                  onPress={this.handleNext.bind(this)}
-                >
-                  <Icon style={styles.checkIcon} name="check-circle" size={32} color="mediumvioletred" />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.balanceBox}>
-                <Text style={styles.balanceText}>
-                  Your Balance:  {helpers.numberWithCommas( this.props.user.steps )} Steps
-                </Text>
-              </View>
-            </View>
-
+              );  
+            })}
           </Swiper>
+
+          <View style={styles.balanceBox}>
+            <Text style={styles.balanceText}>
+              Your Balance:  {helpers.numberWithCommas( this.props.user.steps )} Steps
+            </Text>
+          </View>
         </View>
       </View>
     );
