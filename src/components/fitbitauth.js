@@ -91,7 +91,7 @@ class FitbitAuth extends React.Component {
           barStyle="light-content"
         />
         <View style={styles.titlebar}>
-          <Text style={styles.titlebarText}>FitDate</Text>
+          <Text style={styles.titlebarText}>Papayatary</Text>
         </View>
         <View style={styles.imageContainer}>
           <Image
