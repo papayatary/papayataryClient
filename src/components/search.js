@@ -26,7 +26,7 @@ class Search extends Component {
     super(props);
   }
   componentWillMount() {
-    this.props.actions.setSearchModalVisible(false);
+    this.props.actions.setSearchModalVisible(true);
     this.props.actions.saveMatch({ match: { firstName: null, picturePath: null } });
     fetch(`http://${serverIpAddress}:8000/api/wallet?facebookId=${this.props.user.facebookId}`, {
       method: 'GET',
@@ -160,7 +160,7 @@ class Search extends Component {
                 <TouchableOpacity 
                   onPress={this.handleDelete.bind(this)}
                 >
-                  <Icon style={styles.nextButton} name="times-circle" size={32} color="navy" />
+                  <Icon style={styles.noInterestButton} name="times-circle" size={34} color="navy" />
                 </TouchableOpacity>
 
                 <TouchableOpacity 
@@ -173,7 +173,7 @@ class Search extends Component {
                 <TouchableOpacity 
                   onPress={this.handleNext.bind(this)}
                 >
-                  <Icon style={styles.nextButton} name="chevron-circle-right" size={32} color="mediumvioletred" />
+                  <Icon style={styles.nextButton} name="chevron-circle-right" size={34} color="#5856D6" />
                 </TouchableOpacity>
               </View>
               <View style={styles.balanceBox}>
@@ -315,9 +315,14 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
     alignItems: 'center',
   },
+  noInterestButton: {
+    width: 30,
+    height: 35,
+    alignSelf: 'center',
+  },
   nextButton: {
     width: 30,
-    height: 30,
+    height: 35,
     alignSelf: 'center',
   },
   button: {
@@ -326,8 +331,12 @@ const styles = StyleSheet.create({
     marginRight: 25,
     padding: 8,
     width: 200,
-    height: 42,
-    backgroundColor: 'cadetblue',
+    height: 35,
+    backgroundColor: 'mediumvioletred',
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: 'mediumvioletred',
+
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
@@ -338,7 +347,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: 'white',
+    fontWeight: '600',
+    color: 'azure',
   },
   balanceBox: {
     position: 'absolute',
