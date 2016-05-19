@@ -401,7 +401,7 @@ class Messages extends React.Component {
                 height: 44,
                 borderTopWidth: 1 / PixelRatio.get(),
                 borderColor: '#8E8E93',
-                backgroundColor: '#FBFBFB',
+                backgroundColor: '#F9F9FF',
                 flexDirection: 'row',
                 paddingLeft: 10,
                 paddingRight: 10,
