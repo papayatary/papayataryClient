@@ -59,19 +59,19 @@ class MatchModal extends Component {
               />
 
               <View style={styles.buttonContainer}>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.button}
                   onPress={this.handleMatches.bind(this)}
-                  underlayColor="#A8D2E0">
+                >
                   <Text style={styles.buttonText}>Send Message</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
 
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.button}
                   onPress={this.props.actions.setSearchModalVisible.bind(this, false)}
-                  underlayColor="#A8D2E0">
-                  <Text style={styles.buttonText}>Continue Papayatarying</Text>
-                </TouchableHighlight>
+                >
+                  <Text style={styles.buttonText}>Keep Searching</Text>
+                </TouchableOpacity>
               </View>
 
             </Animatable.View>
