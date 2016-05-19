@@ -83,7 +83,7 @@ class Matches extends React.Component {
       for (var i = 0; i < matches.length; i++) {
         // trim the message down to two lines if longer than that
         let currentMessage = matches[i].profile.text;
-        if (currentMessage.length > 55) {
+        if (currentMessage !== null && currentMessage.length > 55) {
           currentMessage = (matches[i].profile.text).slice(0, 56) + '...';
         }
         // Define delete swipe button text:
@@ -113,7 +113,7 @@ class Matches extends React.Component {
               <View style={styles.messageContainer}>
                 <TouchableOpacity 
                   style={styles.button}
-                  onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: matches[i].profile.picturePath} )}
+                  onPress={this.handleMessage.bind( this, {toUserId: matches[i].id, facebookId: matches[i].facebookId, firstName: matches[i].firstName, lastName: matches[i].lastName, picturePath: matches[i].profile.picturePath} )}
                   key={i}
                 >
                   <Text style={styles.nameText}>{matches[i].firstName + ' ' + matches[i].lastName}</Text>
