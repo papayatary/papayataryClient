@@ -260,6 +260,8 @@ class Messages extends React.Component {
       this.setMessages(this._messages.concat(message)); //Append message and update state
       // console.log('NEW STATE: ', this.state);
 
+      console.log('this.props: ', this.props);
+
       this.setState({
         lastSentMessageId: responseObject.id,
       });
