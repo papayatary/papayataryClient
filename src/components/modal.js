@@ -20,6 +20,7 @@ import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import * as Animatable from 'react-native-animatable';
 import Matches from './matches.js';
+
 class MatchModal extends Component {
 
   constructor(props) {
@@ -51,11 +52,7 @@ class MatchModal extends Component {
             duration={300}
             style={[styles.container, modalBackgroundStyle]}>
             <Animatable.View animation="bounceInRight" duration={800} style={styles.innerContainer}>
-              <Text style={styles.buttonText}>
-              You have matched with {this.props.user.match.firstName}
-              </Text>
-              <Text style={styles.buttonText}>
-              </Text>
+              <Text style={styles.buttonText}>You have matched with {this.props.user.match.firstName}</Text>
               <Animatable.Image
                 style={styles.image}
                 source={{ uri: this.props.user.match.picturePath }}
@@ -65,17 +62,13 @@ class MatchModal extends Component {
                   style={styles.button}
                   onPress={this.handleMatches.bind(this)}
                   underlayColor="#A8D2E0">
-                  <Text>
-                  Send Message
-                  </Text>
+                  <Text>Send Message</Text>
                 </TouchableHighlight>
                 <TouchableHighlight
                   style={styles.button}
                   onPress={this.props.actions.setSearchModalVisible.bind(this, false)}
                   underlayColor="#A8D2E0">
-                  <Text>
-                  Continue Papayatarying
-                  </Text>
+                  <Text>Continue Papayatarying</Text>
                 </TouchableHighlight>
               </View>
             </Animatable.View>
