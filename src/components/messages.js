@@ -401,7 +401,7 @@ class Messages extends React.Component {
                 height: 44,
                 borderTopWidth: 1 / PixelRatio.get(),
                 borderColor: '#8E8E93',
-                backgroundColor: '#F7F7F7',
+                backgroundColor: '#FBFBFB',
                 flexDirection: 'row',
                 paddingLeft: 10,
                 paddingRight: 10,
@@ -444,6 +444,8 @@ class Messages extends React.Component {
             senderImage={null}
             onImagePress={this.onImagePress}
             displayNames={false}
+            keyboardShouldPersistTaps={false}
+
             
             parseText={true} // enable handlePhonePress, handleUrlPress and handleEmailPress
             handlePhonePress={this.handlePhonePress}
