@@ -239,18 +239,21 @@ const styles = StyleSheet.create({
   pageTitle: {
     alignSelf: 'center',
     fontSize: 28,
-    color: 'navy',
+    fontWeight: '500',
+    color: '#34529D',
     marginBottom: 20,
   },
   fieldLabel: {
     alignSelf: 'flex-start',
-    fontSize: 18,
-    color: 'navy',
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#34529D',
   },
   fieldLabelDefault: {
     alignSelf: 'flex-start',
-    fontSize: 18,
-    color: 'navy'
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#34529D'
   },
   fieldLabelError: {
     fontSize: 11,
@@ -258,12 +261,14 @@ const styles = StyleSheet.create({
   },
   fieldInput: {
     height: 40,
-    padding: 5,
+    padding: 10,
     color: 'lightslategray',
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 10,
+    fontSize: 16,
+    fontWeight: '600',
   },
   buttonContainer: {
     position: 'absolute',

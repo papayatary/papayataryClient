@@ -121,7 +121,7 @@ class FitbitAuth extends React.Component {
               <Text style={styles.swiperText}>If someone likes you back...</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-modal-mockup_zpskfav1pxj.png'} }
+                source={ require('../images/chloe-modal-mockup.png') }
               />
             </View>
             
@@ -129,7 +129,7 @@ class FitbitAuth extends React.Component {
               <Text style={styles.swiperText}>Chat with your matches!</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-message-mockup_zpsij3qykvw.png'} }
+                source={ require('../images/chloe-message-mockup.png') }
               />
             </View>
 
