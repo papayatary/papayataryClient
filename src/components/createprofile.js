@@ -277,9 +277,9 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 8,
-    width: 250,
-    height: 50,
-    backgroundColor: 'cadetblue',
+    width: 220,
+    height: 40,
+    backgroundColor: '#456BCB',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
@@ -287,9 +287,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 2,
     shadowRadius: 4,
+    borderRadius: 5, 
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 21,
+    fontWeight: '600',
     color: 'white',
   },
 });

@@ -26,7 +26,7 @@ class Search extends Component {
     super(props);
   }
   componentWillMount() {
-    this.props.actions.setSearchModalVisible(true);
+    this.props.actions.setSearchModalVisible(false);
     this.props.actions.saveMatch({ match: { firstName: null, picturePath: null } });
     fetch(`http://${serverIpAddress}:8000/api/wallet?facebookId=${this.props.user.facebookId}`, {
       method: 'GET',
@@ -160,7 +160,7 @@ class Search extends Component {
                 <TouchableOpacity 
                   onPress={this.handleDelete.bind(this)}
                 >
-                  <Icon style={styles.noInterestButton} name="times-circle" size={35} color="#4144C1" />
+                  <Icon style={styles.noInterestButton} name="times-circle" size={38} color="#456BCB" />
                 </TouchableOpacity>
 
                 <TouchableOpacity 
@@ -173,7 +173,7 @@ class Search extends Component {
                 <TouchableOpacity 
                   onPress={this.handleNext.bind(this)}
                 >
-                  <Icon style={styles.nextButton} name="arrow-circle-right" size={34} color="#4144C1" />
+                  <Icon style={styles.nextButton} name="arrow-circle-right" size={37} color="#456BCB" />
                 </TouchableOpacity>
               </View>
               <View style={styles.balanceBox}>
@@ -317,25 +317,26 @@ const styles = StyleSheet.create({
   },
   noInterestButton: {
     width: 35,
-    height: 35,
+    height: 40,
     alignSelf: 'center',
   },
   nextButton: {
     width: 35,
-    height: 35,
+    height: 40,
     alignSelf: 'center',
   },
   button: {
-    margin: 12,
+    marginTop: 12,
     marginLeft: 25,
     marginRight: 25,
+    marginBottom: 14,
     padding: 8,
     width: 180,
-    height: 32,
-    backgroundColor: '#4144C1',
+    height: 34,
+    backgroundColor: '#456BCB',
     borderWidth: 2,
-    borderRadius: 15,
-    borderColor: '#4144C1',
+    borderRadius: 10,
+    borderColor: '#456BCB',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',

@@ -421,11 +421,6 @@ class Messages extends React.Component {
                 margin: 0,
                 fontSize: 15,
               },
-              sendButton: {
-                marginTop: 11,
-                marginLeft: 10,
-                color: '#8E8E93',
-              },
             }}
             
             autoFocus={false} //text input auto focus
