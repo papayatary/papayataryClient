@@ -11,7 +11,8 @@ import React, {
   Image,
   Navigator,
   Component,
-  StyleSheet
+  StyleSheet,
+  PixelRatio,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -396,6 +397,15 @@ class Messages extends React.Component {
                 height: 603,
                 width: 375,
               },
+              textInputContainer: {
+                height: 44,
+                borderTopWidth: 1 / PixelRatio.get(),
+                borderColor: '#8E8E93',
+                backgroundColor: '#F9F9FF',
+                flexDirection: 'row',
+                paddingLeft: 10,
+                paddingRight: 10,
+              },
               textInput: {
                 alignSelf: 'center',
                 height: 30,
@@ -403,7 +413,7 @@ class Messages extends React.Component {
                 backgroundColor: 'azure',
                 borderWidth: 1,
                 borderRadius: 5,
-                borderColor: '#ccc',
+                borderColor: '#c7c7cc',
                 paddingLeft: 10,
                 paddingRight: 5,
                 flex: 1,
@@ -420,6 +430,7 @@ class Messages extends React.Component {
             // maxHeight={Dimensions.get('window').height - Navigator.NavigationBar.Styles.General.NavBarHeight - STATUS_BAR_HEIGHT} //667 - 44 - 20 = 603
             maxHeight={603}
             placeholder={'Type a message...'}
+            placeholderTextColor={'#C7C7CC'}
 
             loadEarlierMessagesButton={!this.state.allLoaded}
             onLoadEarlierMessages={this.onLoadEarlierMessages.bind(this)}
@@ -428,6 +439,8 @@ class Messages extends React.Component {
             senderImage={null}
             onImagePress={this.onImagePress}
             displayNames={false}
+            keyboardShouldPersistTaps={false}
+
             
             parseText={true} // enable handlePhonePress, handleUrlPress and handleEmailPress
             handlePhonePress={this.handlePhonePress}

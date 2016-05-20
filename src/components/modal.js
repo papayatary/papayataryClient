@@ -20,6 +20,7 @@ import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import * as Animatable from 'react-native-animatable';
 import Matches from './matches.js';
+
 class MatchModal extends Component {
 
   constructor(props) {
@@ -51,33 +52,28 @@ class MatchModal extends Component {
             duration={300}
             style={[styles.container, modalBackgroundStyle]}>
             <Animatable.View animation="bounceInRight" duration={800} style={styles.innerContainer}>
-              <Text style={styles.buttonText}>
-              You have matched with {this.props.user.match.firstName}
-              </Text>
-              <Text style={styles.buttonText}>
-              </Text>
+              <Text style={styles.matchedText}>You have matched with {this.props.user.match.firstName}!</Text>
               <Animatable.Image
                 style={styles.image}
                 source={{ uri: this.props.user.match.picturePath }}
               />
+
               <View style={styles.buttonContainer}>
-                <TouchableHighlight
+                <TouchableOpacity
                   style={styles.button}
                   onPress={this.handleMatches.bind(this)}
-                  underlayColor="#A8D2E0">
-                  <Text>
-                  Send Message
-                  </Text>
-                </TouchableHighlight>
-                <TouchableHighlight
+                >
+                  <Text style={styles.buttonText}>Send Message</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
                   style={styles.button}
                   onPress={this.props.actions.setSearchModalVisible.bind(this, false)}
-                  underlayColor="#A8D2E0">
-                  <Text>
-                  Continue Papayatarying
-                  </Text>
-                </TouchableHighlight>
+                >
+                  <Text style={styles.buttonText}>Keep Searching</Text>
+                </TouchableOpacity>
               </View>
+
             </Animatable.View>
           </Animatable.View>
         </Modal>
@@ -122,16 +118,28 @@ const styles = StyleSheet.create({
   button: {
     margin: 12,
     padding: 8,
-    width: 250,
-    height: 54,
+    width: 240,
+    height: 45,
     borderRadius: 15,
-    backgroundColor: 'azure',
+    borderColor: 'white',
+    borderWidth: 1, 
+    backgroundColor: 'transparent',
+    marginBottom: 20,
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 17,
+    fontWeight: '500',
+    color: 'white',
+    margin: 5,
+    textAlign: 'center',
+  },
+  matchedText: {
+    fontSize: 20,
+    fontWeight: '700',
+    paddingBottom: 25,
     color: 'white',
     margin: 5,
     textAlign: 'center',

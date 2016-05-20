@@ -131,8 +131,6 @@ class TopNavBar extends Component {
     // let matchesIcon = (<Icon style={styles.buttonIcon} name="heartbeat" size={30} color="white" />);
     // let messagesIcon = (<Icon style={styles.buttonIcon} name="bars" size={30} color="white" />);
     // {condition ? {matchesIcon} : {messagesIcon}}
-    console.log('Current page state: ', this.props.currentPage.page);
-    console.log('YOLOOOOSWAG: ', this.props.icon);
     // if (this.props.icon === 'matches') {
     //   this.rightIcon = this.matchesIcon;
     // } else 

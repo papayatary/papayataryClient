@@ -109,8 +109,9 @@ class FacebookAuth extends React.Component {
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
-            source={require('../images/sample-intro-v1.jpg')}
+            source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search_zpsykw94olv.png'} }
           />
+
         </View>
         <View style={styles.buttonContainer}>
           <FBLogin style={styles.button}
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 340,
-    height: 540,
+    height: 380,
     resizeMode: 'contain', // cover, contain, stretch, auto
     justifyContent: 'flex-start',
     overflow: 'visible',
@@ -196,10 +197,13 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     paddingTop: 20,
     paddingBottom: 20,
+    marginTop: -40,
+    alignSelf: 'center',
     alignItems: 'center',
   },
   button: {
     marginBottom: 10,
+    alignItems: 'center',
     alignSelf: 'center',
   },
   buttonText: {

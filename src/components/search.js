@@ -160,7 +160,7 @@ class Search extends Component {
                 <TouchableOpacity 
                   onPress={this.handleDelete.bind(this)}
                 >
-                  <Icon style={styles.nextButton} name="times-circle" size={32} color="navy" />
+                  <Icon style={styles.noInterestButton} name="times-circle" size={38} color="#456BCB" />
                 </TouchableOpacity>
 
                 <TouchableOpacity 
@@ -173,7 +173,7 @@ class Search extends Component {
                 <TouchableOpacity 
                   onPress={this.handleNext.bind(this)}
                 >
-                  <Icon style={styles.nextButton} name="chevron-circle-right" size={32} color="mediumvioletred" />
+                  <Icon style={styles.nextButton} name="arrow-circle-right" size={37} color="#456BCB" />
                 </TouchableOpacity>
               </View>
               <View style={styles.balanceBox}>
@@ -279,12 +279,12 @@ const styles = StyleSheet.create({
   },
   profileTextNormal: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#35638A',
   },
   profileTextStrong: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 17,
+    fontWeight: '700',
     color: '#35638A',
   },
   image: {
@@ -315,30 +315,36 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
     alignItems: 'center',
   },
+  noInterestButton: {
+    width: 35,
+    height: 40,
+    alignSelf: 'center',
+  },
   nextButton: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 40,
     alignSelf: 'center',
   },
   button: {
-    margin: 12,
+    marginTop: 12,
     marginLeft: 25,
     marginRight: 25,
+    marginBottom: 14,
     padding: 8,
-    width: 200,
-    height: 42,
-    backgroundColor: 'cadetblue',
+    width: 180,
+    height: 34,
+    backgroundColor: '#456BCB',
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: '#456BCB',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    // shadowColor: 'gray',
-    // shadowOffset: { width: 4, height: 4 },
-    // shadowOpacity: 2,
-    // shadowRadius: 4,
   },
   buttonText: {
-    fontSize: 20,
-    color: 'white',
+    fontSize: 17.5,
+    fontWeight: '900',
+    color: 'azure',
   },
   balanceBox: {
     position: 'absolute',
