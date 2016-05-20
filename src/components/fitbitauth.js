@@ -102,11 +102,11 @@ class FitbitAuth extends React.Component {
             showsButtons={false}
             showsPagination={true}
             loop={false}
-            dot={<View style={{backgroundColor:'rgba(255,255,255,.3)', width: 13, height: 13,borderRadius: 7, marginLeft: 7, marginRight: 7,}} />}
-                        activeDot={<View style={{backgroundColor: '#fff', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-                        paginationStyle={{
-                          bottom: 70,
-                        }}
+            dot={<View style={{backgroundColor:'rgba(0,13,134,.3)', width: 8, height: 8,borderRadius: 7, marginLeft: 7, marginRight: 7,}} />}
+            activeDot={<View style={{backgroundColor: '#456BCB', width: 10, height: 10, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+            paginationStyle={{
+              bottom: 180,
+            }}
           >
 
             <View style={styles.swiperInnerContainer}>
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 340,
-    height: 380,
+    height: 400,
     resizeMode: 'contain', // cover, contain, stretch, auto
     justifyContent: 'flex-start',
     overflow: 'visible',
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    color: '#000D86',
+    color: '#456BCB',
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 20,
