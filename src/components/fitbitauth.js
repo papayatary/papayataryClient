@@ -112,7 +112,8 @@ class FitbitAuth extends React.Component {
               <Text style={styles.swiperText}>Send "steps" to like someone...</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search-mockup_zpsdhp3pmht.png'} }
+                source={ require('../images/chloe-search-mockup.png') }
+                // source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search-mockup_zpsdhp3pmht.png'} }
               />
             </View>
 
