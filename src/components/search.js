@@ -160,7 +160,7 @@ class Search extends Component {
                 <TouchableOpacity 
                   onPress={this.handleDelete.bind(this)}
                 >
-                  <Icon style={styles.noInterestButton} name="times-circle" size={34} color="navy" />
+                  <Icon style={styles.noInterestButton} name="times-circle" size={35} color="#4144C1" />
                 </TouchableOpacity>
 
                 <TouchableOpacity 
@@ -173,7 +173,7 @@ class Search extends Component {
                 <TouchableOpacity 
                   onPress={this.handleNext.bind(this)}
                 >
-                  <Icon style={styles.nextButton} name="chevron-circle-right" size={34} color="#5856D6" />
+                  <Icon style={styles.nextButton} name="arrow-circle-right" size={34} color="#4144C1" />
                 </TouchableOpacity>
               </View>
               <View style={styles.balanceBox}>
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
     color: '#35638A',
   },
   profileTextStrong: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
     color: '#35638A',
   },
@@ -316,12 +316,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   noInterestButton: {
-    width: 30,
+    width: 35,
     height: 35,
     alignSelf: 'center',
   },
   nextButton: {
-    width: 30,
+    width: 35,
     height: 35,
     alignSelf: 'center',
   },
@@ -330,23 +330,18 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginRight: 25,
     padding: 8,
-    width: 200,
-    height: 35,
-    backgroundColor: 'mediumvioletred',
+    width: 180,
+    height: 32,
+    backgroundColor: '#4144C1',
     borderWidth: 2,
     borderRadius: 20,
-    borderColor: 'mediumvioletred',
-
+    borderColor: '#4144C1',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    // shadowColor: 'gray',
-    // shadowOffset: { width: 4, height: 4 },
-    // shadowOpacity: 2,
-    // shadowRadius: 4,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '600',
     color: 'azure',
   },
