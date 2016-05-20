@@ -280,12 +280,12 @@ const styles = StyleSheet.create({
   profileTextNormal: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#35638A',
+    color: '#34529D',
   },
   profileTextStrong: {
     fontSize: 17,
     fontWeight: '700',
-    color: '#35638A',
+    color: '#34529D',
   },
   image: {
     backgroundColor: 'transparent',
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     height: 34,
     backgroundColor: '#456BCB',
     borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: 5,
     borderColor: '#456BCB',
     justifyContent: 'center',
     alignSelf: 'center',

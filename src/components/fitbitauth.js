@@ -13,9 +13,9 @@ import React, {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import actions from '../actions/actions';
+import actions from '../actions/actions.js';
 import CreateProfile from './createprofile.js';
-import serverIpAddress from '../config/serverIpAddress';
+import serverIpAddress from '../config/serverIpAddress.js';
 import Swiper from 'react-native-swiper';
 
 class FitbitAuth extends React.Component {
@@ -95,20 +95,25 @@ class FitbitAuth extends React.Component {
           <Text style={styles.titlebarText}>Papayatary</Text>
         </View>
 
-
-
-        <View style={styles.imageContainer}>
+        {/** BEGIN SWIPER **/}
+        <View style={styles.swiperOuterContainer}>
           <Swiper 
             showsButtons={false}
             showsPagination={true}
             loop={false}
+            dot={<View style={{backgroundColor:'rgba(0,13,134,.3)', width: 8, height: 8,borderRadius: 7, marginLeft: 7, marginRight: 7,}} />}
+            activeDot={<View style={{backgroundColor: '#456BCB', width: 10, height: 10, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+            paginationStyle={{
+              bottom: 180,
+            }}
           >
 
             <View style={styles.swiperInnerContainer}>
-              <Text style={styles.swiperText}>Send "steps" to match with people...</Text>
+              <Text style={styles.swiperText}>Send "steps" to like someone...</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search_zpsykw94olv.png'} }
+                source={ require('../images/chloe-search-mockup.png') }
+                // source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search-mockup_zpsdhp3pmht.png'} }
               />
             </View>
 
@@ -116,25 +121,21 @@ class FitbitAuth extends React.Component {
               <Text style={styles.swiperText}>If someone likes you back...</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-modal_zpsfhnjze20.png'} }
+                source={ require('../images/chloe-modal-mockup.png') }
               />
             </View>
             
             <View style={styles.swiperInnerContainer}>
-              <Text style={styles.swiperText}>Chat with people you've matched with!</Text>
+              <Text style={styles.swiperText}>Chat with your matches!</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-message_zpszkyugjwr.png'} }
+                source={ require('../images/chloe-message-mockup.png') }
               />
             </View>
 
           </Swiper>
-
         </View>
-
-
-
-
+        {/** END SWIPER **/}
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -170,17 +171,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 22,
   },
-  imageContainer: {
+  swiperOuterContainer: {
     width: 340,
     height: 670,
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'azure',
+    backgroundColor: 'transparent',
   },
   image: {
     width: 340,
-    height: 380,
+    height: 400,
     resizeMode: 'contain', // cover, contain, stretch, auto
     justifyContent: 'flex-start',
     overflow: 'visible',
@@ -202,21 +203,18 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 8,
-    width: 220,
-    height: 40,
+    width: 180,
+    height: 28,
     backgroundColor: '#456BCB',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    shadowColor: 'gray',
-    shadowOffset: { width: 4, height: 4},
-    shadowOpacity: 2,
-    shadowRadius: 4,
     borderRadius: 5, 
     marginTop: -20,
+    marginLeft: 5,
   },
   buttonText: {
-    fontSize: 21,
+    fontSize: 17.5,
     fontWeight: '600',
     color: 'white',
   },
@@ -226,17 +224,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'azure',
+    backgroundColor: 'transparent',
     marginTop: -20,
   },
   swiperText: {
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    color: '#000D86',
-    fontSize: 18,
+    color: '#34529D',
+    fontSize: 19,
     fontWeight: '700',
-    marginBottom: 20,
+    marginBottom: 10,
   },
 });
 
