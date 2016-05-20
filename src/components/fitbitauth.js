@@ -16,6 +16,7 @@ import { bindActionCreators } from 'redux';
 import actions from '../actions/actions';
 import CreateProfile from './createprofile.js';
 import serverIpAddress from '../config/serverIpAddress';
+import Swiper from 'react-native-swiper';
 
 class FitbitAuth extends React.Component {
   constructor(props) {
@@ -93,12 +94,45 @@ class FitbitAuth extends React.Component {
         <View style={styles.titlebar}>
           <Text style={styles.titlebarText}>Papayatary</Text>
         </View>
+
+
+
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require('../images/sample-intro-v1.jpg')}
-          />
+          <Swiper 
+            showsButtons={false}
+            showsPagination={true}
+            loop={false}
+          >
+
+            <View style={styles.swiperInnerContainer}>
+              <Image
+                style={styles.image}
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search_zpsykw94olv.png'} }
+              />
+            </View>
+            
+            <View style={styles.swiperInnerContainer}>
+              <Image
+                style={styles.image}
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-modal_zpsfhnjze20.png'} }
+              />
+            </View>
+            
+            <View style={styles.swiperInnerContainer}>
+              <Image
+                style={styles.image}
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-message_zpszkyugjwr.png'} }
+              />
+            </View>
+
+          </Swiper>
+
         </View>
+
+
+
+
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity
 
@@ -135,7 +169,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: 340,
-    height: 540,
+    height: 670,
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
@@ -143,7 +177,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 340,
-    height: 540,
+    height: 400,
     resizeMode: 'contain', // cover, contain, stretch, auto
     justifyContent: 'flex-start',
     overflow: 'visible',
@@ -181,6 +215,14 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: '600',
     color: 'white',
+  },
+  swiperInnerContainer: {
+    width: 340,
+    height: 540,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    backgroundColor: 'azure',
   },
 });
 
