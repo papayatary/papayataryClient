@@ -11,6 +11,7 @@ const initialState = {
   zipCode: null,
   missingAgeOrZip: false,
 };
+  import serverIpAddress from '../config/serverIpAddress';
 
 export default function user (state = initialState, action) {
   switch (action.type) {
@@ -56,6 +57,21 @@ export default function user (state = initialState, action) {
         newState.usersIndex = 0;
       } else {
         newState.usersIndex = state.usersIndex + 1;
+      }
+      return newState;
+    case 'POP_USER':
+      var newState = Object.assign({}, state);
+      newState.users.splice(action.index, 1);
+      if(newState.users.length === 0) {
+        newState.users.push({
+          id:'outofMatches',
+          firstName: 'Blake',
+          picturePath:`http://${serverIpAddress}:8000/public/img/blake-lively.jpg`,
+          age: 25,
+          steps: 63200,
+          restingHeartRate: 71 });
+      } else if( action.index === newState.users.length) {
+        newState.usersIndex = 0;
       }
       return newState;
     case 'SET_CURRENT_SEARCH_USER':
