@@ -105,12 +105,13 @@ class FitbitAuth extends React.Component {
           >
 
             <View style={styles.swiperInnerContainer}>
+              <Text style={styles.swiperText}>Send "steps" to match with people</Text>
               <Image
                 style={styles.image}
                 source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search_zpsykw94olv.png'} }
               />
             </View>
-            
+
             <View style={styles.swiperInnerContainer}>
               <Image
                 style={styles.image}
@@ -223,6 +224,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     backgroundColor: 'azure',
+  },
+  swiperText: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    fontSize: 18,
+    marginBottom: 20,
   },
 });
 
