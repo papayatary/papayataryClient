@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 2,
     shadowRadius: 4,
     borderRadius: 5, 
+    marginTop: -20,
   },
   buttonText: {
     fontSize: 21,
@@ -226,6 +227,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     backgroundColor: 'azure',
+    marginTop: -20,
   },
   swiperText: {
     justifyContent: 'center',
