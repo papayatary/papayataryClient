@@ -31,8 +31,8 @@ module.exports = {
   incrementUsers: () => {
     return { type: 'INCREMENT_USERS' };
   },
-  setCurrentSearchUser: (user) => {
-    return { type: 'SET_CURRENT_SEARCH_USER', user };
+  popUser: (index) => {
+    return { type: 'POP_USER', index };
   },
   saveAllMatches: (matches, matchesJSX) => {
     return { type: 'SAVE_ALL_MATCHES', matches, matchesJSX };
