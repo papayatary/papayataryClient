@@ -95,8 +95,7 @@ class FitbitAuth extends React.Component {
           <Text style={styles.titlebarText}>Papayatary</Text>
         </View>
 
-
-
+        {/** BEGIN SWIPER **/}
         <View style={styles.swiperOuterContainer}>
           <Swiper 
             showsButtons={false}
@@ -134,12 +133,8 @@ class FitbitAuth extends React.Component {
             </View>
 
           </Swiper>
-
         </View>
-
-
-
-
+        {/** END SWIPER **/}
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity

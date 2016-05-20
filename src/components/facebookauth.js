@@ -17,6 +17,7 @@ import FitbitAuth from './fitbitauth';
 import { FBLoginManager } from 'NativeModules';
 import Search from './search';
 import serverIpAddress from '../config/serverIpAddress';
+import Swiper from 'react-native-swiper';
 
 class FacebookAuth extends React.Component {
   constructor(props) {
@@ -106,13 +107,49 @@ class FacebookAuth extends React.Component {
         <View style={styles.titlebar}>
           <Text style={styles.titlebarText}>Papayatary</Text>
         </View>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search_zpsykw94olv.png'} }
-          />
 
+        {/** BEGIN SWIPER **/}
+        <View style={styles.swiperOuterContainer}>
+          <Swiper 
+            showsButtons={false}
+            showsPagination={true}
+            loop={false}
+            dot={<View style={{backgroundColor:'rgba(0,13,134,.3)', width: 8, height: 8,borderRadius: 7, marginLeft: 7, marginRight: 7,}} />}
+            activeDot={<View style={{backgroundColor: '#456BCB', width: 10, height: 10, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+            paginationStyle={{
+              bottom: 180,
+            }}
+          >
+
+            <View style={styles.swiperInnerContainer}>
+              <Text style={styles.swiperText}>Send "steps" to like someone...</Text>
+              <Image
+                style={styles.image}
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search-mockup_zpsdhp3pmht.png'} }
+              />
+            </View>
+
+            <View style={styles.swiperInnerContainer}>
+              <Text style={styles.swiperText}>If someone likes you back...</Text>
+              <Image
+                style={styles.image}
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-modal-mockup_zpskfav1pxj.png'} }
+              />
+            </View>
+            
+            <View style={styles.swiperInnerContainer}>
+              <Text style={styles.swiperText}>Chat with your matches!</Text>
+              <Image
+                style={styles.image}
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-message-mockup_zpsij3qykvw.png'} }
+              />
+            </View>
+
+          </Swiper>
         </View>
+        {/** END SWIPER **/}
+
+
         <View style={styles.buttonContainer}>
           <FBLogin style={styles.button}
             permissions={['email', 'user_friends']}
@@ -173,17 +210,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 22,
   },
-  imageContainer: {
+  swiperOuterContainer: {
     width: 340,
-    height: 540,
+    height: 670,
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'azure',
+    backgroundColor: 'transparent',
   },
   image: {
     width: 340,
-    height: 380,
+    height: 400,
     resizeMode: 'contain', // cover, contain, stretch, auto
     justifyContent: 'flex-start',
     overflow: 'visible',
@@ -193,22 +230,53 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   buttonContainer: {
-    flex: 10,
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    height: 90,
+    width: 375,
     alignSelf: 'stretch',
     paddingTop: 20,
     paddingBottom: 20,
-    marginTop: -40,
-    alignSelf: 'center',
-    alignItems: 'center',
+    alignItems:'center',
   },
   button: {
-    marginBottom: 10,
-    alignItems: 'center',
+    padding: 8,
+    width: 170,
+    height: 40,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
     alignSelf: 'center',
+    alignItems: 'center',
+    shadowColor: 'gray',
+    shadowOffset: { width: 4, height: 4},
+    shadowOpacity: .6,
+    shadowRadius: 4,
+    borderRadius: 5, 
+    marginTop: -20,
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 21,
+    fontWeight: '600',
     color: 'white',
+  },
+  swiperInnerContainer: {
+    width: 340,
+    height: 540,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    marginTop: -20,
+  },
+  swiperText: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    color: '#34529D',
+    fontSize: 19,
+    fontWeight: '700',
+    marginBottom: 10,
   },
 });
 
