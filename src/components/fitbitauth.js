@@ -105,7 +105,7 @@ class FitbitAuth extends React.Component {
           >
 
             <View style={styles.swiperInnerContainer}>
-              <Text style={styles.swiperText}>Send "steps" to match with people</Text>
+              <Text style={styles.swiperText}>Send "steps" to match with people...</Text>
               <Image
                 style={styles.image}
                 source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search_zpsykw94olv.png'} }
@@ -113,6 +113,7 @@ class FitbitAuth extends React.Component {
             </View>
 
             <View style={styles.swiperInnerContainer}>
+              <Text style={styles.swiperText}>If someone likes you back...</Text>
               <Image
                 style={styles.image}
                 source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-modal_zpsfhnjze20.png'} }
@@ -120,6 +121,7 @@ class FitbitAuth extends React.Component {
             </View>
             
             <View style={styles.swiperInnerContainer}>
+              <Text style={styles.swiperText}>Chat with people you've matched with!</Text>
               <Image
                 style={styles.image}
                 source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-message_zpszkyugjwr.png'} }
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 340,
-    height: 400,
+    height: 380,
     resizeMode: 'contain', // cover, contain, stretch, auto
     justifyContent: 'flex-start',
     overflow: 'visible',
@@ -229,7 +231,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
+    color: '#000D86',
     fontSize: 18,
+    fontWeight: '700',
     marginBottom: 20,
   },
 });
