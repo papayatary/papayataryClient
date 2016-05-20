@@ -13,9 +13,9 @@ import React, {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import actions from '../actions/actions';
+import actions from '../actions/actions.js';
 import CreateProfile from './createprofile.js';
-import serverIpAddress from '../config/serverIpAddress';
+import serverIpAddress from '../config/serverIpAddress.js';
 import Swiper from 'react-native-swiper';
 
 class FitbitAuth extends React.Component {

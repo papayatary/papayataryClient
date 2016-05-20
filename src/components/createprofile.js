@@ -262,6 +262,7 @@ const styles = StyleSheet.create({
     color: 'lightslategray',
     borderColor: 'gray',
     borderWidth: 1,
+    borderRadius: 5,
     marginBottom: 10,
   },
   buttonContainer: {
