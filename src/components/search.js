@@ -64,7 +64,7 @@ class Search extends Component {
         return response.json();
       }).then(responseData => {
         this.props.actions.setSteps(responseData.steps);
-        this.props.actions.incrementUsers();
+        this.props.actions.popUser(this.props.user.usersIndex);
         if (responseData.newMatch) {
           this.props.actions.saveMatch({ match: responseData.newMatch });
           this.props.actions.setSearchModalVisible(true);
