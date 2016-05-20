@@ -97,18 +97,23 @@ class FitbitAuth extends React.Component {
 
 
 
-        <View style={styles.imageContainer}>
+        <View style={styles.swiperOuterContainer}>
           <Swiper 
             showsButtons={false}
             showsPagination={true}
             loop={false}
+            dot={<View style={{backgroundColor:'rgba(255,255,255,.3)', width: 13, height: 13,borderRadius: 7, marginLeft: 7, marginRight: 7,}} />}
+                        activeDot={<View style={{backgroundColor: '#fff', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+                        paginationStyle={{
+                          bottom: 70,
+                        }}
           >
 
             <View style={styles.swiperInnerContainer}>
               <Text style={styles.swiperText}>Send "steps" to match with people...</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search_zpsykw94olv.png'} }
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-search-mockup_zpsdhp3pmht.png'} }
               />
             </View>
 
@@ -116,7 +121,7 @@ class FitbitAuth extends React.Component {
               <Text style={styles.swiperText}>If someone likes you back...</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-modal_zpsfhnjze20.png'} }
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-modal-mockup_zpskfav1pxj.png'} }
               />
             </View>
             
@@ -124,7 +129,7 @@ class FitbitAuth extends React.Component {
               <Text style={styles.swiperText}>Chat with people you've matched with!</Text>
               <Image
                 style={styles.image}
-                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-message_zpszkyugjwr.png'} }
+                source={ {uri: 'http://i31.photobucket.com/albums/c374/haoming/Papayatary/chloe-message-mockup_zpsij3qykvw.png'} }
               />
             </View>
 
@@ -170,13 +175,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 22,
   },
-  imageContainer: {
+  swiperOuterContainer: {
     width: 340,
     height: 670,
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'azure',
+    backgroundColor: 'transparent',
   },
   image: {
     width: 340,
@@ -226,7 +231,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: 'azure',
+    backgroundColor: 'transparent',
     marginTop: -20,
   },
   swiperText: {
