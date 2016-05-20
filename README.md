@@ -1,12 +1,10 @@
 # Papayatary
 
-> 
+> Fitness Dating Mobile App
 
-## Team
+## Introduction
 
-  - __Product Owner__: Haoming Huang
-  - __Scrum Master__: Laura Curley
-  - __Development Team Members__: Kenneth Montgomery
+> Papaytary is a React Native mobile app that allows users to like one another by sending Fitbit steps. Users sync up steps they've accumulated while wearing their Fitbit. New steps are added to users' wallets each time they open the mobile app. Users can then send steps to other users in order to like them. Once two users send steps to each other, they are matched and can send each other messages.
 
 ## Table of Contents
 
@@ -18,54 +16,82 @@
 1. [Team](#team)
 1. [Contributing](#contributing)
 
-## Requirements
+## Example
 
-- Node 5.8.x
-- PostgreSQL 9.5.x
-- Xcode 7.x
+![papayatary2](https://cloud.githubusercontent.com/assets/14812931/15410674/ebef9a8c-1dcf-11e6-9250-50e7dfe0309e.gif)
 
-## Development
+## Technologies
+##### Back End
+- Node/Express
+- PostgreSQL
+- Sequelize
+- Socket.io
 
-### Installing dependencies
+##### Front End
+- React Native
+- Redux
 
-1. Fork and clone both repositories.(https://github.com/cosmictornado/cosmictornado) (https://github.com/cosmictornado/cosmicServer)
-2. npm install in root of both directories.
-1. Install PostgreSQL following this tutorial (https://www.codefellows.org/blog/three-battle-tested-ways-to-install-postgresql)
+##### Testing
+- Chai
+- Mocha
 
-### Setting up the Database
-From within the root directory:
+### Wireframes
+<img width="1027" alt="screen shot 2016-05-19 at 2 27 35 pm" src="https://cloud.githubusercontent.com/assets/14812931/15410755/6513fbec-1dd0-11e6-88e1-df928af87283.png">
 
-1. In terminal, *createdb cosmictornado* to create a database
-1. In terminal, *nodemon server.js* to start the server and link the tables to the database
+### Installation
+- Fork and clone both repositories.(https://github.com/cosmictornado/cosmictornado) (https://github.com/cosmictornado/cosmicServer)
+- Install PostgreSQL following this tutorial (https://www.codefellows.org/blog/three-battle-tested-ways-to-install-postgresql)
+- ```npm install``` in root of both directories.
+- ```nodemon server.js``` to start the server and link the tables to the database
 
+### Database Setup
+In the terminal, navigate to the root directory of the server repository:
+- ```createdb _databasename_``` to create a database
+- To seed the database from csv files for testing purposes:
+  - ```psql _databasename_``` to go to the PosgreSQL command line
+  - ```COPY users FROM '../../../../Path/To/File/Relative/To/psql/Location/users.csv' ( FORMAT CSV, DELIMITER(',') );``` 
 
-## PostgreSQL Command Cheatsheet
-- createdb _databasename_ (create a new database called databasename)
-- dropdb _databasename_ (delete an existing database)
-- psql (enter PostgreSQL command line)
-- \list (list all databases)
-- \connect (switch databases)
-- \dt (show all tables)
-- \q (exit psql command line)
+### PostgreSQL Command Cheatsheet
+- ```createdb _databasename_``` to create a new database called databasename
+- ```dropdb _databasename_``` to delete an existing database
+- ```psql _databasename_``` to enter PostgreSQL command line
+- ```\list``` to list all databases
+- ```\connect``` to switch databases
+- ```\dt``` to show all tables
+- ```\q``` to exit psql command line
+- ```\d _tablename_``` to show table column names
+- ```SELECT * from _tablename_;``` to show all rows in a table
+- ```\t``` to toggle table to show column names if they're not showing up
 
-- \d _tablename_ (show table column names)
-- SELECT * from _tablename_ (show all rows in a table)
-- \t (toggle table to show column names if they're not showing up)
-
-## Testing
-- In terminal, *mocha* to run tests
-
-### Roadmap
-
-View the project roadmap [here](https://waffle.io/cosmictornado/cosmictornado)
-
-## Architecture
+### Schema Design
+<img width="1023" alt="screen shot 2016-05-19 at 2 56 48 pm" src="https://cloud.githubusercontent.com/assets/14812931/15411224/673af13e-1dd3-11e6-8b0a-c0db47e9b59c.png">
 
 ### High level architecture
 ![](http://i.imgur.com/eCUkBBx.png)
 
-### Schema design
+### Testing
+- In terminal, ```mocha``` to run tests
 
-## Contributing
+### Installing Dependencies
+- ```npm install```
+- ```rnpm link``` to automatically link most iOS dependencies
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+### Roadmap
+View the project roadmap [**here**](https://waffle.io/cosmictornado/cosmictornado).
+Papayatary was built using waffle.io as the project organization tool.
+
+### Team
+  - __Product Owner__: [**Haoming Huang**](https://github.com/haomingh)
+  - __Scrum Master__: [**Laura Curley**](https://github.com/lauracurley)
+  - __Development Team Members__: [**Kenneth Montgomery**] (https://github.com/BigBroken)
+
+### Contributing
+Learn how to contribute [**here**](https://github.com/cosmictornado/cosmicServer/blob/master/CONTRIBUTING.md).
+
+### Questions and Issues
+For any issues, please refer to [**our issues page**](https://github.com/cosmictornado/cosmicServer/issues).
+Please direct any questions regarding Papayatary to [**our wiki page**](https://github.com/cosmictornado/cosmicServer/wiki).
+
+### License
+Distributed under the MIT License.
+
