@@ -279,12 +279,12 @@ const styles = StyleSheet.create({
   },
   profileTextNormal: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#35638A',
   },
   profileTextStrong: {
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: '700',
     color: '#35638A',
   },
   image: {
