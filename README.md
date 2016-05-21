@@ -67,7 +67,6 @@ In the terminal, navigate to the root directory of the server repository:
 <img width="1023" alt="screen shot 2016-05-19 at 2 56 48 pm" src="https://cloud.githubusercontent.com/assets/14812931/15411224/673af13e-1dd3-11e6-8b0a-c0db47e9b59c.png">
 
 ### High level architecture
-![](http://i.imgur.com/eCUkBBx.png)
 
 ### Testing
 - In terminal, ```mocha``` to run tests
